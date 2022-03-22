@@ -8,13 +8,22 @@
     <artifactId>seMethods</artifactId>
     <version>0.1.0.1</version>
 
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>org.mongodb</groupId>-->
+<!--            <artifactId>mongodb-driver</artifactId>-->
+<!--            <version>3.6.4</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+
     <dependencies>
         <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-            <version>3.6.4</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.18</version>
         </dependency>
     </dependencies>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
