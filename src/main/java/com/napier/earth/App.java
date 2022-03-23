@@ -3,6 +3,9 @@ package com.napier.earth;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class App
 {
@@ -55,6 +58,45 @@ public class App
             }
         }
     }
+    public ArrayList<country> getCountryPopLs()
+    {
+        try
+        {
+            ArrayList<country> countries = new ArrayList<country>();
+            // Create an SQL statement
+
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Name, Continent, Region, Population, Capital"
+                            + "FROM country";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                country cou = new country(rset.getInt("Code"), rset.getString("Name"), rset.getString("Continent"), rset.getString("Region"), rset.getInt("Population"), rset.getString("Capital"));
+                countries.add(cou);
+                return countries;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+    public void displayCountry(ArrayList<country> couNum)
+    {
+        for (country c: couNum)
+        {
+            System.out.println(c.getName());
+        }
+    }
     public static void main(String[] args)
     {
         // Create new Application
@@ -62,8 +104,12 @@ public class App
 
         // Connect to database
         a.connect();
-
+        ArrayList<country> countries = a.getCountryPopLs();
+        a.displayCountry(countries);
         // Disconnect from database
-        a.disconnect();
+
+        //a.disconnect();
     }
+
 }
+
