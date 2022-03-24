@@ -5,7 +5,7 @@ public class country
     private String Name;
     private String Continent;
     private String Region;
-    private int Population;
+    private Float Population;
     private String Capital;
 
     public int getCode() {
@@ -24,7 +24,7 @@ public class country
         return Region;
     }
 
-    public int getPopulation() {
+    public Float getPopulation() {
         return Population;
     }
 
@@ -32,12 +32,12 @@ public class country
         return Capital;
     }
 
-    public country(int code, String name, String continent, String region, int population, String capital) {
-        Code = code;
+    public country(String name, String continent, String region, String capital, Float population) {
+
         Name = name;
         Continent = continent;
         Region = region;
-        Population = population;
         Capital = capital;
+        Population = population;
     }
 }

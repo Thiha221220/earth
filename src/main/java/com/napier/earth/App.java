@@ -1,10 +1,7 @@
 package com.napier.earth;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+import javax.xml.transform.Result;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class App
@@ -24,8 +21,6 @@ public class App
             System.exit(-1);
         }
 
-        // Connection to the database
-        Connection con = null;
         int retries = 100;
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
@@ -62,31 +57,22 @@ public class App
     {
         try
         {
+            String sql = "select Name, Continent, Region, Capital, Population from country order by Population desc";
+            PreparedStatement pstmt = con.prepareStatement(sql);
             ArrayList<country> countries = new ArrayList<country>();
-            // Create an SQL statement
-
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT Name, Continent, Region, Population, Capital"
-                            + "FROM country";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            if (rset.next())
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
             {
-                country cou = new country(rset.getInt("Code"), rset.getString("Name"), rset.getString("Continent"), rset.getString("Region"), rset.getInt("Population"), rset.getString("Capital"));
+                country cou = new country(rset.getString(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getFloat(5));
                 countries.add(cou);
-                return countries;
             }
-            else
-                return null;
+            return countries;
+
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
+            System.out.println("Failed to get country details");
             return null;
         }
     }
@@ -94,7 +80,7 @@ public class App
     {
         for (country c: couNum)
         {
-            System.out.println(c.getName());
+            System.out.println(c.getName()+c.getPopulation());
         }
     }
     public static void main(String[] args)
@@ -108,7 +94,7 @@ public class App
         a.displayCountry(countries);
         // Disconnect from database
 
-        //a.disconnect();
+        a.disconnect();
     }
 
 }
