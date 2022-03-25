@@ -3,6 +3,12 @@ package com.napier.earth;
 import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
+//import org.nocrala.tools.texttablefmt.BorderStyle;
+//import org.nocrala.tools.texttablefmt.CellStyle;
+//import org.nocrala.tools.texttablefmt.ShownBorders;
+//import org.nocrala.tools.texttablefmt.Table;
+//import org.nocrala.tools.texttablefmt.CellStyle.HorizontalAlign;
+
 
 public class App
 {
@@ -39,7 +45,7 @@ public class App
                 System.out.println(sqle.getMessage());
             } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
-                }
+            }
         }
     }
     public void disconnect()
@@ -78,10 +84,82 @@ public class App
     }
     public void displayCountry(ArrayList<country> couNum)
     {
+
+
+//        CellStyle numberStyle = new CellStyle(HorizontalAlign.right);
+//
+//        Table t = new Table(2, BorderStyle.DESIGN_FORMAL,
+//                ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+//
+//        t.setColumnWidth(0, 8, 14);
+//        t.setColumnWidth(1, 7, 16);
+//
+//        t.addCell("Countries Name", numberStyle);
+//        t.addCell("Population", numberStyle);
+
+        System.out.println("All the countries in the world organised by largest population to smallest");
         for (country c: couNum)
         {
-            System.out.println(c.getName()+c.getPopulation());
+            System.out.println("All the countries in the world organised by largest population to smallest");
+            System.out.println(c.getName()+String.valueOf(c.getPopulation()));
+//            t.addCell(c.getName(), numberStyle);
+//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
+//        System.out.println(t.render());
+    }
+    public ArrayList<country> getCountryPopLsRegion()
+    {
+        try
+        {
+            String sql = "select Name, Region, Population from country where Region = 'Southeast Asia' order by Population desc";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<country> countries1 = new ArrayList<country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                country cou = new country(rset.getString(1),rset.getString(2),rset.getFloat(3));
+                countries1.add(cou);
+            }
+            return countries1;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+    public void displayCountryPopLSRegion(ArrayList<country> couNum)
+    {
+//        CellStyle numberStyle = new CellStyle(HorizontalAlign.right);
+//
+//        Table t = new Table(2, BorderStyle.DESIGN_FORMAL,
+//                ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+//
+//        t.setColumnWidth(0, 8, 14);
+//        t.setColumnWidth(1, 7, 16);
+//
+//        t.addCell("Countries Name", numberStyle);
+//        t.addCell("Population", numberStyle);
+
+
+
+//        System.out.println("All the countries in South East Asia organised by largest population to smallest");
+//        for (country c: couNum)
+//        {
+//            t.addCell(c.getName(), numberStyle);
+//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+//        }
+        System.out.println("All the countries in South East Asia organised by largest population to smallest");
+        for (country c: couNum)
+        {
+
+            System.out.println(c.getName()+String.valueOf(c.getPopulation()));
+//            t.addCell(c.getName(), numberStyle);
+//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+//        System.out.println(t.render());
     }
     public static void main(String[] args)
     {
@@ -92,8 +170,9 @@ public class App
         a.connect();
         ArrayList<country> countries = a.getCountryPopLs();
         a.displayCountry(countries);
+        ArrayList<country> countriesRegionLS = a.getCountryPopLsRegion();
+        a.displayCountryPopLSRegion(countriesRegionLS);
         // Disconnect from database
-
         a.disconnect();
     }
 
