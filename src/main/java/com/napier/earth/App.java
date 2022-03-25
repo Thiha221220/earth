@@ -84,28 +84,12 @@ public class App
     }
     public void displayCountry(ArrayList<country> couNum)
     {
-
-
-//        CellStyle numberStyle = new CellStyle(HorizontalAlign.right);
-//
-//        Table t = new Table(2, BorderStyle.DESIGN_FORMAL,
-//                ShownBorders.SURROUND_HEADER_AND_COLUMNS);
-//
-//        t.setColumnWidth(0, 8, 14);
-//        t.setColumnWidth(1, 7, 16);
-//
-//        t.addCell("Countries Name", numberStyle);
-//        t.addCell("Population", numberStyle);
-
         System.out.println("All the countries in the world organised by largest population to smallest");
         for (country c: couNum)
         {
             System.out.println("All the countries in the world organised by largest population to smallest");
             System.out.println(c.getName()+String.valueOf(c.getPopulation()));
-//            t.addCell(c.getName(), numberStyle);
-//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-//        System.out.println(t.render());
     }
     public ArrayList<country> getCountryPopLsRegion()
     {
@@ -132,47 +116,21 @@ public class App
     }
     public void displayCountryPopLSRegion(ArrayList<country> couNum)
     {
-//        CellStyle numberStyle = new CellStyle(HorizontalAlign.right);
-//
-//        Table t = new Table(2, BorderStyle.DESIGN_FORMAL,
-//                ShownBorders.SURROUND_HEADER_AND_COLUMNS);
-//
-//        t.setColumnWidth(0, 8, 14);
-//        t.setColumnWidth(1, 7, 16);
-//
-//        t.addCell("Countries Name", numberStyle);
-//        t.addCell("Population", numberStyle);
 
-
-
-//        System.out.println("All the countries in South East Asia organised by largest population to smallest");
-//        for (country c: couNum)
-//        {
-//            t.addCell(c.getName(), numberStyle);
-//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
-//        }
         System.out.println("All the countries in South East Asia organised by largest population to smallest");
         for (country c: couNum)
         {
 
             System.out.println(c.getName()+String.valueOf(c.getPopulation()));
-//            t.addCell(c.getName(), numberStyle);
-//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
-        }
-//        System.out.println(t.render());
     }
     public static void main(String[] args)
     {
-        // Create new Application
         App a = new App();
-
-        // Connect to database
         a.connect();
         ArrayList<country> countries = a.getCountryPopLs();
         a.displayCountry(countries);
         ArrayList<country> countriesRegionLS = a.getCountryPopLsRegion();
         a.displayCountryPopLSRegion(countriesRegionLS);
-        // Disconnect from database
         a.disconnect();
     }
 
