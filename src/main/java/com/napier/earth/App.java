@@ -53,36 +53,7 @@ public class App
             }
         }
     }
-    public ArrayList<country> getCountryPopLs()
-    {
-        try
-        {
-            String sql = "select Code, Name, Continent, Region, Capital, Population from country order by Population desc";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            ArrayList<country> countries = new ArrayList<country>();
-            ResultSet rset = pstmt.executeQuery();
-            while (rset.next())
-            {
-                country cou = new country (rset.getString(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),rset.getFloat(6));
-                countries.add(cou);
-            }
-            return countries;
 
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-    public void displayCountry(ArrayList<country> couNum)
-    {
-        for (country c: couNum)
-        {
-            System.out.println(c.getName()+c.getPopulation());
-        }
-    }
     //    all the capital cities in the world
     public ArrayList<country> getCapitalPopls()
     {
@@ -152,7 +123,7 @@ public class App
     {
         try
         {
-            String sql = "select ID, Name, CountryCode, District, Population from city order by Population desc ";
+            String sql = "select city.ID, city.Name, city.CountryCode, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc ";
             PreparedStatement pstmt = con.prepareStatement(sql);
             ArrayList<city> r_cities = new ArrayList<city>();
             ResultSet rset = pstmt.executeQuery();
@@ -190,8 +161,6 @@ public class App
 
         // Connect to database
         a.connect();
-        ArrayList<country> countries = a.getCountryPopLs();
-        a.displayCountry(countries);
         ArrayList<country> capital_cities = a.getCapitalPopls();
         a.displayCapital(capital_cities);
         ArrayList<city> d_cities = a.getDistrictPopls();
