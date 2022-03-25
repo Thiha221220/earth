@@ -8,11 +8,13 @@ public class country
     private Float Population;
     private String Capital;
 
+
     public country(String name, String region, float population) {
         Name = name;
         Region = region;
         Population = population;
     }
+
 
     public String getCode() {
         return Code;
