@@ -4,17 +4,34 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.napier.sem</groupId>
+    <groupId>com.napier.earth</groupId>
     <artifactId>seMethods</artifactId>
     <version>0.1.0.1</version>
 
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>org.mongodb</groupId>-->
+<!--            <artifactId>mongodb-driver</artifactId>-->
+<!--            <version>3.6.4</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+
     <dependencies>
         <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-            <version>3.6.4</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.18</version>
+
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.nocrala.tools.texttablefmt/text-table-formatter -->
+        <dependency>
+            <groupId>org.nocrala.tools.texttablefmt</groupId>
+            <artifactId>text-table-formatter</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
     </dependencies>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -29,7 +46,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.napier.sem.App</mainClass>
+                            <mainClass>com.napier.earth.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
