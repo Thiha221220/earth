@@ -39,7 +39,7 @@ public class App
                 System.out.println(sqle.getMessage());
             } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
-                }
+            }
         }
     }
     public void disconnect()
@@ -57,13 +57,13 @@ public class App
     {
         try
         {
-            String sql = "select Name, Continent, Region, Capital, Population from country order by Population desc";
+            String sql = "select Code, Name, Continent, Region, Capital, Population from country order by Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             ArrayList<country> countries = new ArrayList<country>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                country cou = new country(rset.getString(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getFloat(5));
+                country cou = new country (rset.getString(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),rset.getFloat(6));
                 countries.add(cou);
             }
             return countries;
@@ -83,6 +83,106 @@ public class App
             System.out.println(c.getName()+c.getPopulation());
         }
     }
+    //    all the capital cities in the world
+    public ArrayList<country> getCapitalPopls()
+    {
+        try
+        {
+            String sql = "select Code, Name, Continent, Region, Capital, Population from country order by Population desc ";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<country> capital_cities = new ArrayList<country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                country cap_c = new country(rset.getString(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),rset.getFloat(6));
+                capital_cities.add(cap_c);
+                System.out.println(capital_cities);
+            }
+            return capital_cities;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get all capital city details");
+            return null;
+        }
+    }
+    public void displayCapital(ArrayList<country> capcNum)
+    {
+        for (country cap: capcNum)
+        {
+            System.out.println(cap.getCapital()+cap.getName()+cap.getPopulation());
+        }
+    }
+//    part of all the capital city in a continent
+
+    public ArrayList<city> getDistrictPopls()
+    {
+        try
+        {
+            String sql = "select ID, Name, CountryCode, District, Population from city where district='England' order by Population desc ";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<city> d_cities = new ArrayList<city>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                city dc = new city(rset.getInt(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getFloat(5));
+                d_cities.add(dc);
+            }
+            return d_cities;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get all cities in a district details");
+            return null;
+        }
+    }
+    public void displayCity(ArrayList<city> dcNum)
+    {
+        for (city dc: dcNum)
+        {
+            System.out.println(dc.getName()+dc.getCountryCode()+dc.getDistrict()+dc.getPopulation());
+        }
+    }
+    //    all the cities in a region
+    public ArrayList<city> getRegionPopls()
+    {
+        try
+        {
+            String sql = "select ID, Name, CountryCode, District, Population from city order by Population desc ";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<city> r_cities = new ArrayList<city>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                city rc = new city(rset.getInt(1),
+                        rset.getString(2),
+                        rset.getString(3),
+                        rset.getString(4),
+                        rset.getFloat(5));
+                r_cities.add(rc);
+            }
+            return r_cities;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get all cities in a region details");
+            return null;
+        }
+    }
+    public void displayRegion(ArrayList<city> rcNum)
+    {
+        for (city rci: rcNum)
+        {
+            System.out.println(rci.getID()+rci.getName()+rci.getDistrict()+rci.getPopulation());
+        }
+    }
+
     public static void main(String[] args)
     {
         // Create new Application
@@ -92,6 +192,12 @@ public class App
         a.connect();
         ArrayList<country> countries = a.getCountryPopLs();
         a.displayCountry(countries);
+        ArrayList<country> capital_cities = a.getCapitalPopls();
+        a.displayCapital(capital_cities);
+        ArrayList<city> d_cities = a.getDistrictPopls();
+        a.displayCity(d_cities);
+        ArrayList<city> r_cities = a.getRegionPopls();
+        a.displayRegion(r_cities);
         // Disconnect from database
 
         a.disconnect();

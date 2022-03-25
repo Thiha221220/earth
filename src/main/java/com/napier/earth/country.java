@@ -1,14 +1,14 @@
 package com.napier.earth;
 public class country
 {
-    private int Code;
+    private String Code;
     private String Name;
     private String Continent;
     private String Region;
     private Float Population;
     private String Capital;
 
-    public int getCode() {
+    public String getCode() {
         return Code;
     }
 
@@ -32,8 +32,8 @@ public class country
         return Capital;
     }
 
-    public country(String name, String continent, String region, String capital, Float population) {
-
+    public country(String code, String name, String continent, String region, String capital, Float population) {
+        Code = code;
         Name = name;
         Continent = continent;
         Region = region;

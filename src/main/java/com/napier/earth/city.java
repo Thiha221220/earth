@@ -1,17 +1,18 @@
 package com.napier.earth;
 
 public class city {
+    private  int ID;
     private String Name;
-    private String Country;
+    private String CountryCode;
     private String District;
     private Float Population;
 
-    public String getName() {
-        return Name;
-    }
+    public int getID(){return ID; }
 
-    public String getCountry() {
-        return Country;
+    public String getName() {return Name;}
+
+    public String getCountryCode() {
+        return CountryCode;
     }
 
     public String getDistrict() {
@@ -22,9 +23,10 @@ public class city {
         return Population;
     }
 
-    public city(String name, String country, String district, Float population) {
+    public city(int id, String name, String countrycode, String district, Float population) {
+        ID = id;
         Name = name;
-        Country = country;
+        CountryCode = countrycode;
         District = district;
         Population = population;
     }
