@@ -39,7 +39,11 @@ public class App
                 System.out.println(sqle.getMessage());
             } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
+
                 }
+
+            }
+
         }
     }
     public void disconnect()
@@ -53,37 +57,7 @@ public class App
             }
         }
     }
-//    public ArrayList<country> getCountryPopLs()
-//    {
-//        try
-//        {
-//            String sql = "select Code, Name, Continent, Region, Capital, Population from country order by Population desc";
-//            PreparedStatement pstmt = con.prepareStatement(sql);
-//            ArrayList<country> countries = new ArrayList<country>();
-//            ResultSet rset = pstmt.executeQuery();
-//            while (rset.next())
-//            {
-//                country cou = new country (rset.getString(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),rset.getFloat(6));
-//                countries.add(cou);
-//            }
-//            return countries;
-//
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println(e.getMessage());
-//            System.out.println("Failed to get country details");
-//            return null;
-//        }
-//    }
-//    public void displayCountry(ArrayList<country> couNum)
-//    {
-//        for (country c: couNum)
-//        {
-//            System.out.println(c.getName()+c.getPopulation());
-//        }
-//    }
-//    all the capital cities in the world
+
     public ArrayList<country> getCapitalPopls()
     {
         try
@@ -100,10 +74,27 @@ public class App
             }
             return capital_cities;
 
+    public ArrayList<country> getCountryPopLs()
+    {
+        try
+        {
+            String sql = "select Name, Continent, Region, Capital, Population from country order by Population desc";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<country> countries = new ArrayList<country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                country cou = new country(rset.getString(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getFloat(5));
+                countries.add(cou);
+            }
+            return countries;
+
+
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
+
             System.out.println("Failed to get all capital city details");
             return null;
         }
@@ -167,10 +158,43 @@ public class App
             }
             return r_cities;
 
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+    public void displayCountry(ArrayList<country> couNum)
+    {
+
+
+
+        System.out.println("All the countries in the world organised by largest population to smallest");
+        for (country c: couNum)
+        {
+            System.out.println("All the countries in the world organised by largest population to smallest");
+            System.out.println(c.getName()+String.valueOf(c.getPopulation()));
+         
+        }
+
+    }
+    public ArrayList<country> getCountryPopLsRegion()
+    {
+        try
+        {
+            String sql = "select Name, Region, Population from country where Region = 'Southeast Asia' order by Population desc";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<country> countries1 = new ArrayList<country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                country cou = new country(rset.getString(1),rset.getString(2),rset.getFloat(3));
+                countries1.add(cou);
+            }
+            return countries1;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
+
             System.out.println("Failed to get all cities in a region details");
             return null;
         }
@@ -184,6 +208,43 @@ public class App
     }
 
 
+=======
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+    public void displayCountryPopLSRegion(ArrayList<country> couNum)
+    {
+//        CellStyle numberStyle = new CellStyle(HorizontalAlign.right);
+//
+//        Table t = new Table(2, BorderStyle.DESIGN_FORMAL,
+//                ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+//
+//        t.setColumnWidth(0, 8, 14);
+//        t.setColumnWidth(1, 7, 16);
+//
+//        t.addCell("Countries Name", numberStyle);
+//        t.addCell("Population", numberStyle);
+
+
+
+//        System.out.println("All the countries in South East Asia organised by largest population to smallest");
+//        for (country c: couNum)
+//        {
+//            t.addCell(c.getName(), numberStyle);
+//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+//        }
+        System.out.println("All the countries in South East Asia organised by largest population to smallest");
+        for (country c: couNum)
+        {
+
+            System.out.println(c.getName()+String.valueOf(c.getPopulation()));
+//            t.addCell(c.getName(), numberStyle);
+//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+//        System.out.println(t.render());
+    }
+
     public static void main(String[] args)
     {
         // Create new Application
@@ -191,6 +252,7 @@ public class App
 
         // Connect to database
         a.connect();
+
 //        ArrayList<country> countries = a.getCountryPopLs();
 //        a.displayCountry(countries);
         ArrayList<country> capital_cities = a.getCapitalPopls();
@@ -199,6 +261,13 @@ public class App
         a.displayCity(d_cities);
         ArrayList<city> r_cities = a.getRegionPopls();
         a.displayRegion(r_cities);
+        // Disconnect from database
+
+
+        ArrayList<country> countries = a.getCountryPopLs();
+        a.displayCountry(countries);
+        ArrayList<country> countriesRegionLS = a.getCountryPopLsRegion();
+        a.displayCountryPopLSRegion(countriesRegionLS);
         // Disconnect from database
 
         a.disconnect();

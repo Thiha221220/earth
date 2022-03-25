@@ -21,3 +21,5 @@ jobs:
         run: docker run --name semcontainer -d semimage
       - name: view logs
         run: docker logs semcontainer
+      - name: Run docker compose
+        run: docker-compose up --abort-on-container-exit
