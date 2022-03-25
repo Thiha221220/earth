@@ -18,8 +18,6 @@ public class city {
 
         return CountryCode;
 
-        return Country;
-
     }
 
     public String getDistrict() {
@@ -48,12 +46,5 @@ public class city {
         CountryCode = countryCode;
         Population = population;
     }
-
-    public city(String name, String country, String district, Float population) {
-        Name = name;
-        Country = country;
-        District = district;
-        Population = population;
-    }
-
 }
+
