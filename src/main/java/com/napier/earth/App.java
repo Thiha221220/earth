@@ -53,37 +53,8 @@ public class App
             }
         }
     }
-//    public ArrayList<country> getCountryPopLs()
-//    {
-//        try
-//        {
-//            String sql = "select Code, Name, Continent, Region, Capital, Population from country order by Population desc";
-//            PreparedStatement pstmt = con.prepareStatement(sql);
-//            ArrayList<country> countries = new ArrayList<country>();
-//            ResultSet rset = pstmt.executeQuery();
-//            while (rset.next())
-//            {
-//                country cou = new country (rset.getString(1),rset.getString(2),rset.getString(3),rset.getString(4),rset.getString(5),rset.getFloat(6));
-//                countries.add(cou);
-//            }
-//            return countries;
-//
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println(e.getMessage());
-//            System.out.println("Failed to get country details");
-//            return null;
-//        }
-//    }
-//    public void displayCountry(ArrayList<country> couNum)
-//    {
-//        for (country c: couNum)
-//        {
-//            System.out.println(c.getName()+c.getPopulation());
-//        }
-//    }
-//    all the capital cities in the world
+
+
     public ArrayList<country> getCapitalPopls()
     {
         try
@@ -115,7 +86,7 @@ public class App
             System.out.println(cap.getCapital()+cap.getName()+cap.getPopulation());
         }
     }
-//    part of all the capital city in a continent
+
 
     public ArrayList<city> getDistrictPopls()
     {
@@ -186,21 +157,15 @@ public class App
 
     public static void main(String[] args)
     {
-        // Create new Application
-        App a = new App();
 
-        // Connect to database
+        App a = new App();
         a.connect();
-//        ArrayList<country> countries = a.getCountryPopLs();
-//        a.displayCountry(countries);
         ArrayList<country> capital_cities = a.getCapitalPopls();
         a.displayCapital(capital_cities);
         ArrayList<city> d_cities = a.getDistrictPopls();
         a.displayCity(d_cities);
         ArrayList<city> r_cities = a.getRegionPopls();
         a.displayRegion(r_cities);
-        // Disconnect from database
-
         a.disconnect();
     }
 
