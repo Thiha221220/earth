@@ -25,6 +25,8 @@ Trigger
 A request for population information is sent to the organisation.
 
 MAIN SUCCESS SCENARIO
+The organisation asks the capital city information by the population. 
+The organisation extracts current population information by descending. 
 The organisation asks the capital city information by the population.
 The organisation extracts current population information by descending.
 The organisation provides a report for accessing the population in the world.
