@@ -40,15 +40,9 @@ public class App
             } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
 
-            }
-
-
-                }
-
-            }
-
-
         }
+
+
     }
     public void disconnect()
     {
@@ -78,6 +72,7 @@ public class App
                 cities.add(ct);
             }
             return cities;
+        }
 
     public ArrayList<country> getCapitalPopls()
     {
@@ -94,6 +89,7 @@ public class App
                 System.out.println(capital_cities);
             }
             return capital_cities;
+        }
 
     public ArrayList<country> getCountryPopLs()
     {
@@ -314,26 +310,7 @@ public class App
         }
     }
     public void displayCountryPopLSRegion(ArrayList<country> couNum)
-    {
-//        CellStyle numberStyle = new CellStyle(HorizontalAlign.right);
-//
-//        Table t = new Table(2, BorderStyle.DESIGN_FORMAL,
-//                ShownBorders.SURROUND_HEADER_AND_COLUMNS);
-//
-//        t.setColumnWidth(0, 8, 14);
-//        t.setColumnWidth(1, 7, 16);
-//
-//        t.addCell("Countries Name", numberStyle);
-//        t.addCell("Population", numberStyle);
-
-
-
-//        System.out.println("All the countries in South East Asia organised by largest population to smallest");
-//        for (country c: couNum)
-//        {
-//            t.addCell(c.getName(), numberStyle);
-//            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
-//        }
+    {      
         System.out.println("All the countries in South East Asia organised by largest population to smallest");
         for (country c: couNum)
         {
