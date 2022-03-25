@@ -75,7 +75,7 @@ public class App
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get all capital city details");
+            System.out.println("Failed to get all capital_city details");
             return null;
         }
     }
