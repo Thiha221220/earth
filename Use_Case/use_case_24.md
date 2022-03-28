@@ -39,4 +39,4 @@
 <h2 style="font-family: 'Times New Roman'; font-size: 20px">SUB-VARIATIONS</h2> 
 <span style="font-family: 'Times New Roman';font-size: 18px;">None</span>
 <h2 style="font-family: 'Times New Roman'">SCHEDULE</h2> 
-<span style="font-family: 'Times New Roman'; font-size: 18px;"> DUE DATE: Release 2.0</span>
+<span style="font-family: 'Times New Roman'; font-size: 18px;"> DUE DATE: Release 3.0</span>
