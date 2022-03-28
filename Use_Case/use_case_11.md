@@ -19,7 +19,7 @@
 <span style="font-family: 'Times New Roman'; font-size: 18px;">No report is produced.</span>
 
 <h3 style="font-family: 'Times New Roman'; font-size: 20px">Primary Actor</h3>
-<span style="font-family: 'Times New Roman'; font-size: 18px;">Report Manager</span>
+<span style="font-family: 'Times New Roman'; font-size: 18px;">Report Manager.</span>
 
 <h3 style="font-family: 'Times New Roman'; font-size: 20px">Trigger</h3>
 <span style="font-family: 'Times New Roman'; font-size: 18px;">A request for population information is sent to report manager.</span>
