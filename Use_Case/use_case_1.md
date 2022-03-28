@@ -1,19 +1,42 @@
-USE CASE 1: Produce a Report on the All the countries in the world organised by largest population to smallest..
+<h1 style="font-family: 'Times New Roman'">USE CASE 1 : Produce a Report on the all the countries in the world organised by largest population to smallest</h1>
+<hr> <h2 style="font-family: 'Times New Roman'"> CHARACTERISTIC INFORMATION</h2>
+<hr>
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">Goal in Context</h3>
+<span style="font-family: 'Times New Roman'; font-size: 18px;"> As a report manager, we want to produce a report on the all the countries in the world so that we can support the population reporting of all countries.</span>
 
-Scope An organisation.
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">Scope</h3>
+<span style="font-family: 'Times New Roman'; font-size: 18px;">An organisation.</span>
 
-Level Primary task.
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">Level</h3>
+<span style="font-family: 'Times New Roman'; font-size: 18px;">Primary task.</span>
 
-Preconditions We know the role. Work Database contains current population data of countries in the world.
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">Preconditions</h3>
+<span style="font-family: 'Times New Roman'; font-size: 18px;">We know the role. Work Database contains current population data of countries in the world.</span>
 
-Success End Condition A report is available for the organisation to provide the population of countries in a world.
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">Success End Condition</h3>
+<span style="font-family: 'Times New Roman'; font-size: 18px;"> A report is available for report manager to provide the population of countries in the world.</span>
 
-Failed End Condition No report is produced.
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">Failed End Condition</h3>
+<span style="font-family: 'Times New Roman'; font-size: 18px;">No report is produced.</span>
 
-Primary Actor User.
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">Primary Actor</h3>
+<span style="font-family: 'Times New Roman'; font-size: 18px;">Report Manager</span>
 
-Trigger A request for population information is sent to the organisation.
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">Trigger</h3>
+<span style="font-family: 'Times New Roman'; font-size: 18px;">A request for population information is sent to report manager.</span>
 
-MAIN SUCCESS SCENARIO The organisation asks the country information by the population. The organisation retrieves the data of a region from the database. The organisation extracts current population information by descending. The organisation provides a report for accessing the population in a region. EXTENSIONS Role does not exist: The organisation informs the population of the countries in the world. SUB-VARIATIONS None.
-
-SCHEDULE DUE DATE: Release 2.0
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">MAIN SUCCESS SCENARIO</h3> <hr>
+<ol>
+<li style="font-family: 'Times New Roman'; font-size: 18px;">The report manager asks the country information by the population.</li>  
+<li style="font-family: 'Times New Roman'; font-size: 18px;">The system extracts current population information by descending.</li>
+<li style="font-family: 'Times New Roman'; font-size: 18px;">The system provides a report for accessing the population in the world. </li> 
+</ol>
+<h2 style="font-family: 'Times New Roman'; font-size: 20px">EXTENSIONS</h2> <hr>
+<dl style="font-family: 'Times New Roman'; font-size: 18px">
+<dt>Role does not exist:</dt>
+<dd>The system informs the population of the countries in the world.</dd>
+</dl>
+<h2 style="font-family: 'Times New Roman'; font-size: 20px">SUB-VARIATIONS</h2> <hr>
+<span style="font-family: 'Times New Roman';font-size: 18px;">None</span>
+<h2 style="font-family: 'Times New Roman'">SCHEDULE</h2> <hr>
+<span style="font-family: 'Times New Roman'; font-size: 18px;"> DUE DATE: Release 2.0</span>
