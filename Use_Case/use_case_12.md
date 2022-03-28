@@ -1,6 +1,6 @@
 <h1 style="font-family: 'Times New Roman'">USE CASE 17: Produce a Report on the all the countries in a region organised by largest population to smallest</h1>
-<hr> <h2 style="font-family: 'Times New Roman'"> CHARACTERISTIC INFORMATION</h2>
-<hr>
+<h2 style="font-family: 'Times New Roman'"> CHARACTERISTIC INFORMATION</h2>
+
 <h3 style="font-family: 'Times New Roman'; font-size: 20px">Goal in Context</h3>
 <span style="font-family: 'Times New Roman'; font-size: 18px;"> As a report manager, we want to produce a report on the all countries in a region so that we can support the population reporting of all countries in a region.</span>
 
@@ -25,19 +25,19 @@
 <h3 style="font-family: 'Times New Roman'; font-size: 20px">Trigger</h3>
 <span style="font-family: 'Times New Roman'; font-size: 18px;"> A request for population information is sent to report manager. </span>
 
-<h3 style="font-family: 'Times New Roman'; font-size: 20px">MAIN SUCCESS SCENARIO</h3> <hr>
+<h3 style="font-family: 'Times New Roman'; font-size: 20px">MAIN SUCCESS SCENARIO</h3> 
 <ol>
 <li style="font-family: 'Times New Roman'; font-size: 18px;">The report manager asks the country information by the population.</li>  
 <li style="font-family: 'Times New Roman'; font-size: 18px;">The system retrieves the data of a region from the database.</li>
 <li style="font-family: 'Times New Roman'; font-size: 18px;">The system current population information by descending.</li> 
 <li style="font-family: 'Times New Roman'; font-size: 18px;">The system provides a report for accessing the population in a region. </li> 
 </ol>
-<h2 style="font-family: 'Times New Roman'; font-size: 20px">EXTENSIONS</h2> <hr>
+<h2 style="font-family: 'Times New Roman'; font-size: 20px">EXTENSIONS</h2> 
 <dl style="font-family: 'Times New Roman'; font-size: 18px">
 <dt>Role does not exist:</dt>
 <dd>The system informs the population of the countries in a region.</dd>
 </dl>
-<h2 style="font-family: 'Times New Roman'; font-size: 20px">SUB-VARIATIONS</h2> <hr>
+<h2 style="font-family: 'Times New Roman'; font-size: 20px">SUB-VARIATIONS</h2> 
 <span style="font-family: 'Times New Roman';font-size: 18px;">None</span>
-<h2 style="font-family: 'Times New Roman'">SCHEDULE</h2> <hr>
+<h2 style="font-family: 'Times New Roman'">SCHEDULE</h2> 
 <span style="font-family: 'Times New Roman'; font-size: 18px;"> DUE DATE: Release 2.0</span>
