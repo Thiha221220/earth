@@ -9,11 +9,6 @@ public class country
     private String Capital;
 
 
-    public country(String name, String region, float population) {
-        Name = name;
-        Region = region;
-        Population = population;
-    }
 
 
     public String getCode() {
@@ -40,8 +35,9 @@ public class country
         return Capital;
     }
 
-    public country(String name, String continent, String region, String capital, Float population) {
+    public country(String code, String name, String continent, String region, Float population, String capital) {
 
+        Code = code;
         Name = name;
         Continent = continent;
         Region = region;
