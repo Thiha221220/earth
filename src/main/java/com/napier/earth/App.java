@@ -321,6 +321,37 @@ public class App
     }
 
     /**
+     *  top N populated countries in a region where N is provided by the user
+     * @return top_cou_reg
+     */
+
+    public ArrayList<country> getTopCouRegion(int topreg)
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID and Region='Caribbean' order by country.Population desc limit "+topreg;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<country> top_cou_reg = new ArrayList<country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                top_cou_reg.add(cou);
+            }
+            return top_cou_reg;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top populated countries in a region details");
+            return null;
+        }
+    }
+
+    /**
      *  all the capital cities in the world organized by largest population to smallest
      * @return capital_cities
      */
@@ -634,8 +665,8 @@ public class App
     }
 
     /**
-     *  Display function of top N populated countries in the world where N is provided by the user.
-     * @param couNum the top N population of country in the world list
+     *  Display function of top N populated countries in a continent where N is provided by the user.
+     * @param couNum the top N population of country in a continent list
      * @param topcon
      */
 
@@ -660,6 +691,47 @@ public class App
         t.addCell("Capital Ciy", numberStyle);
 
         System.out.println( "The top "+ topcon + " populated countries in a continent where " + topcon + " is provided by the user");
+        // loop cell and columns with fetch data
+        for (country c: couNum)
+        {
+            t.addCell(c.getCode(), numberStyle);
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getContinent(), numberStyle);
+            t.addCell(c.getRegion(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+            t.addCell(c.getCapital(), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+
+    /**
+     *  Display function of top N populated countries in a region where N is provided by the user.
+     * @param couNum the top N population of country in a region list
+     * @param topreg
+     */
+
+    public void displayTopCouRegPop(ArrayList<country> couNum, int topreg)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // create table
+        Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 16);
+        t.setColumnWidth(1, 7, 16);
+        t.setColumnWidth(2, 7, 16);
+        t.setColumnWidth(3, 7, 16);
+        t.setColumnWidth(4, 7, 16);
+        t.setColumnWidth(5, 7, 40);
+        // add header
+        t.addCell("Country Code", numberStyle);
+        t.addCell("Country Name", numberStyle);
+        t.addCell("Continent", numberStyle);
+        t.addCell("Region", numberStyle);
+        t.addCell("Population", numberStyle);
+        t.addCell("Capital Ciy", numberStyle);
+
+        System.out.println( "The top "+ topreg + " populated countries in a region where " + topreg + " is provided by the user");
         // loop cell and columns with fetch data
         for (country c: couNum)
         {
@@ -741,7 +813,9 @@ public class App
         int topcon= 10;
         ArrayList<country> top_con_cou = a.getTopCouContinent(topcon);
         a.displayTopCouContPop(top_con_cou,topcon);
-
+        int topreg = 10;
+        ArrayList<country> top_con_reg = a.getTopCouRegion(topreg);
+        a.displayTopCouRegPop(top_con_reg,topreg);
         // capital city
         ArrayList<capitalCity> capital_cities = a.getCapitalPopls();
         a.displayCapital(capital_cities);
