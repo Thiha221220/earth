@@ -1,4 +1,4 @@
-# SET09623 2021-2 TR2 001 - DevOps
+# SET09623 2021-2 TR2 001
 Welcome to Our Population Report System from Group 7 
 
 ## 4 Members of Group 7
