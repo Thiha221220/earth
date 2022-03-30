@@ -690,7 +690,7 @@ public class App
         t.addCell("Population", numberStyle);
         t.addCell("Capital Ciy", numberStyle);
 
-        System.out.println( "The top "+ topcon + " populated countries in a continent where " + topcon + " is provided by the user");
+        System.out.println( "The top "+ topcon + " populated countries in North America where " + topcon + " is provided by the user");
         // loop cell and columns with fetch data
         for (country c: couNum)
         {
@@ -731,7 +731,7 @@ public class App
         t.addCell("Population", numberStyle);
         t.addCell("Capital Ciy", numberStyle);
 
-        System.out.println( "The top "+ topreg + " populated countries in a region where " + topreg + " is provided by the user");
+        System.out.println( "The top "+ topreg + " populated countries in Caribbean where " + topreg + " is provided by the user");
         // loop cell and columns with fetch data
         for (country c: couNum)
         {
