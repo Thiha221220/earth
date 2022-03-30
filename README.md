@@ -19,16 +19,16 @@ Welcome to Our Population Report System from Group 7
 https://zube.io/gp7-2/earth/w/workspace-1/kanban
 
 ## Overview Outcome of Issues
-Twenty-two requirements of thirty-two have been implemented.  
+Twenty requirements of thirty-two have been implemented.  
 
 | No  | Description                                                                                                                                                 | Output Overview                                       |
 |-----|-------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------|
 | 01  | All the countries in the world organised by largest population to smallest                                                                                  | ![image](Output_Overview/all_countries_world.png)     |
 | 02  | All the countries in a continent organised by largest population to smallest.                                                                               | ![image](Output_Overview/all_countries_continent.png) |
 | 03  | All the countries in a region organised by largest population to smallest.                                                                                  | ![image](Output_Overview/all_countries_region.png)    |
-| 04  | The top N populated countries in the world where N is provided by the user.                                                                                 |                                                       |
-| 05  | The top N populated countries in a continent where N is provided by the user.                                                                               |                                                       |
-| 06  | The top N populated countries in a region where N is provided by the user.                                                                                  |                                                       |
+| 04  | The top N populated countries in the world where N is provided by the user.                                                                                 | ![image](Output_Overview/top_country_world.png)       |
+| 05  | The top N populated countries in a continent where N is provided by the user.                                                                               | ![image](Output_Overview/top_country_continent.png)   |
+| 06  | The top N populated countries in a region where N is provided by the user.                                                                                  | ![image](Output_Overview/top_country_region.png)      |
 | 07  | All the cities in the world organised by largest population to smallest.                                                                                    | ![image](Output_Overview/all_cities_world.png)        |
 | 08  | All the cities in a continent organised by largest population to smallest.                                                                                  | ![image](Output_Overview/all_cities_continent.png)    |
 | 09  | All the cities in a region organised by largest population to smallest.                                                                                     | ![image](Output_Overview/all_cities_region.png)       |
@@ -37,11 +37,11 @@ Twenty-two requirements of thirty-two have been implemented.
 | 12  | The top N populated cities in the world where N is provided by the user.                                                                                    |                                                       |
 | 13  | The top N populated cities in a continent where N is provided by the user.                                                                                  |                                                       |
 | 14  | The top N populated cities in a region where N is provided by the user.                                                                                     |                                                       |
-| 15  | The top N populated cities in a country where N is provided by the user.                                                                                    |                                                       |
+| 15  | The top N populated cities in a country where N is provided by the user.                                                                                    | ![image](Output_Overview/top_cities_country.jpg)      |
 | 16  | The top N populated cities in a district where N is provided by the user.                                                                                   |                                                       |
 | 17  | All the capital cities in the world organised by largest population to smallest.                                                                            | ![image](Output_Overview/all_capital_world.png)       |
 | 18  | All the capital cities in a continent organised by largest population to smallest.                                                                          | ![image](Output_Overview/all_capital_continent.png)   |
-| 19  | All the capital cities in a region organised by largest to smallest.                                                                                        |                                                       |
+| 19  | All the capital cities in a region organised by largest to smallest.                                                                                        | ![image](Output_Overview/all_capital_region.jpg)      |
 | 20  | The top N populated capital cities in the world where N is provided by the user.                                                                            | ![image](Output_Overview/top_capital_world.jpg)       |
 | 21  | The top N populated capital cities in a continent where N is provided by the user.                                                                          | ![image](Output_Overview/top_capital_continent.jpg)   |
 | 22  | The top N populated capital cities in a region where N is provided by the user.                                                                             | ![image](Output_Overview/top_capital_region.jpg)      |
