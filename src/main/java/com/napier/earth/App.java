@@ -278,6 +278,42 @@ public class App
         return capital_cities;
     }
     /**
+     *  The top N populated capital cities in the continent where N is provided by the user.
+     * @return capital_cities
+     */
+
+    public ArrayList<capitalCity> getTCACPopls(int times) throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.continent = 'Oceania' order by city.Population desc limit "+times;
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            capital_cities.add(cap_c);
+        }
+        return capital_cities;
+    }
+    /**
+     *  The top N populated capital cities in the region where N is provided by the user.
+     * @return capital_cities
+     */
+
+    public ArrayList<capitalCity> getTCARPopls(int times) throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.Region = 'Middle East' order by city.Population desc limit "+times;
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            capital_cities.add(cap_c);
+        }
+        return capital_cities;
+    }
+    /**
      *  all the capital cities in the world organized by largest population to smallest
      * @return capital_cities
      */
@@ -610,6 +646,66 @@ public class App
         System.out.println(t.render());
     }
     /**
+     *  Display function of the top N populated capital cities in the continent where N is provided by the user.
+     * @param capconNum capital city population in the continent list
+     */
+
+    public void displayTCAC(ArrayList<capitalCity> capconNum, int times)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 30);
+        //  add table header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("The top "+times+" populated capital cities in Oceania where N is provided by the user.");
+        // loop cell and columns with fetch data
+        for (capitalCity c: capconNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+    /**
+     *  Display function of the top N populated capital cities in the region where N is provided by the user.
+     * @param caprNum capital city population in the region list
+     */
+
+    public void displayTCAR(ArrayList<capitalCity> caprNum, int times)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 30);
+        //  add table header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("The top "+times+" populated capital cities in the Middle East where N is provided by the user.");
+        // loop cell and columns with fetch data
+        for (capitalCity c: caprNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+    /**
      * Our application entry point.
      * @param args The command line arguments.
      * @throws SQLException when we can't access to database or something like that.
@@ -641,12 +737,16 @@ public class App
         a.displayCountryPopLSRegion(countriesRegionLS);
 
         // capital city
+        int times = 10;
+
         ArrayList<capitalCity> capital_cities = a.getCapitalPopls();
         a.displayCapital(capital_cities);
-
-        int times = 10;
         ArrayList<capitalCity> tCAW = a.getTCAWPopls(times);
         a.displayTCAW(tCAW,times);
+        ArrayList<capitalCity> tCAC = a.getTCACPopls(times);
+        a.displayTCAC(tCAC,times);
+        ArrayList<capitalCity> tCAR = a.getTCARPopls(times);
+        a.displayTCAR(tCAR,times);
 
         // Disconnect from database
         a.disconnect();
