@@ -23,12 +23,12 @@
             <version>8.0.18</version>
 
         </dependency>
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.nocrala.tools.texttablefmt/text-table-formatter &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.nocrala.tools.texttablefmt</groupId>-->
-<!--            <artifactId>text-table-formatter</artifactId>-->
-<!--            <version>1.1.2</version>-->
-<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.nocrala.tools.texttablefmt/text-table-formatter -->
+        <dependency>
+            <groupId>org.nocrala.tools.texttablefmt</groupId>
+            <artifactId>text-table-formatter</artifactId>
+            <version>1.2.4</version>
+        </dependency>
 
     </dependencies>
 
