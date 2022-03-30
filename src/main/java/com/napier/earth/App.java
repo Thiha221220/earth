@@ -214,6 +214,29 @@ public class App
         }
         return TNPop_cities;
     }
+    /**
+     *  The top N populated cities in the world where N is provided by the user.
+     * @return TNPopCit_World
+     */
+
+    public ArrayList<city> getTopNPopCitWorld() throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code order by city.Population desc LIMIT 10";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store top 10 populated cities
+        ArrayList<city> TNPopCit_World = new ArrayList<city>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next())
+        {
+            city TnC_W = new city(
+                    rset.getString(1),
+                    rset.getString(2),
+                    rset.getString(3),
+                    rset.getFloat(4));
+            TNPopCit_World.add(TnC_W);
+        }
+        return TNPopCit_World;
+    }
 
     /**
      *  all the country in a region organized by largest population to smallest
@@ -401,7 +424,7 @@ public class App
 
     }
     /**
-     *  Display function of Top N populated City in a country.
+     *  Display function of Top N populated Cities in a country.
      * @param Tnp_C population in the world list
      */
 
@@ -421,9 +444,43 @@ public class App
         t.addCell("District", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("This is top 10 populated city in Myanmar country");
+        System.out.println("This is top 10 populated cities in Myanmar country");
         // loop cell and columns with fetch data
         for (city c: Tnp_C)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(c.getDistrict(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+
+    }
+    /**
+     *  Display function of Top N populated Cities in the world.
+     * @param TnpC_W population in the world list
+     */
+
+    public void displayTopNPopCityWorld(ArrayList<city> TnpC_W)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        //  Create Table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 10, 50);
+        t.setColumnWidth(1, 10, 50);
+        t.setColumnWidth(2, 10, 50);
+        t.setColumnWidth(3, 10, 50);
+        // add header
+        t.addCell("Cities Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("District", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("This is top 10 populated cities in the world");
+        // loop cell and columns with fetch data
+        for (city c: TnpC_W)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -808,6 +865,8 @@ public class App
         a.displayRegion(r_cities);
         ArrayList<city> Tnp_C = a.getTopNPopCit();
         a.displayTopNPopCity(Tnp_C);
+        ArrayList<city> TnpC_W = a.getTopNPopCitWorld();
+        a.displayTopNPopCityWorld(TnpC_W);
 
         // country
         ArrayList<country> countries = a.getCountryPopLs();
