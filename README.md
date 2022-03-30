@@ -19,7 +19,7 @@ Welcome to Our Population Report System from Group 7
 https://zube.io/gp7-2/earth/w/workspace-1/kanban
 
 ## Overview Outcome of Issues
-Twenty requirements of thirty-two have been implemented.  
+Twenty-two requirements of thirty-two have been implemented.  
 
 | No  | Description                                                                                                                                                 | Output Overview                                       |
 |-----|-------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------|
