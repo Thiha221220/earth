@@ -196,6 +196,34 @@ public class App
     }
 
     /**
+     * top N populated cities in a continent where N is provided by the user
+     * @return topcityconti
+     */
+    public ArrayList<city> getTopCityContinent(int top) throws SQLException {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Asia' order by city.Population desc desc limit "+top;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<city> topcityconti = new ArrayList<city>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                city tcct = new city(rset.getString(1),rset.getString(2),rset.getString(3),rset.getFloat(4));
+                topcityconti.add(tcct);
+            }
+            return topcityconti;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top populated cities in a continent details");
+            return null;
+        }
+    }
+
+    /**
      *  all the country in a region organized by largest population to smallest
      * @return countries1
      */
@@ -450,6 +478,40 @@ public class App
     }
 
     /**
+     *  Display function of top N populated cities in a continent where N is provided by the user.
+     * @param tccnt the top N population of country in the world list
+     * @param top
+     */
+
+    public void displayTopCityContinent(ArrayList<city> tccnt, int top)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // create table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 50);
+        t.setColumnWidth(2, 7, 50);
+        t.setColumnWidth(3, 7, 50);
+        // add header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("District", numberStyle);
+        t.addCell("Population", numberStyle);
+        System.out.println("Top "+top+" Populated cities in Asia where "+top+" is provided by the user");
+        // loop cell and columns with fetch data
+        for (city c: tccnt)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(c.getDistrict(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+
+    /**
      *  Display function of all the countries in the world organised by largest population to smallest
      * @param couNum countries population in the world list
      */
@@ -585,6 +647,9 @@ public class App
         a.displayCityDistrict(d_cities);
         ArrayList<city> r_cities = a.getRegionPopls();
         a.displayRegion(r_cities);
+        int tcity = 10;
+        ArrayList<city> topcityconti = a.getTopCityContinent(tcity);
+        a.displayTopCityContinent(topcityconti,tcity);
 
         // country
         ArrayList<country> countries = a.getCountryPopLs();
