@@ -1,4 +1,4 @@
-<h1 style="font-family: 'Times New Roman'">USE CASE 15 : Produce a Report on the all the cities in the world organised by largest population to smallest</h1>
+<h1 style="font-family: 'Times New Roman'">USE CASE 7 : Produce a Report on the all the cities in the world organised by largest population to smallest</h1>
 <h2 style="font-family: 'Times New Roman'"> CHARACTERISTIC INFORMATION</h2>
 <h3 style="font-family: 'Times New Roman'; font-size: 20px">Goal in Context</h3>
 <span style="font-family: 'Times New Roman'; font-size: 18px;"> As a report manager, we want to produce a report on the all cities in the world so that we can support the population reporting of all cities.</span>

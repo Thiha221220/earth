@@ -1,4 +1,4 @@
-<h1 style="font-family: 'Times New Roman'">USE CASE 14 : The top N populated countries in a region where N is provided by the user.</h1>
+<h1 style="font-family: 'Times New Roman'">USE CASE 6 : The top N populated countries in a region where N is provided by the user.</h1>
 <h2 style="font-family: 'Times New Roman'"> CHARACTERISTIC INFORMATION</h2>
 <h3 style="font-family: 'Times New Roman'; font-size: 20px">Goal in Context</h3>
 <span style="font-family: 'Times New Roman'; font-size: 18px;"> As a report manager, we want to produce a report on the countries in a region by the users so that we can support the population of countries in a region.</span>
