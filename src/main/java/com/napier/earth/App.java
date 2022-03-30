@@ -203,7 +203,7 @@ public class App
         try
         {
             //  sql query based on issue
-            String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Asia' order by city.Population desc desc limit "+top;
+            String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Asia' order by city.Population desc limit "+top;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
             ArrayList<city> topcityconti = new ArrayList<city>();
@@ -221,6 +221,30 @@ public class App
             System.out.println("Failed to get top populated cities in a continent details");
             return null;
         }
+    }
+
+    /**
+     *  top N populated cities in a region where N is provided by the user
+     * @return cityrgn
+     */
+
+    public ArrayList<city> getTopCityRegion(int top) throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc limit "+top;
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store cities
+        ArrayList<city> cityrgn = new ArrayList<city>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next())
+        {
+            city tcrn = new city(
+                    rset.getString(1),
+                    rset.getString(2),
+                    rset.getString(3),
+                    rset.getFloat(4));
+            cityrgn.add(tcrn);
+        }
+        return cityrgn;
     }
 
     /**
@@ -512,6 +536,41 @@ public class App
     }
 
     /**
+     *  Display function of top N populated cities in a region where N is provided by the user.
+     * @param tcrgn the top N population of country in the world list
+     * @param top
+     */
+    public void displayTopCityRegion(ArrayList<city> tcrgn, int top)
+    {
+
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // create table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 50);
+        t.setColumnWidth(2, 7, 50);
+        t.setColumnWidth(3, 7, 50);
+        // add header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("District", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("Top "+top+" Populated cities in South East Asia where "+top+" is provided by the user");
+        // loop cell and columns with fetch data
+        for (city rci: tcrgn)
+        {
+            t.addCell(rci.getName(), numberStyle);
+            t.addCell(rci.getCountry(), numberStyle);
+            t.addCell(rci.getDistrict(), numberStyle);
+            t.addCell(String.valueOf(rci.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+
+    /**
      *  Display function of all the countries in the world organised by largest population to smallest
      * @param couNum countries population in the world list
      */
@@ -650,6 +709,8 @@ public class App
         int tcity = 10;
         ArrayList<city> topcityconti = a.getTopCityContinent(tcity);
         a.displayTopCityContinent(topcityconti,tcity);
+        ArrayList<city> topcityrgn = a.getTopCityRegion(tcity);
+        a.displayTopCityRegion(topcityrgn,tcity);
 
         // country
         ArrayList<country> countries = a.getCountryPopLs();
