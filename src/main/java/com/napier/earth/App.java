@@ -634,7 +634,7 @@ public class App
         t.addCell("Country", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("The top "+times+" populated capital cities in the world where N is provided by the user.");
+        System.out.println("The top "+times+" populated capital cities in the world where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
         for (capitalCity c: capcNum)
         {
@@ -664,7 +664,7 @@ public class App
         t.addCell("Country", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("The top "+times+" populated capital cities in Oceania where N is provided by the user.");
+        System.out.println("The top "+times+" populated capital cities in Oceania where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
         for (capitalCity c: capconNum)
         {
@@ -694,7 +694,7 @@ public class App
         t.addCell("Country", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("The top "+times+" populated capital cities in the Middle East where N is provided by the user.");
+        System.out.println("The top "+times+" populated capital cities in the Middle East where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
         for (capitalCity c: caprNum)
         {
