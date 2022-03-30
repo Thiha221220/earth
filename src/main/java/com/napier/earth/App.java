@@ -10,6 +10,8 @@ import javax.xml.transform.Result;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
+
+import com.sun.jdi.ArrayReference;
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.ShownBorders;
@@ -166,7 +168,7 @@ public class App
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get city in a country");
+            System.out.println("Failed to get city in a district");
             return null;
         }
     }
@@ -245,6 +247,36 @@ public class App
             cityrgn.add(tcrn);
         }
         return cityrgn;
+    }
+
+    /**
+     *  top N populated cities in a district where N is provided by the user
+     *      * @return topcitydis
+     */
+
+    public ArrayList<city> getTopCityDistrict(int top) throws SQLException
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.district='England' and city.CountryCode = country.Code order by city.Population desc limit "+top;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store city
+            ArrayList<city> topcitydis = new ArrayList<city>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                city tcdt = new city(rset.getString(1),rset.getString(2),rset.getString(3),rset.getFloat(4));
+                topcitydis.add(tcdt);
+            }
+            return topcitydis;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top N city in a district");
+            return null;
+        }
     }
 
     /**
@@ -571,6 +603,41 @@ public class App
     }
 
     /**
+     *  Display function of top N populated cities in a district where N is provided by the user.
+     * @param tcdst the top N population of country in the world list
+     * @param top
+     */
+
+    public void displayTopCityDistrict(ArrayList<city> tcdst, int top)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // Create Table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 50);
+        t.setColumnWidth(2, 7, 50);
+        t.setColumnWidth(3, 7, 50);
+        // add header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("District", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("Top "+top+" Populated cities in England where "+top+" is provided by the user");
+        // loop cell and columns with fetch data
+        for (city c: tcdst)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(c.getDistrict(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+
+    /**
      *  Display function of all the countries in the world organised by largest population to smallest
      * @param couNum countries population in the world list
      */
@@ -696,31 +763,33 @@ public class App
         a.connect();
 
         // city
-        ArrayList<city> cities = a.getCityPopLs();
-        a.displayCity(cities);
-        ArrayList<city> coucities = a.getCityCountryPopLs();
-        a.displayCityCountry(coucities);
-        ArrayList<city> cityconti = a.getCityContinentPopLs();
-        a.displayCityContinent(cityconti);
-        ArrayList<city> d_cities = a.getDistrictPopls();
-        a.displayCityDistrict(d_cities);
-        ArrayList<city> r_cities = a.getRegionPopls();
-        a.displayRegion(r_cities);
+//        ArrayList<city> cities = a.getCityPopLs();
+//        a.displayCity(cities);
+//        ArrayList<city> coucities = a.getCityCountryPopLs();
+//        a.displayCityCountry(coucities);
+//        ArrayList<city> cityconti = a.getCityContinentPopLs();
+//        a.displayCityContinent(cityconti);
+//        ArrayList<city> d_cities = a.getDistrictPopls();
+//        a.displayCityDistrict(d_cities);
+//        ArrayList<city> r_cities = a.getRegionPopls();
+//        a.displayRegion(r_cities);
         int tcity = 10;
-        ArrayList<city> topcityconti = a.getTopCityContinent(tcity);
-        a.displayTopCityContinent(topcityconti,tcity);
-        ArrayList<city> topcityrgn = a.getTopCityRegion(tcity);
-        a.displayTopCityRegion(topcityrgn,tcity);
+//        ArrayList<city> topcityconti = a.getTopCityContinent(tcity);
+//        a.displayTopCityContinent(topcityconti,tcity);
+//        ArrayList<city> topcityrgn = a.getTopCityRegion(tcity);
+//        a.displayTopCityRegion(topcityrgn,tcity);
+        ArrayList<city> topcitydst = a.getTopCityDistrict(tcity);
+        a.displayTopCityDistrict(topcitydst,tcity);
 
         // country
-        ArrayList<country> countries = a.getCountryPopLs();
-        a.displayCountry(countries);
-        ArrayList<country> countriesRegionLS = a.getCountryPopLsRegion();
-        a.displayCountryPopLSRegion(countriesRegionLS);
-
-        // capital city
-        ArrayList<capitalCity> capital_cities = a.getCapitalPopls();
-        a.displayCapital(capital_cities);
+//        ArrayList<country> countries = a.getCountryPopLs();
+//        a.displayCountry(countries);
+//        ArrayList<country> countriesRegionLS = a.getCountryPopLsRegion();
+//        a.displayCountryPopLSRegion(countriesRegionLS);
+//
+//        // capital city
+//        ArrayList<capitalCity> capital_cities = a.getCapitalPopls();
+//        a.displayCapital(capital_cities);
 
         // Disconnect from database
         a.disconnect();
