@@ -191,6 +191,52 @@ public class App
         }
         return r_cities;
     }
+    /**
+     *  The top N populated cities in a country where N is provided by the user.
+     * @return TNPop_cities
+     */
+
+    public ArrayList<city> getTopNPopCit() throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Name = 'Myanmar' order by city.Population desc LIMIT 10";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store top 10 populated cities
+        ArrayList<city> TNPop_cities = new ArrayList<city>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next())
+        {
+            city Tn_C = new city(
+                    rset.getString(1),
+                    rset.getString(2),
+                    rset.getString(3),
+                    rset.getFloat(4));
+            TNPop_cities.add(Tn_C);
+        }
+        return TNPop_cities;
+    }
+    /**
+     *  The top N populated cities in the world where N is provided by the user.
+     * @return TNPopCit_World
+     */
+
+    public ArrayList<city> getTopNPopCitWorld() throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code order by city.Population desc LIMIT 10";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store top 10 populated cities
+        ArrayList<city> TNPopCit_World = new ArrayList<city>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next())
+        {
+            city TnC_W = new city(
+                    rset.getString(1),
+                    rset.getString(2),
+                    rset.getString(3),
+                    rset.getFloat(4));
+            TNPopCit_World.add(TnC_W);
+        }
+        return TNPopCit_World;
+    }
 
     /**
      *  all the country in a region organized by largest population to smallest
@@ -233,7 +279,7 @@ public class App
         try
         {
             //  sql query based on issue
-            String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where Continent = 'Europe' and country.Capital = city.ID order by Population desc";
+            String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where Continent = 'Europe' and country.Capital = city.ID order by country.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
             ArrayList<country> couCon = new ArrayList<country>();
@@ -286,6 +332,98 @@ public class App
         }
     }
 
+    /**
+     *  top The top N populated countries in the world where N is provided by the user.
+     * @return t_countries
+     */
+
+    public ArrayList<country> getCountryTopPop(int topcou )
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID order by country.Population desc limit "+topcou;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<country> t_countries = new ArrayList<country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                t_countries.add(cou);
+            }
+            return t_countries;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top populated countries in the world details");
+            return null;
+        }
+    }
+
+    /**
+     *  top N populated countries in a continent where N is provided by the user
+     * @return top_cou_con
+     */
+
+    public ArrayList<country> getTopCouContinent(int topcou)
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID and Continent='North America' order by country.Population desc limit "+topcou;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<country> top_cou_con = new ArrayList<country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                top_cou_con.add(cou);
+            }
+            return top_cou_con;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top populated countries in a continent details");
+            return null;
+        }
+    }
+
+    /**
+     *  top N populated countries in a region where N is provided by the user
+     * @return top_cou_reg
+     */
+
+    public ArrayList<country> getTopCouRegion(int topcou)
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID and Region='Caribbean' order by country.Population desc limit "+topcou;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<country> top_cou_reg = new ArrayList<country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                top_cou_reg.add(cou);
+            }
+            return top_cou_reg;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get top populated countries in a region details");
+            return null;
+        }
+    }
 
     /**
      *  all the capital cities in the world organized by largest population to smallest
@@ -323,6 +461,79 @@ public class App
         }
         return capCityCon;
     }
+    /**
+     *  all the capital cities in a region organized by largest population to smallest
+     * @return capCitReg
+     */
+
+    public ArrayList<capitalCity> getCapCitRegLS() throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.Population from city, country where city.CountryCode = country.Code and country.Region='Caribbean' order by city.Population desc ";
+        // create array to store Capital City
+        ArrayList<capitalCity> capCitReg = new ArrayList<capitalCity>();
+        PreparedStatement psTmt = con.prepareStatement(sql);
+        ResultSet reSet = psTmt.executeQuery();
+        while (reSet.next()) {
+            capitalCity cap_cr = new capitalCity(reSet.getString(1),reSet.getString(2),reSet.getFloat(3));
+            capCitReg.add(cap_cr);
+        }
+        return capCitReg;
+    }
+
+    /**
+     *  The top N populated capital cities in the world where N is provided by the user.
+     * @return capital_cities
+     */
+
+    public ArrayList<capitalCity> getTCAWPopls(int times) throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID order by city.Population desc limit "+times;
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            capital_cities.add(cap_c);
+        }
+        return capital_cities;
+    }
+    /**
+     *  The top N populated capital cities in the continent where N is provided by the user.
+     * @return capital_cities
+     */
+
+    public ArrayList<capitalCity> getTCACPopls(int times) throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.continent = 'Oceania' order by city.Population desc limit "+times;
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            capital_cities.add(cap_c);
+        }
+        return capital_cities;
+    }
+    /**
+     *  The top N populated capital cities in the region where N is provided by the user.
+     * @return capital_cities
+     */
+
+    public ArrayList<capitalCity> getTCARPopls(int times) throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.Region = 'Middle East' order by city.Population desc limit "+times;
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            capital_cities.add(cap_c);
+        }
+        return capital_cities;
+    }
 
 
     /**
@@ -349,6 +560,74 @@ public class App
         System.out.println("All the cities in the world organised by largest population to smallest");
         // loop cell and columns with fetch data
         for (city c: cityNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(c.getDistrict(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+
+    }
+    /**
+     *  Display function of Top N populated Cities in a country.
+     * @param Tnp_C population in the world list
+     */
+
+    public void displayTopNPopCity(ArrayList<city> Tnp_C)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        //  Create Table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 10, 50);
+        t.setColumnWidth(1, 10, 50);
+        t.setColumnWidth(2, 10, 50);
+        t.setColumnWidth(3, 10, 50);
+        // add header
+        t.addCell("Cities Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("District", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("This is top 10 populated cities in Myanmar country");
+        // loop cell and columns with fetch data
+        for (city c: Tnp_C)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(c.getDistrict(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+
+    }
+    /**
+     *  Display function of Top N populated Cities in the world.
+     * @param TnpC_W population in the world list
+     */
+
+    public void displayTopNPopCityWorld(ArrayList<city> TnpC_W)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        //  Create Table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 10, 50);
+        t.setColumnWidth(1, 10, 50);
+        t.setColumnWidth(2, 10, 50);
+        t.setColumnWidth(3, 10, 50);
+        // add header
+        t.addCell("Cities Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("District", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("This is top 10 populated cities in the world");
+        // loop cell and columns with fetch data
+        for (city c: TnpC_W)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -495,7 +774,93 @@ public class App
 
         System.out.println(t.render());
     }
+    /**
+     *  Display function of the top N populated capital cities in the world where N is provided by the user.
+     * @param capcNum capital city population in the world list
+     */
 
+    public void displayTCAW(ArrayList<capitalCity> capcNum, int times)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 30);
+        //  add table header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("The top "+times+" populated capital cities in the world where "+times+" is provided by the user.");
+        // loop cell and columns with fetch data
+        for (capitalCity c: capcNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+    /**
+     *  Display function of the top N populated capital cities in the continent where N is provided by the user.
+     * @param capconNum capital city population in the continent list
+     */
+
+    public void displayTCAC(ArrayList<capitalCity> capconNum, int times)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 30);
+        //  add table header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("The top "+times+" populated capital cities in Oceania where "+times+" is provided by the user.");
+        // loop cell and columns with fetch data
+        for (capitalCity c: capconNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+    /**
+     *  Display function of the top N populated capital cities in the region where N is provided by the user.
+     * @param caprNum capital city population in the region list
+     */
+
+    public void displayTCAR(ArrayList<capitalCity> caprNum, int times) {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 30);
+        //  add table header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("Population", numberStyle);System.out.println("The top "+times+" populated capital cities in the Middle East where "+times+" is provided by the user.");
+        // loop cell and columns with fetch data
+        for (capitalCity c: caprNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
     /**
      *  Display function of all the countries in the world organised by largest population to smallest
      * @param couNum countries population in the world list
@@ -616,6 +981,129 @@ public class App
         System.out.println(t.render());
     }
     /**
+     *  Display function of top N populated countries in the world where N is provided by the user.
+     * @param couNum the top N population of country in the world list
+     * @param topcou
+     */
+
+    public void displayTopCountryPop(ArrayList<country> couNum, int topcou)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // create table
+        Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 16);
+        t.setColumnWidth(1, 7, 16);
+        t.setColumnWidth(2, 7, 16);
+        t.setColumnWidth(3, 7, 16);
+        t.setColumnWidth(4, 7, 16);
+        t.setColumnWidth(5, 7, 40);
+        // add header
+        t.addCell("Country Code", numberStyle);
+        t.addCell("Country Name", numberStyle);
+        t.addCell("Continent", numberStyle);
+        t.addCell("Region", numberStyle);
+        t.addCell("Population", numberStyle);
+        t.addCell("Capital Ciy", numberStyle);
+
+        System.out.println( "The top "+ topcou + " populated countries in the world where " + topcou + " is provided by the user");
+        // loop cell and columns with fetch data
+        for (country c: couNum)
+        {
+            t.addCell(c.getCode(), numberStyle);
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getContinent(), numberStyle);
+            t.addCell(c.getRegion(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+            t.addCell(c.getCapital(), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+
+    /**
+     *  Display function of top N populated countries in a continent where N is provided by the user.
+     * @param couNum the top N population of country in a continent list
+     * @param topcou
+     */
+
+    public void displayTopCouContPop(ArrayList<country> couNum, int topcou)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // create table
+        Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 16);
+        t.setColumnWidth(1, 7, 16);
+        t.setColumnWidth(2, 7, 16);
+        t.setColumnWidth(3, 7, 16);
+        t.setColumnWidth(4, 7, 16);
+        t.setColumnWidth(5, 7, 40);
+        // add header
+        t.addCell("Country Code", numberStyle);
+        t.addCell("Country Name", numberStyle);
+        t.addCell("Continent", numberStyle);
+        t.addCell("Region", numberStyle);
+        t.addCell("Population", numberStyle);
+        t.addCell("Capital Ciy", numberStyle);
+
+        System.out.println( "The top "+ topcou + " populated countries in North America where " + topcou + " is provided by the user");
+        // loop cell and columns with fetch data
+        for (country c: couNum)
+        {
+            t.addCell(c.getCode(), numberStyle);
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getContinent(), numberStyle);
+            t.addCell(c.getRegion(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+            t.addCell(c.getCapital(), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+
+    /**
+     *  Display function of top N populated countries in a region where N is provided by the user.
+     * @param couNum the top N population of country in a region list
+     * @param topcou
+     */
+
+    public void displayTopCouRegPop(ArrayList<country> couNum, int topcou)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // create table
+        Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 16);
+        t.setColumnWidth(1, 7, 16);
+        t.setColumnWidth(2, 7, 16);
+        t.setColumnWidth(3, 7, 16);
+        t.setColumnWidth(4, 7, 16);
+        t.setColumnWidth(5, 7, 40);
+        // add header
+        t.addCell("Country Code", numberStyle);
+        t.addCell("Country Name", numberStyle);
+        t.addCell("Continent", numberStyle);
+        t.addCell("Region", numberStyle);
+        t.addCell("Population", numberStyle);
+        t.addCell("Capital Ciy", numberStyle);
+
+        System.out.println( "The top "+ topcou + " populated countries in Caribbean where " + topcou + " is provided by the user");
+        // loop cell and columns with fetch data
+        for (country c: couNum)
+        {
+            t.addCell(c.getCode(), numberStyle);
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getContinent(), numberStyle);
+            t.addCell(c.getRegion(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+            t.addCell(c.getCapital(), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+
+    /**
      *  Display function of all the capital cities in the world organized by largest population to smallest
      * @param capcNum capital city population in the world list
      */
@@ -637,6 +1125,36 @@ public class App
         System.out.println("All the capital cities in the world organised by largest population to smallest");
         // loop cell and columns with fetch data
         for (capitalCity c: capcNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+    /**
+     *  Display function of all the capital cities in the region organized by largest population to smallest
+     * @param capCRNum capital city population in the world list
+     */
+
+    public void dispalyCapCitRegLs(ArrayList<capitalCity> capCRNum)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 30);
+        //  add table header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("All the capital cities in Caribbean organised by largest population to smallest");
+        // loop cell and columns with fetch data
+        for (capitalCity c: capCRNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -677,6 +1195,7 @@ public class App
     }
 
 
+
     /**
      * Our application entry point.
      * @param args The command line arguments.
@@ -701,6 +1220,10 @@ public class App
         a.displayCityDistrict(d_cities);
         ArrayList<city> r_cities = a.getRegionPopls();
         a.displayRegion(r_cities);
+        ArrayList<city> Tnp_C = a.getTopNPopCit();
+        a.displayTopNPopCity(Tnp_C);
+        ArrayList<city> TnpC_W = a.getTopNPopCitWorld();
+        a.displayTopNPopCityWorld(TnpC_W);
 
         // country
         ArrayList<country> countries = a.getCountryPopLs();
@@ -709,13 +1232,31 @@ public class App
         a.displayCountryPopLSRegion(countriesRegionLS);
         ArrayList<country> CouCon = a.getCouCon();
         a.displayCouCon(CouCon);
+        int topcou = 10;
+        ArrayList<country> t_countries = a.getCountryTopPop(topcou);
+        a.displayTopCountryPop(t_countries,topcou);
+        ArrayList<country> top_con_cou = a.getTopCouContinent(topcou);
+        a.displayTopCouContPop(top_con_cou,topcou);
+        ArrayList<country> top_con_reg = a.getTopCouRegion(topcou);
+        a.displayTopCouRegPop(top_con_reg,topcou);
 
         // capital city
+        int times = 10;
+
         ArrayList<capitalCity> capital_cities = a.getCapitalPopls();
         a.displayCapital(capital_cities);
+
+        ArrayList<capitalCity> tCAW = a.getTCAWPopls(times);
+        a.displayTCAW(tCAW,times);
+        ArrayList<capitalCity> tCAC = a.getTCACPopls(times);
+        a.displayTCAC(tCAC,times);
+        ArrayList<capitalCity> tCAR = a.getTCARPopls(times);
+        a.displayTCAR(tCAR,times);
+
         ArrayList<capitalCity> capital_cities_Continent = a.getCapCityConLToS();
         a.displayCapCitCon(capital_cities_Continent);
-
+        ArrayList<capitalCity> capital_cities_Region = a.getCapCitRegLS();
+        a.dispalyCapCitRegLs(capital_cities_Region);
         // Disconnect from database
         a.disconnect();
     }
