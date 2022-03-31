@@ -201,11 +201,11 @@ public class App
      * top N populated cities in a continent where N is provided by the user
      * @return topcityconti
      */
-    public ArrayList<city> getTopCityContinent(int top) throws SQLException {
+    public ArrayList<city> getTopCityContinent(int topccon) throws SQLException {
         try
         {
             //  sql query based on issue
-            String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Asia' order by city.Population desc limit "+top;
+            String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Asia' order by city.Population desc limit "+topccon;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
             ArrayList<city> topcityconti = new ArrayList<city>();
@@ -230,9 +230,9 @@ public class App
      * @return cityrgn
      */
 
-    public ArrayList<city> getTopCityRegion(int top) throws SQLException {
+    public ArrayList<city> getTopCityRegion(int topcrgn) throws SQLException {
         //  sql query based on issue
-        String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc limit "+top;
+        String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc limit "+topcrgn;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store cities
         ArrayList<city> cityrgn = new ArrayList<city>();
@@ -254,12 +254,12 @@ public class App
      *      * @return topcitydis
      */
 
-    public ArrayList<city> getTopCityDistrict(int top) throws SQLException
+    public ArrayList<city> getTopCityDistrict(int topcdst) throws SQLException
     {
         try
         {
             //  sql query based on issue
-            String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.district='England' and city.CountryCode = country.Code order by city.Population desc limit "+top;
+            String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.district='England' and city.CountryCode = country.Code order by city.Population desc limit "+topcdst;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store city
             ArrayList<city> topcitydis = new ArrayList<city>();
@@ -536,10 +536,10 @@ public class App
     /**
      *  Display function of top N populated cities in a continent where N is provided by the user.
      * @param tccnt the top N population of country in the world list
-     * @param top
+     * @param topccon
      */
 
-    public void displayTopCityContinent(ArrayList<city> tccnt, int top)
+    public void displayTopCityContinent(ArrayList<city> tccnt, int topccon)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -554,7 +554,7 @@ public class App
         t.addCell("Country", numberStyle);
         t.addCell("District", numberStyle);
         t.addCell("Population", numberStyle);
-        System.out.println("Top "+top+" Populated cities in Asia where "+top+" is provided by the user");
+        System.out.println("Top "+topccon+" Populated cities in Asia where "+topccon+" is provided by the user");
         // loop cell and columns with fetch data
         for (city c: tccnt)
         {
@@ -570,9 +570,9 @@ public class App
     /**
      *  Display function of top N populated cities in a region where N is provided by the user.
      * @param tcrgn the top N population of country in the world list
-     * @param top
+     * @param topcrgn
      */
-    public void displayTopCityRegion(ArrayList<city> tcrgn, int top)
+    public void displayTopCityRegion(ArrayList<city> tcrgn, int topcrgn)
     {
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
@@ -589,7 +589,7 @@ public class App
         t.addCell("District", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("Top "+top+" Populated cities in South East Asia where "+top+" is provided by the user");
+        System.out.println("Top "+topcrgn+" Populated cities in South East Asia where "+topcrgn+" is provided by the user");
         // loop cell and columns with fetch data
         for (city rci: tcrgn)
         {
@@ -605,10 +605,10 @@ public class App
     /**
      *  Display function of top N populated cities in a district where N is provided by the user.
      * @param tcdst the top N population of country in the world list
-     * @param top
+     * @param topcdst
      */
 
-    public void displayTopCityDistrict(ArrayList<city> tcdst, int top)
+    public void displayTopCityDistrict(ArrayList<city> tcdst, int topcdst)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -624,7 +624,7 @@ public class App
         t.addCell("District", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("Top "+top+" Populated cities in England where "+top+" is provided by the user");
+        System.out.println("Top "+topcdst+" Populated cities in England where "+topcdst+" is provided by the user");
         // loop cell and columns with fetch data
         for (city c: tcdst)
         {
@@ -763,33 +763,33 @@ public class App
         a.connect();
 
         // city
-//        ArrayList<city> cities = a.getCityPopLs();
-//        a.displayCity(cities);
-//        ArrayList<city> coucities = a.getCityCountryPopLs();
-//        a.displayCityCountry(coucities);
-//        ArrayList<city> cityconti = a.getCityContinentPopLs();
-//        a.displayCityContinent(cityconti);
-//        ArrayList<city> d_cities = a.getDistrictPopls();
-//        a.displayCityDistrict(d_cities);
-//        ArrayList<city> r_cities = a.getRegionPopls();
-//        a.displayRegion(r_cities);
+        ArrayList<city> cities = a.getCityPopLs();
+        a.displayCity(cities);
+        ArrayList<city> coucities = a.getCityCountryPopLs();
+        a.displayCityCountry(coucities);
+        ArrayList<city> cityconti = a.getCityContinentPopLs();
+        a.displayCityContinent(cityconti);
+        ArrayList<city> d_cities = a.getDistrictPopls();
+        a.displayCityDistrict(d_cities);
+        ArrayList<city> r_cities = a.getRegionPopls();
+        a.displayRegion(r_cities);
         int tcity = 10;
-//        ArrayList<city> topcityconti = a.getTopCityContinent(tcity);
-//        a.displayTopCityContinent(topcityconti,tcity);
-//        ArrayList<city> topcityrgn = a.getTopCityRegion(tcity);
-//        a.displayTopCityRegion(topcityrgn,tcity);
+        ArrayList<city> topcityconti = a.getTopCityContinent(tcity);
+        a.displayTopCityContinent(topcityconti,tcity);
+        ArrayList<city> topcityrgn = a.getTopCityRegion(tcity);
+        a.displayTopCityRegion(topcityrgn,tcity);
         ArrayList<city> topcitydst = a.getTopCityDistrict(tcity);
         a.displayTopCityDistrict(topcitydst,tcity);
 
         // country
-//        ArrayList<country> countries = a.getCountryPopLs();
-//        a.displayCountry(countries);
-//        ArrayList<country> countriesRegionLS = a.getCountryPopLsRegion();
-//        a.displayCountryPopLSRegion(countriesRegionLS);
-//
-//        // capital city
-//        ArrayList<capitalCity> capital_cities = a.getCapitalPopls();
-//        a.displayCapital(capital_cities);
+        ArrayList<country> countries = a.getCountryPopLs();
+        a.displayCountry(countries);
+        ArrayList<country> countriesRegionLS = a.getCountryPopLsRegion();
+        a.displayCountryPopLSRegion(countriesRegionLS);
+
+        // capital city
+        ArrayList<capitalCity> capital_cities = a.getCapitalPopls();
+        a.displayCapital(capital_cities);
 
         // Disconnect from database
         a.disconnect();
