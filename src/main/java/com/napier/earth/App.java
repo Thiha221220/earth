@@ -191,6 +191,52 @@ public class App
         }
         return r_cities;
     }
+    /**
+     *  The top N populated cities in a country where N is provided by the user.
+     * @return TNPop_cities
+     */
+
+    public ArrayList<city> getTopNPopCit() throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Name = 'Myanmar' order by city.Population desc LIMIT 10";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store top 10 populated cities
+        ArrayList<city> TNPop_cities = new ArrayList<city>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next())
+        {
+            city Tn_C = new city(
+                    rset.getString(1),
+                    rset.getString(2),
+                    rset.getString(3),
+                    rset.getFloat(4));
+            TNPop_cities.add(Tn_C);
+        }
+        return TNPop_cities;
+    }
+    /**
+     *  The top N populated cities in the world where N is provided by the user.
+     * @return TNPopCit_World
+     */
+
+    public ArrayList<city> getTopNPopCitWorld() throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code order by city.Population desc LIMIT 10";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store top 10 populated cities
+        ArrayList<city> TNPopCit_World = new ArrayList<city>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next())
+        {
+            city TnC_W = new city(
+                    rset.getString(1),
+                    rset.getString(2),
+                    rset.getString(3),
+                    rset.getFloat(4));
+            TNPopCit_World.add(TnC_W);
+        }
+        return TNPopCit_World;
+    }
 
     /**
      *  all the country in a region organized by largest population to smallest
@@ -233,7 +279,7 @@ public class App
         try
         {
             //  sql query based on issue
-            String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where Continent = 'Europe' and country.Capital = city.ID order by Population desc";
+            String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where Continent = 'Europe' and country.Capital = city.ID order by country.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
             ArrayList<country> couCon = new ArrayList<country>();
@@ -415,6 +461,24 @@ public class App
         }
         return capCityCon;
     }
+    /**
+     *  all the capital cities in a region organized by largest population to smallest
+     * @return capCitReg
+     */
+
+    public ArrayList<capitalCity> getCapCitRegLS() throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Name, country.Name, city.Population from city, country where city.CountryCode = country.Code and country.Region='Caribbean' order by city.Population desc ";
+        // create array to store Capital City
+        ArrayList<capitalCity> capCitReg = new ArrayList<capitalCity>();
+        PreparedStatement psTmt = con.prepareStatement(sql);
+        ResultSet reSet = psTmt.executeQuery();
+        while (reSet.next()) {
+            capitalCity cap_cr = new capitalCity(reSet.getString(1),reSet.getString(2),reSet.getFloat(3));
+            capCitReg.add(cap_cr);
+        }
+        return capCitReg;
+    }
 
 
     /**
@@ -441,6 +505,74 @@ public class App
         System.out.println("All the cities in the world organised by largest population to smallest");
         // loop cell and columns with fetch data
         for (city c: cityNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(c.getDistrict(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+
+    }
+    /**
+     *  Display function of Top N populated Cities in a country.
+     * @param Tnp_C population in the world list
+     */
+
+    public void displayTopNPopCity(ArrayList<city> Tnp_C)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        //  Create Table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 10, 50);
+        t.setColumnWidth(1, 10, 50);
+        t.setColumnWidth(2, 10, 50);
+        t.setColumnWidth(3, 10, 50);
+        // add header
+        t.addCell("Cities Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("District", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("This is top 10 populated cities in Myanmar country");
+        // loop cell and columns with fetch data
+        for (city c: Tnp_C)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(c.getDistrict(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+
+    }
+    /**
+     *  Display function of Top N populated Cities in the world.
+     * @param TnpC_W population in the world list
+     */
+
+    public void displayTopNPopCityWorld(ArrayList<city> TnpC_W)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        //  Create Table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 10, 50);
+        t.setColumnWidth(1, 10, 50);
+        t.setColumnWidth(2, 10, 50);
+        t.setColumnWidth(3, 10, 50);
+        // add header
+        t.addCell("Cities Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("District", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("This is top 10 populated cities in the world");
+        // loop cell and columns with fetch data
+        for (city c: TnpC_W)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -861,6 +993,36 @@ public class App
         System.out.println(t.render());
     }
     /**
+     *  Display function of all the capital cities in the region organized by largest population to smallest
+     * @param capCRNum capital city population in the world list
+     */
+
+    public void dispalyCapCitRegLs(ArrayList<capitalCity> capCRNum)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 30);
+        //  add table header
+        t.addCell("City Name", numberStyle);
+        t.addCell("Country", numberStyle);
+        t.addCell("Population", numberStyle);
+
+        System.out.println("All the capital cities in Caribbean organised by largest population to smallest");
+        // loop cell and columns with fetch data
+        for (capitalCity c: capCRNum)
+        {
+            t.addCell(c.getName(), numberStyle);
+            t.addCell(c.getCountry(), numberStyle);
+            t.addCell(String.valueOf(c.getPopulation()), numberStyle);
+        }
+
+        System.out.println(t.render());
+    }
+    /**
      *  Display function of all the capital cities in a continent organised by largest population to smallest
      * @param CCCNum Capital city population in a continent list
      */
@@ -916,6 +1078,10 @@ public class App
         a.displayCityDistrict(d_cities);
         ArrayList<city> r_cities = a.getRegionPopls();
         a.displayRegion(r_cities);
+        ArrayList<city> Tnp_C = a.getTopNPopCit();
+        a.displayTopNPopCity(Tnp_C);
+        ArrayList<city> TnpC_W = a.getTopNPopCitWorld();
+        a.displayTopNPopCityWorld(TnpC_W);
 
         // country
         ArrayList<country> countries = a.getCountryPopLs();
@@ -937,7 +1103,8 @@ public class App
         a.displayCapital(capital_cities);
         ArrayList<capitalCity> capital_cities_Continent = a.getCapCityConLToS();
         a.displayCapCitCon(capital_cities_Continent);
-
+        ArrayList<capitalCity> capital_cities_Region = a.getCapCitRegLS();
+        a.dispalyCapCitRegLs(capital_cities_Region);
         // Disconnect from database
         a.disconnect();
     }
