@@ -889,13 +889,13 @@ public class App
         a.displayCityDistrict(d_cities);
         ArrayList<city> r_cities = a.getRegionPopls();
         a.displayRegion(r_cities);
-        int tcity = 10;
-        ArrayList<city> topcityconti = a.getTopCityContinent(tcity);
-        a.displayTopCityContinent(topcityconti,tcity);
-        ArrayList<city> topcityrgn = a.getTopCityRegion(tcity);
-        a.displayTopCityRegion(topcityrgn,tcity);
-        ArrayList<city> topcitydst = a.getTopCityDistrict(tcity);
-        a.displayTopCityDistrict(topcitydst,tcity);
+        int tpcity = 10;
+        ArrayList<city> topcityconti = a.getTopCityContinent(tpcity);
+        a.displayTopCityContinent(topcityconti,tpcity);
+        ArrayList<city> topcityrgn = a.getTopCityRegion(tpcity);
+        a.displayTopCityRegion(topcityrgn,tpcity);
+        ArrayList<city> topcitydst = a.getTopCityDistrict(tpcity);
+        a.displayTopCityDistrict(topcitydst,tpcity);
 
         // country
         ArrayList<country> countries = a.getCountryPopLs();
