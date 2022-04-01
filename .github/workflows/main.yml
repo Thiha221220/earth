@@ -22,7 +22,7 @@ jobs:
       - name: view logs
         run: docker logs semcontainer
       - name: Unit Tests
-        run: mvn -Dtest=com.napier.sem.AppTest test
+        run: mvn -Dtest=com.napier.earth.AppTest test
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
