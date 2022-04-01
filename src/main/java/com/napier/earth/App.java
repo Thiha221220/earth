@@ -21,7 +21,7 @@ public class App
     /**
      * sql connect function with world database
      */
-    public void connect()
+    public void connect(String location, int delay)
     {
         try
         {
@@ -39,12 +39,11 @@ public class App
             System.out.println("Connecting to database...");
             try {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(delay);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://"+ location +"/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 // Wait a bit
-                Thread.sleep(10000);
                 // Exit for loop
                 break;
             } catch (SQLException sqle) {
@@ -1383,6 +1382,7 @@ public class App
 
 
 
+
     /**
      * Our application entry point.
      * @param args The command line arguments.
@@ -1394,7 +1394,11 @@ public class App
         App a = new App();
 
         // Connect to database
-        a.connect();
+        if(args.length < 1){
+            a.connect("localhost:33060", 0);
+        }else{
+            a.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         // city
         ArrayList<city> cities = a.getCityPopLs();
@@ -1454,5 +1458,28 @@ public class App
         // Disconnect from database
         a.disconnect();
     }
+    // testing to Integration
+    public void printCountries(ArrayList<country> countries)
+    {
+        // Check country is not null
+        if (countries == null)
+        {
+            System.out.println("No country");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-10s %-15s %-20s %-8s", "Code", "Name", "Population", "Continent"));
+        // Loop over all employees in the list
+        for (country cou : countries)
+        {
+            String emp_string =
+                    String.format("%-10s %-15s %-20s %-8s",
+                            cou.getCode(), cou.getName(), cou.getPopulation(), cou.getContinent());
+            System.out.println(emp_string);
+        }
+    }
+
 }
+
+
 
