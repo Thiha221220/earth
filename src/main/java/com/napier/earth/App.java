@@ -17,7 +17,7 @@ import org.nocrala.tools.texttablefmt.CellStyle.HorizontalAlign;
 public class App
 {
 
-    private Connection con = null;
+    private static Connection con = null;
     /**
      * sql connect function with world database
      */
@@ -80,7 +80,7 @@ public class App
      * @return cities
      */
 
-    public ArrayList<city> getCityPopLs() {
+    public static ArrayList<city> getCityPopLs() {
         try {
             //  sql query based on issue
             String sql = "select city.Name, country.Name, city.District, city.Population from country,city where country.Code = city.CountryCode order by city.Population desc";
@@ -623,7 +623,7 @@ public class App
      * @param cityNum city population in the world list
      */
 
-    public void displayCity(ArrayList<city> cityNum)
+    public static void displayCity(ArrayList<city> cityNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -657,7 +657,7 @@ public class App
      * @param Tnp_C population in the world list
      */
 
-    public void displayTopNPopCity(ArrayList<city> Tnp_C)
+    public static void displayTopNPopCity(ArrayList<city> Tnp_C)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -691,7 +691,7 @@ public class App
      * @param TnpC_W population in the world list
      */
 
-    public void displayTopNPopCityWorld(ArrayList<city> TnpC_W)
+    public static void displayTopNPopCityWorld(ArrayList<city> TnpC_W)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -725,7 +725,7 @@ public class App
      * @param ccnt city population in the country list
      */
 
-    public void displayCityCountry(ArrayList<city> ccnt)
+    public static void displayCityCountry(ArrayList<city> ccnt)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -759,7 +759,7 @@ public class App
      * @param dcNum city population in a district list
      */
 
-    public void displayCityDistrict(ArrayList<city> dcNum)
+    public static void displayCityDistrict(ArrayList<city> dcNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -793,7 +793,7 @@ public class App
      * @param ccnt city population in a continent list
      */
 
-    public void displayCityContinent(ArrayList<city> ccnt)
+    public static void displayCityContinent(ArrayList<city> ccnt)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -827,7 +827,7 @@ public class App
      * @param rcNum city population in a region list
      */
 
-    public void displayRegion(ArrayList<city> rcNum)
+    public static void displayRegion(ArrayList<city> rcNum)
     {
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
@@ -863,7 +863,7 @@ public class App
      * @param topccon
      */
 
-    public void displayTopCityContinent(ArrayList<city> tccnt, int topccon)
+    public static void displayTopCityContinent(ArrayList<city> tccnt, int topccon)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -896,7 +896,7 @@ public class App
      * @param tcrgn the top N population of country in the world list
      * @param topcrgn
      */
-    public void displayTopCityRegion(ArrayList<city> tcrgn, int topcrgn)
+    public static void displayTopCityRegion(ArrayList<city> tcrgn, int topcrgn)
     {
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
@@ -932,7 +932,7 @@ public class App
      * @param topcdst
      */
 
-    public void displayTopCityDistrict(ArrayList<city> tcdst, int topcdst)
+    public static void displayTopCityDistrict(ArrayList<city> tcdst, int topcdst)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -966,7 +966,7 @@ public class App
      * @param capcNum capital city population in the world list
      */
 
-    public void displayTCAW(ArrayList<capitalCity> capcNum, int times)
+    public static void displayTCAW(ArrayList<capitalCity> capcNum, int times)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1026,7 +1026,7 @@ public class App
      * @param caprNum capital city population in the region list
      */
 
-    public void displayTCAR(ArrayList<capitalCity> caprNum, int times) {
+    public static void displayTCAR(ArrayList<capitalCity> caprNum, int times) {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1053,7 +1053,7 @@ public class App
      * @param couNum countries population in the world list
      */
 
-    public void displayCountry(ArrayList<country> couNum)
+    public static void displayCountry(ArrayList<country> couNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -1094,7 +1094,7 @@ public class App
      * @param couNum country population in a region list
      */
 
-    public void displayCountryPopLSRegion(ArrayList<country> couNum)
+    public static void displayCountryPopLSRegion(ArrayList<country> couNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1133,7 +1133,7 @@ public class App
      * @param couConNum country population in a continent list
      */
 
-    public void displayCouCon(ArrayList<country> couConNum)
+    public static void displayCouCon(ArrayList<country> couConNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1173,7 +1173,7 @@ public class App
      * @param topcou
      */
 
-    public void displayTopCountryPop(ArrayList<country> couNum, int topcou)
+    public static void displayTopCountryPop(ArrayList<country> couNum, int topcou)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1214,7 +1214,7 @@ public class App
      * @param topcou
      */
 
-    public void displayTopCouContPop(ArrayList<country> couNum, int topcou)
+    public static void displayTopCouContPop(ArrayList<country> couNum, int topcou)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1255,7 +1255,7 @@ public class App
      * @param topcou
      */
 
-    public void displayTopCouRegPop(ArrayList<country> couNum, int topcou)
+    public static void displayTopCouRegPop(ArrayList<country> couNum, int topcou)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1295,7 +1295,7 @@ public class App
      * @param capcNum capital city population in the world list
      */
 
-    public void displayCapital(ArrayList<capitalCity> capcNum)
+    public static void displayCapital(ArrayList<capitalCity> capcNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1325,7 +1325,7 @@ public class App
      * @param capCRNum capital city population in the world list
      */
 
-    public void dispalyCapCitRegLs(ArrayList<capitalCity> capCRNum)
+    public static void dispalyCapCitRegLs(ArrayList<capitalCity> capCRNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
