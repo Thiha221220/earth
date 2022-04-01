@@ -146,7 +146,7 @@ public class AppTest {
     @Test
     void displayTopCountryPop() {
         ArrayList<country> coucons =  new ArrayList<country>();
-        country cit = new country("JPN","Japan", "", "Asia", 1.26714E8F, "Tokyo");
+        country cit = new country("JPN","Japan", "Eastern Asia", "Asia", 1.26714E8F, "Tokyo");
         coucons.add(cit);
         App.displayTopCountryPop(coucons, 10);
     }
