@@ -11,6 +11,9 @@ Welcome to Our Population Report System from Group 7
 * WorkFlow Action ![workflow](https://github.com/Thiha221220/earth/actions/workflows/main.yml/badge.svg?)
 * Master Build Status ![GitHub Workflow Status (master)](https://img.shields.io/github/workflow/status/Thiha221220/earth/A%20workflow%20for%20my%20Population%20Report%20App/master?label=master%20branch%20)
 
+## Code Coverage
+* Code Coverage ![codecov](https://codecov.io/gh/Thiha221220/earth/branch/master/graph/badge.svg?token=RR2YQS1RW9)
+
 ## Release and License
 * Release [![Releases](https://img.shields.io/github/release/Thiha221220/earth/all.svg?style=flat-square)](https://github.com/Thiha221220/earth/releases)
 * License [![LICENSE](https://img.shields.io/github/license/Thiha221220/earth.svg?style=flat-square)](https://github.com/Thiha221220/earth/blob/master/LICENSE)
