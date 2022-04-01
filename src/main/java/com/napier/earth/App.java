@@ -1458,26 +1458,6 @@ public class App
         // Disconnect from database
         a.disconnect();
     }
-    // testing to Integration
-    public void printCountries(ArrayList<country> countries)
-    {
-        // Check country is not null
-        if (countries == null)
-        {
-            System.out.println("No country");
-            return;
-        }
-        // Print header
-        System.out.println(String.format("%-10s %-15s %-20s %-8s", "Code", "Name", "Population", "Continent"));
-        // Loop over all employees in the list
-        for (country cou : countries)
-        {
-            String emp_string =
-                    String.format("%-10s %-15s %-20s %-8s",
-                            cou.getCode(), cou.getName(), cou.getPopulation(), cou.getContinent());
-            System.out.println(emp_string);
-        }
-    }
 
 }
 
