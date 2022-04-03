@@ -20,14 +20,14 @@ class AppIntegrationTest {
     }
     @Test
     void getCityPopLs() {
-        ArrayList<city> cities = app.getCityPopLs();
+        ArrayList<City> cities = app.getCityPopLs();
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayCity(cities);
     }
     @Test
     void getCityCountryPopLs() throws SQLException {
-        ArrayList<city> cities = app.getCityCountryPopLs();
+        ArrayList<City> cities = app.getCityCountryPopLs();
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayCityCountry(cities);
@@ -35,7 +35,7 @@ class AppIntegrationTest {
 
     @Test
     void getCityContinentPopLs() throws SQLException {
-        ArrayList<city> cities = app.getCityContinentPopLs();
+        ArrayList<City> cities = app.getCityContinentPopLs();
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayCityContinent(cities);
@@ -43,7 +43,7 @@ class AppIntegrationTest {
 
     @Test
     void getDistrictPopls() {
-        ArrayList<city> cities = app.getDistrictPopls();
+        ArrayList<City> cities = app.getDistrictPopls();
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayCityDistrict(cities);
@@ -51,7 +51,7 @@ class AppIntegrationTest {
 
     @Test
     void getRegionPopls() throws SQLException {
-        ArrayList<city> cities = app.getRegionPopls();
+        ArrayList<City> cities = app.getRegionPopls();
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayRegion(cities);
@@ -59,7 +59,7 @@ class AppIntegrationTest {
 
     @Test
     void getTopNPopCit() throws SQLException {
-        ArrayList<city> cities = app.getTopNPopCit();
+        ArrayList<City> cities = app.getTopNPopCit();
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayTopNPopCity(cities);
@@ -67,7 +67,7 @@ class AppIntegrationTest {
 
     @Test
     void getTopNPopCitWorld() throws SQLException {
-        ArrayList<city> cities = app.getTopNPopCitWorld();
+        ArrayList<City> cities = app.getTopNPopCitWorld();
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayTopNPopCityWorld(cities);
@@ -75,7 +75,7 @@ class AppIntegrationTest {
 
     @Test
     void getTopCityContinent() throws SQLException {
-        ArrayList<city> cities = app.getTopCityContinent(10);
+        ArrayList<City> cities = app.getTopCityContinent(10);
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayTopCityContinent(cities, 10);
@@ -83,7 +83,7 @@ class AppIntegrationTest {
 
     @Test
     void getTopCityRegion() throws SQLException {
-        ArrayList<city> cities = app.getTopCityRegion(10);
+        ArrayList<City> cities = app.getTopCityRegion(10);
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayTopCityRegion(cities, 10);
@@ -91,7 +91,7 @@ class AppIntegrationTest {
 
     @Test
     void getTopCityDistrict() throws SQLException {
-        ArrayList<city> cities = app.getTopCityDistrict(10);
+        ArrayList<City> cities = app.getTopCityDistrict(10);
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayTopCityDistrict(cities, 10);
@@ -99,7 +99,7 @@ class AppIntegrationTest {
 
     @Test
     void getCountryPopLsRegion() {
-        ArrayList<country> countries = app.getCountryPopLsRegion();
+        ArrayList<Country> countries = app.getCountryPopLsRegion();
         assertNotNull(countries);
         assertEquals(countries.size() > 0, true);
         app.displayCountryPopLSRegion(countries);
@@ -107,7 +107,7 @@ class AppIntegrationTest {
 
     @Test
     void getCouCon() {
-        ArrayList<country> countries = app.getCouCon();
+        ArrayList<Country> countries = app.getCouCon();
         assertNotNull(countries);
         assertEquals(countries.size() > 0, true);
         app.displayCouCon(countries);
@@ -115,7 +115,7 @@ class AppIntegrationTest {
 
     @Test
     void getCountryPopLs() {
-        ArrayList<country> countries = app.getCountryPopLs();
+        ArrayList<Country> countries = app.getCountryPopLs();
         assertNotNull(countries);
         assertEquals(countries.size() > 0, true);
         app.displayCountry(countries);
@@ -124,7 +124,7 @@ class AppIntegrationTest {
 
     @Test
     void getCountryTopPop() {
-        ArrayList<country> countries = app.getCountryTopPop(10);
+        ArrayList<Country> countries = app.getCountryTopPop(10);
         assertNotNull(countries);
         assertEquals(countries.size() > 0, true);
         app.displayTopCountryPop(countries, 10);
@@ -132,7 +132,7 @@ class AppIntegrationTest {
 
     @Test
     void getTopCouContinent() {
-        ArrayList<country> countries = app.getTopCouContinent(10);
+        ArrayList<Country> countries = app.getTopCouContinent(10);
         assertNotNull(countries);
         assertEquals(countries.size() > 0, true);
         app.displayTopCouContPop(countries, 10);
@@ -140,7 +140,7 @@ class AppIntegrationTest {
 
     @Test
     void getTopCouRegion() {
-        ArrayList<country> countries = app.getTopCouRegion(10);
+        ArrayList<Country> countries = app.getTopCouRegion(10);
         assertNotNull(countries);
         assertEquals(countries.size() > 0, true);
         app.displayTopCouRegPop(countries, 10);
@@ -148,7 +148,7 @@ class AppIntegrationTest {
 
     @Test
     void getCapitalPopls() throws SQLException {
-        ArrayList<capitalCity> capCities = app.getCapitalPopls();
+        ArrayList<CapitalCity> capCities = app.getCapitalPopls();
         assertNotNull(capCities);
         assertEquals(capCities.size() > 0, true);
         app.displayCapital(capCities);
@@ -156,7 +156,7 @@ class AppIntegrationTest {
 
     @Test
     void getCapCityConLToS() throws SQLException {
-        ArrayList<capitalCity> capCities = app.getCapCityConLToS();
+        ArrayList<CapitalCity> capCities = app.getCapCityConLToS();
         assertNotNull(capCities);
         assertEquals(capCities.size() > 0, true);
         app.displayCapCitCon(capCities);
@@ -164,7 +164,7 @@ class AppIntegrationTest {
 
     @Test
     void getCapCitRegLS() throws SQLException {
-        ArrayList<capitalCity> capCities = app.getCapCitRegLS();
+        ArrayList<CapitalCity> capCities = app.getCapCitRegLS();
         assertNotNull(capCities);
         assertEquals(capCities.size() > 0, true);
         app.dispalyCapCitRegLs(capCities);
@@ -172,7 +172,7 @@ class AppIntegrationTest {
 
     @Test
     void getTCAWPopls() throws SQLException {
-        ArrayList<capitalCity> capCities = app.getTCAWPopls(10);
+        ArrayList<CapitalCity> capCities = app.getTCAWPopls(10);
         assertNotNull(capCities);
         assertEquals(capCities.size() > 0, true);
         app.displayTCAW(capCities, 10);
@@ -180,7 +180,7 @@ class AppIntegrationTest {
 
     @Test
     void getTCACPopls() throws SQLException {
-        ArrayList<capitalCity> capCities = app.getTCACPopls(10);
+        ArrayList<CapitalCity> capCities = app.getTCACPopls(10);
         assertNotNull(capCities);
         assertEquals(capCities.size() > 0, true);
         app.displayTCAC(capCities, 10);
@@ -188,7 +188,7 @@ class AppIntegrationTest {
 
     @Test
     void getTCARPopls() throws SQLException {
-        ArrayList<capitalCity> capCities = app.getTCARPopls(10);
+        ArrayList<CapitalCity> capCities = app.getTCARPopls(10);
         assertNotNull(capCities);
         assertEquals(capCities.size() > 0, true);
         app.displayTCAR(capCities, 10);

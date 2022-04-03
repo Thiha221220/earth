@@ -79,16 +79,16 @@ public class App
      * @return cities
      */
 
-    public static ArrayList<city> getCityPopLs() {
+    public static ArrayList<City> getCityPopLs() {
         try {
             //  sql query based on issue
             String sql = "select city.Name, country.Name, city.District, city.Population from country,city where country.Code = city.CountryCode order by city.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store cities
-            ArrayList<city> cities = new ArrayList<city>();
+            ArrayList<City> cities = new ArrayList<City>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next()) {
-                city ct = new city(rset.getString(1), rset.getString(2), rset.getString(3), rset.getFloat(4));
+                City ct = new City(rset.getString(1), rset.getString(2), rset.getString(3), rset.getInt(4));
                 cities.add(ct);
             }
             return cities;
@@ -104,16 +104,16 @@ public class App
      * @return coucity
      */
 
-    public ArrayList<city> getCityCountryPopLs() throws SQLException {
+    public ArrayList<City> getCityCountryPopLs() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city,country where city.CountryCode='KOR' and city.CountryCode = country.Code order by city.Population desc";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store city
-        ArrayList<city> coucity = new ArrayList<city>();
+        ArrayList<City> coucity = new ArrayList<City>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
-            city cct = new city(rset.getString(1),rset.getString(2),rset.getString(3),rset.getFloat(4));
+            City cct = new City(rset.getString(1),rset.getString(2),rset.getString(3),rset.getInt(4));
             coucity.add(cct);
         }
         return coucity;
@@ -124,15 +124,15 @@ public class App
      * @return cityconti
      */
 
-    public ArrayList<city> getCityContinentPopLs() throws SQLException {
+    public ArrayList<City> getCityContinentPopLs() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Europe' order by city.Population desc ";
         // create array to store city
-        ArrayList<city> cityconti = new ArrayList<city>();
+        ArrayList<City> cityconti = new ArrayList<City>();
         PreparedStatement pstmt = con.prepareStatement(sql);
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            city cct = new city(rset.getString(1),rset.getString(2),rset.getString(3),rset.getFloat(4));
+            City cct = new City(rset.getString(1),rset.getString(2),rset.getString(3),rset.getInt(4));
             cityconti.add(cct);
         }
         return cityconti;
@@ -142,7 +142,7 @@ public class App
      * @return d_cities
      */
 
-    public ArrayList<city> getDistrictPopls()
+    public ArrayList<City> getDistrictPopls()
     {
         try
         {
@@ -150,11 +150,11 @@ public class App
             String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.district='England' and city.CountryCode = country.Code order by city.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store city
-            ArrayList<city> d_cities = new ArrayList<city>();
+            ArrayList<City> d_cities = new ArrayList<City>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                city dc = new city(rset.getString(1),rset.getString(2),rset.getString(3),rset.getFloat(4));
+                City dc = new City(rset.getString(1),rset.getString(2),rset.getString(3),rset.getInt(4));
                 d_cities.add(dc);
             }
             return d_cities;
@@ -172,20 +172,20 @@ public class App
      * @return r_cities
      */
 
-    public ArrayList<city> getRegionPopls() throws SQLException {
+    public ArrayList<City> getRegionPopls() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store cities
-        ArrayList<city> r_cities = new ArrayList<city>();
+        ArrayList<City> r_cities = new ArrayList<City>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
-            city rc = new city(
+            City rc = new City(
                     rset.getString(1),
                     rset.getString(2),
                     rset.getString(3),
-                    rset.getFloat(4));
+                    rset.getInt(4));
             r_cities.add(rc);
         }
         return r_cities;
@@ -195,20 +195,20 @@ public class App
      * @return TNPop_cities
      */
 
-    public ArrayList<city> getTopNPopCit() throws SQLException {
+    public ArrayList<City> getTopNPopCit() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Name = 'Myanmar' order by city.Population desc LIMIT 10";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store top 10 populated cities
-        ArrayList<city> TNPop_cities = new ArrayList<city>();
+        ArrayList<City> TNPop_cities = new ArrayList<City>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
-            city Tn_C = new city(
+            City Tn_C = new City(
                     rset.getString(1),
                     rset.getString(2),
                     rset.getString(3),
-                    rset.getFloat(4));
+                    rset.getInt(4));
             TNPop_cities.add(Tn_C);
         }
         return TNPop_cities;
@@ -218,20 +218,20 @@ public class App
      * @return TNPopCit_World
      */
 
-    public ArrayList<city> getTopNPopCitWorld() throws SQLException {
+    public ArrayList<City> getTopNPopCitWorld() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code order by city.Population desc LIMIT 10";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store top 10 populated cities
-        ArrayList<city> TNPopCit_World = new ArrayList<city>();
+        ArrayList<City> TNPopCit_World = new ArrayList<City>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
-            city TnC_W = new city(
+            City TnC_W = new City(
                     rset.getString(1),
                     rset.getString(2),
                     rset.getString(3),
-                    rset.getFloat(4));
+                    rset.getInt(4));
             TNPopCit_World.add(TnC_W);
         }
         return TNPopCit_World;
@@ -241,18 +241,18 @@ public class App
      * top N populated cities in a continent where N is provided by the user
      * @return topcityconti
      */
-    public ArrayList<city> getTopCityContinent(int topccon) throws SQLException {
+    public ArrayList<City> getTopCityContinent(int topccon) throws SQLException {
         try
         {
             //  sql query based on issue
             String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Asia' order by city.Population desc limit "+topccon;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<city> topcityconti = new ArrayList<city>();
+            ArrayList<City> topcityconti = new ArrayList<City>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                city tcct = new city(rset.getString(1),rset.getString(2),rset.getString(3),rset.getFloat(4));
+                City tcct = new City(rset.getString(1),rset.getString(2),rset.getString(3),rset.getInt(4));
                 topcityconti.add(tcct);
             }
             return topcityconti;
@@ -270,20 +270,20 @@ public class App
      * @return cityrgn
      */
 
-    public ArrayList<city> getTopCityRegion(int topcrgn) throws SQLException {
+    public ArrayList<City> getTopCityRegion(int topcrgn) throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc limit "+topcrgn;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store cities
-        ArrayList<city> cityrgn = new ArrayList<city>();
+        ArrayList<City> cityrgn = new ArrayList<City>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
-            city tcrn = new city(
+            City tcrn = new City(
                     rset.getString(1),
                     rset.getString(2),
                     rset.getString(3),
-                    rset.getFloat(4));
+                    rset.getInt(4));
             cityrgn.add(tcrn);
         }
         return cityrgn;
@@ -294,7 +294,7 @@ public class App
      *      * @return topcitydis
      */
 
-    public ArrayList<city> getTopCityDistrict(int topcdst) throws SQLException
+    public ArrayList<City> getTopCityDistrict(int topcdst) throws SQLException
     {
         try
         {
@@ -302,11 +302,11 @@ public class App
             String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.district='England' and city.CountryCode = country.Code order by city.Population desc limit "+topcdst;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store city
-            ArrayList<city> topcitydis = new ArrayList<city>();
+            ArrayList<City> topcitydis = new ArrayList<City>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                city tcdt = new city(rset.getString(1),rset.getString(2),rset.getString(3),rset.getFloat(4));
+                City tcdt = new City(rset.getString(1),rset.getString(2),rset.getString(3),rset.getInt(4));
                 topcitydis.add(tcdt);
             }
             return topcitydis;
@@ -324,7 +324,7 @@ public class App
      * @return countries1
      */
 
-    public ArrayList<country> getCountryPopLsRegion()
+    public ArrayList<Country> getCountryPopLsRegion()
     {
         try
         {
@@ -332,11 +332,11 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where Region = 'Southeast Asia' and country.Capital = city.ID order by Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<country> countries1 = new ArrayList<country>();
+            ArrayList<Country> countries1 = new ArrayList<Country>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
                 countries1.add(cou);
             }
             return countries1;
@@ -355,7 +355,7 @@ public class App
      * @return couCon
      */
 
-    public ArrayList<country> getCouCon()
+    public ArrayList<Country> getCouCon()
     {
         try
         {
@@ -363,11 +363,11 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where Continent = 'Europe' and country.Capital = city.ID order by country.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<country> couCon = new ArrayList<country>();
+            ArrayList<Country> couCon = new ArrayList<Country>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                country couCons = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                Country couCons = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
                 couCon.add(couCons);
             }
             return couCon;
@@ -387,7 +387,7 @@ public class App
      * @return countries
      */
 
-    public ArrayList<country> getCountryPopLs()
+    public ArrayList<Country> getCountryPopLs()
     {
         try
         {
@@ -395,11 +395,11 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID order by country.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<country> countries = new ArrayList<country>();
+            ArrayList<Country> countries = new ArrayList<Country>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
                 countries.add(cou);
             }
             return countries;
@@ -418,7 +418,7 @@ public class App
      * @return t_countries
      */
 
-    public ArrayList<country> getCountryTopPop(int topcou )
+    public ArrayList<Country> getCountryTopPop(int topcou )
     {
         try
         {
@@ -426,11 +426,11 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID order by country.Population desc limit "+topcou;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<country> t_countries = new ArrayList<country>();
+            ArrayList<Country> t_countries = new ArrayList<Country>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
                 t_countries.add(cou);
             }
             return t_countries;
@@ -449,7 +449,7 @@ public class App
      * @return top_cou_con
      */
 
-    public ArrayList<country> getTopCouContinent(int topcou)
+    public ArrayList<Country> getTopCouContinent(int topcou)
     {
         try
         {
@@ -457,11 +457,11 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID and Continent='North America' order by country.Population desc limit "+topcou;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<country> top_cou_con = new ArrayList<country>();
+            ArrayList<Country> top_cou_con = new ArrayList<Country>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
                 top_cou_con.add(cou);
             }
             return top_cou_con;
@@ -480,7 +480,7 @@ public class App
      * @return top_cou_reg
      */
 
-    public ArrayList<country> getTopCouRegion(int topcou)
+    public ArrayList<Country> getTopCouRegion(int topcou)
     {
         try
         {
@@ -488,11 +488,11 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID and Region='Caribbean' order by country.Population desc limit "+topcou;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<country> top_cou_reg = new ArrayList<country>();
+            ArrayList<Country> top_cou_reg = new ArrayList<Country>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                country cou = new country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getFloat(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
                 top_cou_reg.add(cou);
             }
             return top_cou_reg;
@@ -511,15 +511,15 @@ public class App
      * @return capital_cities
      */
 
-    public ArrayList<capitalCity> getCapitalPopls() throws SQLException {
+    public ArrayList<CapitalCity> getCapitalPopls() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID order by city.Population desc";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ArrayList<CapitalCity> capital_cities = new ArrayList<CapitalCity>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            CapitalCity cap_c = new CapitalCity(rset.getString(1), rset.getString(2), rset.getInt(3));
             capital_cities.add(cap_c);
         }
         return capital_cities;
@@ -529,15 +529,15 @@ public class App
      * @return capCityCon
      */
 
-    public ArrayList<capitalCity> getCapCityConLToS() throws SQLException {
+    public ArrayList<CapitalCity> getCapCityConLToS() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from city, country where city.CountryCode = country.Code and country.Continent='North America' order by city.Population desc ";
         // create array to store Capital City
-        ArrayList<capitalCity> capCityCon = new ArrayList<capitalCity>();
+        ArrayList<CapitalCity> capCityCon = new ArrayList<CapitalCity>();
         PreparedStatement psTmt = con.prepareStatement(sql);
         ResultSet reSet = psTmt.executeQuery();
         while (reSet.next()) {
-            capitalCity cap_cc = new capitalCity(reSet.getString(1),reSet.getString(2),reSet.getFloat(3));
+            CapitalCity cap_cc = new CapitalCity(reSet.getString(1),reSet.getString(2),reSet.getInt(3));
             capCityCon.add(cap_cc);
         }
         return capCityCon;
@@ -547,15 +547,15 @@ public class App
      * @return capCitReg
      */
 
-    public ArrayList<capitalCity> getCapCitRegLS() throws SQLException {
+    public ArrayList<CapitalCity> getCapCitRegLS() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from city, country where city.CountryCode = country.Code and country.Region='Caribbean' order by city.Population desc ";
         // create array to store Capital City
-        ArrayList<capitalCity> capCitReg = new ArrayList<capitalCity>();
+        ArrayList<CapitalCity> capCitReg = new ArrayList<CapitalCity>();
         PreparedStatement psTmt = con.prepareStatement(sql);
         ResultSet reSet = psTmt.executeQuery();
         while (reSet.next()) {
-            capitalCity cap_cr = new capitalCity(reSet.getString(1),reSet.getString(2),reSet.getFloat(3));
+            CapitalCity cap_cr = new CapitalCity(reSet.getString(1),reSet.getString(2),reSet.getInt(3));
             capCitReg.add(cap_cr);
         }
         return capCitReg;
@@ -566,15 +566,15 @@ public class App
      * @return capital_cities
      */
 
-    public ArrayList<capitalCity> getTCAWPopls(int times) throws SQLException {
+    public ArrayList<CapitalCity> getTCAWPopls(int times) throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ArrayList<CapitalCity> capital_cities = new ArrayList<CapitalCity>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            CapitalCity cap_c = new CapitalCity(rset.getString(1), rset.getString(2), rset.getInt(3));
             capital_cities.add(cap_c);
         }
         return capital_cities;
@@ -584,15 +584,15 @@ public class App
      * @return capital_cities
      */
 
-    public ArrayList<capitalCity> getTCACPopls(int times) throws SQLException {
+    public ArrayList<CapitalCity> getTCACPopls(int times) throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.continent = 'Oceania' order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ArrayList<CapitalCity> capital_cities = new ArrayList<CapitalCity>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            CapitalCity cap_c = new CapitalCity(rset.getString(1), rset.getString(2), rset.getInt(3));
             capital_cities.add(cap_c);
         }
         return capital_cities;
@@ -602,15 +602,15 @@ public class App
      * @return capital_cities
      */
 
-    public ArrayList<capitalCity> getTCARPopls(int times) throws SQLException {
+    public ArrayList<CapitalCity> getTCARPopls(int times) throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.Region = 'Middle East' order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<capitalCity> capital_cities = new ArrayList<capitalCity>();
+        ArrayList<CapitalCity> capital_cities = new ArrayList<CapitalCity>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            capitalCity cap_c = new capitalCity(rset.getString(1), rset.getString(2), rset.getFloat(3));
+            CapitalCity cap_c = new CapitalCity(rset.getString(1), rset.getString(2), rset.getInt(3));
             capital_cities.add(cap_c);
         }
         return capital_cities;
@@ -622,7 +622,7 @@ public class App
      * @param cityNum city population in the world list
      */
 
-    public static void displayCity(ArrayList<city> cityNum)
+    public static void displayCity(ArrayList<City> cityNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -640,7 +640,7 @@ public class App
 
         System.out.println("All the cities in the world organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (city c: cityNum)
+        for (City c: cityNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -656,7 +656,7 @@ public class App
      * @param Tnp_C population in the world list
      */
 
-    public static void displayTopNPopCity(ArrayList<city> Tnp_C)
+    public static void displayTopNPopCity(ArrayList<City> Tnp_C)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -674,7 +674,7 @@ public class App
 
         System.out.println("This is top 10 populated cities in Myanmar country");
         // loop cell and columns with fetch data
-        for (city c: Tnp_C)
+        for (City c: Tnp_C)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -690,7 +690,7 @@ public class App
      * @param TnpC_W population in the world list
      */
 
-    public static void displayTopNPopCityWorld(ArrayList<city> TnpC_W)
+    public static void displayTopNPopCityWorld(ArrayList<City> TnpC_W)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -708,7 +708,7 @@ public class App
 
         System.out.println("This is top 10 populated cities in the world");
         // loop cell and columns with fetch data
-        for (city c: TnpC_W)
+        for (City c: TnpC_W)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -724,7 +724,7 @@ public class App
      * @param ccnt city population in the country list
      */
 
-    public static void displayCityCountry(ArrayList<city> ccnt)
+    public static void displayCityCountry(ArrayList<City> ccnt)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -742,7 +742,7 @@ public class App
 
         System.out.println("All the cities in South Korea organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (city c: ccnt)
+        for (City c: ccnt)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell("South Korea", numberStyle);
@@ -758,7 +758,7 @@ public class App
      * @param dcNum city population in a district list
      */
 
-    public static void displayCityDistrict(ArrayList<city> dcNum)
+    public static void displayCityDistrict(ArrayList<City> dcNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -776,7 +776,7 @@ public class App
 
         System.out.println("All the cities in England organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (city c: dcNum)
+        for (City c: dcNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -792,7 +792,7 @@ public class App
      * @param ccnt city population in a continent list
      */
 
-    public static void displayCityContinent(ArrayList<city> ccnt)
+    public static void displayCityContinent(ArrayList<City> ccnt)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -809,7 +809,7 @@ public class App
         t.addCell("Population", numberStyle);
         System.out.println("All the cities in Europe organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (city c: ccnt)
+        for (City c: ccnt)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -826,7 +826,7 @@ public class App
      * @param rcNum city population in a region list
      */
 
-    public static void displayRegion(ArrayList<city> rcNum)
+    public static void displayRegion(ArrayList<City> rcNum)
     {
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
@@ -845,7 +845,7 @@ public class App
 
         System.out.println("All the cities in South East Asia organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (city rci: rcNum)
+        for (City rci: rcNum)
         {
             t.addCell(rci.getName(), numberStyle);
             t.addCell(rci.getCountry(), numberStyle);
@@ -862,7 +862,7 @@ public class App
      * @param topccon
      */
 
-    public static void displayTopCityContinent(ArrayList<city> tccnt, int topccon)
+    public static void displayTopCityContinent(ArrayList<City> tccnt, int topccon)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -879,7 +879,7 @@ public class App
         t.addCell("Population", numberStyle);
         System.out.println("Top "+topccon+" Populated cities in Asia where "+topccon+" is provided by the user");
         // loop cell and columns with fetch data
-        for (city c: tccnt)
+        for (City c: tccnt)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -895,7 +895,7 @@ public class App
      * @param tcrgn the top N population of country in the world list
      * @param topcrgn
      */
-    public static void displayTopCityRegion(ArrayList<city> tcrgn, int topcrgn)
+    public static void displayTopCityRegion(ArrayList<City> tcrgn, int topcrgn)
     {
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
@@ -914,7 +914,7 @@ public class App
 
         System.out.println("Top "+topcrgn+" Populated cities in South East Asia where "+topcrgn+" is provided by the user");
         // loop cell and columns with fetch data
-        for (city rci: tcrgn)
+        for (City rci: tcrgn)
         {
             t.addCell(rci.getName(), numberStyle);
             t.addCell(rci.getCountry(), numberStyle);
@@ -931,7 +931,7 @@ public class App
      * @param topcdst
      */
 
-    public static void displayTopCityDistrict(ArrayList<city> tcdst, int topcdst)
+    public static void displayTopCityDistrict(ArrayList<City> tcdst, int topcdst)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -949,7 +949,7 @@ public class App
 
         System.out.println("Top "+topcdst+" Populated cities in England where "+topcdst+" is provided by the user");
         // loop cell and columns with fetch data
-        for (city c: tcdst)
+        for (City c: tcdst)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -965,7 +965,7 @@ public class App
      * @param capcNum capital city population in the world list
      */
 
-    public static void displayTCAW(ArrayList<capitalCity> capcNum, int times)
+    public static void displayTCAW(ArrayList<CapitalCity> capcNum, int times)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -981,7 +981,7 @@ public class App
 
         System.out.println("The top "+times+" populated capital cities in the world where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
-        for (capitalCity c: capcNum)
+        for (CapitalCity c: capcNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -995,7 +995,7 @@ public class App
      * @param capconNum capital city population in the continent list
      */
 
-    public void displayTCAC(ArrayList<capitalCity> capconNum, int times)
+    public void displayTCAC(ArrayList<CapitalCity> capconNum, int times)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1011,7 +1011,7 @@ public class App
 
         System.out.println("The top "+times+" populated capital cities in Oceania where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
-        for (capitalCity c: capconNum)
+        for (CapitalCity c: capconNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -1025,7 +1025,7 @@ public class App
      * @param caprNum capital city population in the region list
      */
 
-    public static void displayTCAR(ArrayList<capitalCity> caprNum, int times) {
+    public static void displayTCAR(ArrayList<CapitalCity> caprNum, int times) {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1038,7 +1038,7 @@ public class App
         t.addCell("Country", numberStyle);
         t.addCell("Population", numberStyle);System.out.println("The top "+times+" populated capital cities in the Middle East where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
-        for (capitalCity c: caprNum)
+        for (CapitalCity c: caprNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -1052,7 +1052,7 @@ public class App
      * @param couNum countries population in the world list
      */
 
-    public static void displayCountry(ArrayList<country> couNum)
+    public static void displayCountry(ArrayList<Country> couNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -1074,7 +1074,7 @@ public class App
 
         System.out.println("All the countries in the world organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (country c: couNum)
+        for (Country c: couNum)
         {
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
@@ -1093,7 +1093,7 @@ public class App
      * @param couNum country population in a region list
      */
 
-    public static void displayCountryPopLSRegion(ArrayList<country> couNum)
+    public static void displayCountryPopLSRegion(ArrayList<Country> couNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1115,7 +1115,7 @@ public class App
 
         System.out.println("All the countries in South East Asia organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (country c: couNum)
+        for (Country c: couNum)
         {
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
@@ -1132,7 +1132,7 @@ public class App
      * @param couConNum country population in a continent list
      */
 
-    public static void displayCouCon(ArrayList<country> couConNum)
+    public static void displayCouCon(ArrayList<Country> couConNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1154,7 +1154,7 @@ public class App
 
         System.out.println("All the countries in Europe organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (country c: couConNum)
+        for (Country c: couConNum)
         {
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
@@ -1172,7 +1172,7 @@ public class App
      * @param topcou
      */
 
-    public static void displayTopCountryPop(ArrayList<country> couNum, int topcou)
+    public static void displayTopCountryPop(ArrayList<Country> couNum, int topcou)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1194,7 +1194,7 @@ public class App
 
         System.out.println( "The top "+ topcou + " populated countries in the world where " + topcou + " is provided by the user");
         // loop cell and columns with fetch data
-        for (country c: couNum)
+        for (Country c: couNum)
         {
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
@@ -1213,7 +1213,7 @@ public class App
      * @param topcou
      */
 
-    public static void displayTopCouContPop(ArrayList<country> couNum, int topcou)
+    public static void displayTopCouContPop(ArrayList<Country> couNum, int topcou)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1235,7 +1235,7 @@ public class App
 
         System.out.println( "The top "+ topcou + " populated countries in North America where " + topcou + " is provided by the user");
         // loop cell and columns with fetch data
-        for (country c: couNum)
+        for (Country c: couNum)
         {
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
@@ -1254,7 +1254,7 @@ public class App
      * @param topcou
      */
 
-    public static void displayTopCouRegPop(ArrayList<country> couNum, int topcou)
+    public static void displayTopCouRegPop(ArrayList<Country> couNum, int topcou)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1276,7 +1276,7 @@ public class App
 
         System.out.println( "The top "+ topcou + " populated countries in Caribbean where " + topcou + " is provided by the user");
         // loop cell and columns with fetch data
-        for (country c: couNum)
+        for (Country c: couNum)
         {
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
@@ -1294,7 +1294,7 @@ public class App
      * @param capcNum capital city population in the world list
      */
 
-    public static void displayCapital(ArrayList<capitalCity> capcNum)
+    public static void displayCapital(ArrayList<CapitalCity> capcNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1310,7 +1310,7 @@ public class App
 
         System.out.println("All the capital cities in the world organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (capitalCity c: capcNum)
+        for (CapitalCity c: capcNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -1324,7 +1324,7 @@ public class App
      * @param capCRNum capital city population in the world list
      */
 
-    public static void dispalyCapCitRegLs(ArrayList<capitalCity> capCRNum)
+    public static void dispalyCapCitRegLs(ArrayList<CapitalCity> capCRNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1340,7 +1340,7 @@ public class App
 
         System.out.println("All the capital cities in Caribbean organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (capitalCity c: capCRNum)
+        for (CapitalCity c: capCRNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -1354,7 +1354,7 @@ public class App
      * @param CCCNum Capital city population in a continent list
      */
 
-    public void displayCapCitCon(ArrayList<capitalCity> CCCNum)
+    public void displayCapCitCon(ArrayList<CapitalCity> CCCNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1370,7 +1370,7 @@ public class App
 
         System.out.println("All the capital cities in North America organised by largest population to smallest");
         // loop cell and columns with fetch data
-        for (capitalCity c: CCCNum)
+        for (CapitalCity c: CCCNum)
         {
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
@@ -1401,59 +1401,59 @@ public class App
         }
 
         // city
-        ArrayList<city> cities = a.getCityPopLs();
+        ArrayList<City> cities = a.getCityPopLs();
         a.displayCity(cities);
-        ArrayList<city> coucities = a.getCityCountryPopLs();
+        ArrayList<City> coucities = a.getCityCountryPopLs();
         a.displayCityCountry(coucities);
-        ArrayList<city> cityconti = a.getCityContinentPopLs();
+        ArrayList<City> cityconti = a.getCityContinentPopLs();
         a.displayCityContinent(cityconti);
-        ArrayList<city> d_cities = a.getDistrictPopls();
+        ArrayList<City> d_cities = a.getDistrictPopls();
         a.displayCityDistrict(d_cities);
-        ArrayList<city> r_cities = a.getRegionPopls();
+        ArrayList<City> r_cities = a.getRegionPopls();
         a.displayRegion(r_cities);
-        ArrayList<city> Tnp_C = a.getTopNPopCit();
+        ArrayList<City> Tnp_C = a.getTopNPopCit();
         a.displayTopNPopCity(Tnp_C);
-        ArrayList<city> TnpC_W = a.getTopNPopCitWorld();
+        ArrayList<City> TnpC_W = a.getTopNPopCitWorld();
         a.displayTopNPopCityWorld(TnpC_W);
         int tpcity = 10;
-        ArrayList<city> topcityconti = a.getTopCityContinent(tpcity);
+        ArrayList<City> topcityconti = a.getTopCityContinent(tpcity);
         a.displayTopCityContinent(topcityconti,tpcity);
-        ArrayList<city> topcityrgn = a.getTopCityRegion(tpcity);
+        ArrayList<City> topcityrgn = a.getTopCityRegion(tpcity);
         a.displayTopCityRegion(topcityrgn,tpcity);
-        ArrayList<city> topcitydst = a.getTopCityDistrict(tpcity);
+        ArrayList<City> topcitydst = a.getTopCityDistrict(tpcity);
         a.displayTopCityDistrict(topcitydst,tpcity);
 
         // country
-        ArrayList<country> countries = a.getCountryPopLs();
+        ArrayList<Country> countries = a.getCountryPopLs();
         a.displayCountry(countries);
-        ArrayList<country> countriesRegionLS = a.getCountryPopLsRegion();
+        ArrayList<Country> countriesRegionLS = a.getCountryPopLsRegion();
         a.displayCountryPopLSRegion(countriesRegionLS);
-        ArrayList<country> CouCon = a.getCouCon();
+        ArrayList<Country> CouCon = a.getCouCon();
         a.displayCouCon(CouCon);
         int topcou = 10;
-        ArrayList<country> t_countries = a.getCountryTopPop(topcou);
+        ArrayList<Country> t_countries = a.getCountryTopPop(topcou);
         a.displayTopCountryPop(t_countries,topcou);
-        ArrayList<country> top_con_cou = a.getTopCouContinent(topcou);
+        ArrayList<Country> top_con_cou = a.getTopCouContinent(topcou);
         a.displayTopCouContPop(top_con_cou,topcou);
-        ArrayList<country> top_con_reg = a.getTopCouRegion(topcou);
+        ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
         a.displayTopCouRegPop(top_con_reg,topcou);
 
         // capital city
         int times = 10;
 
-        ArrayList<capitalCity> capital_cities = a.getCapitalPopls();
+        ArrayList<CapitalCity> capital_cities = a.getCapitalPopls();
         a.displayCapital(capital_cities);
 
-        ArrayList<capitalCity> tCAW = a.getTCAWPopls(times);
+        ArrayList<CapitalCity> tCAW = a.getTCAWPopls(times);
         a.displayTCAW(tCAW,times);
-        ArrayList<capitalCity> tCAC = a.getTCACPopls(times);
+        ArrayList<CapitalCity> tCAC = a.getTCACPopls(times);
         a.displayTCAC(tCAC,times);
-        ArrayList<capitalCity> tCAR = a.getTCARPopls(times);
+        ArrayList<CapitalCity> tCAR = a.getTCARPopls(times);
         a.displayTCAR(tCAR,times);
 
-        ArrayList<capitalCity> capital_cities_Continent = a.getCapCityConLToS();
+        ArrayList<CapitalCity> capital_cities_Continent = a.getCapCityConLToS();
         a.displayCapCitCon(capital_cities_Continent);
-        ArrayList<capitalCity> capital_cities_Region = a.getCapCitRegLS();
+        ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
         a.dispalyCapCitRegLs(capital_cities_Region);
         // Disconnect from database
         a.disconnect();
