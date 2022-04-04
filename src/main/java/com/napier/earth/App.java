@@ -642,14 +642,14 @@ public class App
      * @return capital_cities
      */
 
-    public Object[] getLanguagePops() throws SQLException {
+    public ArrayList<Country>[] getLanguagePops() throws SQLException {
         //  sql query based on issue
         String sql = "select population from country";
-        String sqlE = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'English'";
-        String sqlC = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Chinese'";
-        String sqlA = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Arabic'";
-        String sqlH = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Hindi'";
-        String sqlS = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Spanish'";
+        String sqlE = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'English' and countrylanguage.IsOfficial = 'T'";
+        String sqlC = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Chinese' and countrylanguage.IsOfficial = 'T'";
+        String sqlA = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Arabic' and countrylanguage.IsOfficial = 'T'";
+        String sqlH = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Hindi' and countrylanguage.IsOfficial = 'T'";
+        String sqlS = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Spanish' and countrylanguage.IsOfficial = 'T'";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
         ArrayList<Country> popw = new ArrayList<Country>();
@@ -657,23 +657,23 @@ public class App
         PreparedStatement pstmt1 = con.prepareStatement(sqlE);
         // create array to store capital_cities
         ArrayList<Country> pope = new ArrayList<Country>();
-        ResultSet rset1 = pstmt.executeQuery();
+        ResultSet rset1 = pstmt1.executeQuery();
         PreparedStatement pstmt2 = con.prepareStatement(sqlC);
         // create array to store capital_cities
         ArrayList<Country> popc = new ArrayList<Country>();
-        ResultSet rset2 = pstmt.executeQuery();
+        ResultSet rset2 = pstmt2.executeQuery();
         PreparedStatement pstmt3 = con.prepareStatement(sqlA);
         // create array to store capital_cities
         ArrayList<Country> popa = new ArrayList<Country>();
-        ResultSet rset3 = pstmt.executeQuery();
+        ResultSet rset3 = pstmt3.executeQuery();
         PreparedStatement pstmt4 = con.prepareStatement(sqlH);
         // create array to store capital_cities
         ArrayList<Country> poph = new ArrayList<Country>();
-        ResultSet rset4 = pstmt.executeQuery();
+        ResultSet rset4 = pstmt4.executeQuery();
         PreparedStatement pstmt5 = con.prepareStatement(sqlS);
         // create array to store capital_cities
         ArrayList<Country> pops = new ArrayList<Country>();
-        ResultSet rset5 = pstmt.executeQuery();
+        ResultSet rset5 = pstmt5.executeQuery();
         while (rset.next()) {
             Country countryW = new Country(rset.getInt(1));
             popw.add(countryW);
@@ -698,7 +698,8 @@ public class App
             Country countryS = new Country(rset5.getInt(1));
             pops.add(countryS);
         }
-        return new Object[]{popw, pope,popc,popa,poph,pops};
+        ArrayList<Country>[] ints = new ArrayList[]{popw, pope, popc, popa, poph, pops};
+        return ints;
     }
     /**
      *  Display function of all the cities in the world organised by largest population to smallest
@@ -1490,10 +1491,10 @@ public class App
     /**
      *  Display function of the population of the world should be accessible to the organisation.
      * param CCCNum Capital city population in a continent list
+     * @param args
      */
 
-    public void displayPopE()
-    {
+    public void displayPopE(ArrayList<Country>[] args) throws SQLException {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1504,11 +1505,45 @@ public class App
         t.addCell("The number of people who speak Chinese, English, Hindi, Spanish and Arabic from greatest number to smallest, including the percentage of the world population.");
         // loop cell and columns with fetch data
         long sum = 0;
-//
-//        for (Country c: CCCNum){
-//            sum += c.getPopulation();
+        long sume = 0;
+        long sumc = 0;
+        long suma = 0;
+        long sumh = 0;
+        long sums = 0;
+        String[] language = {"Chinese","English","Hindi","Spanish","Arabic"};
+        int i = 0;
+        ArrayList<Long> popw = new ArrayList<>();
+        ArrayList<Long> pope = new ArrayList<>();
+        ArrayList<Long> popa = new ArrayList<>();
+        ArrayList<Long> pops = new ArrayList<>();
+        ArrayList<Long> poph = new ArrayList<>();
+        ArrayList<Long> popc = new ArrayList<>();
+//        for (Integer a: args[0]){
+//            t.addCell(String.valueOf(language[i]), numberStyle);
+//            t.addCell(String.valueOf(sum), numberStyle);
+//            i++;
 //        }
-        t.addCell(String.valueOf(sum), numberStyle);
+        for (Country c: args[0]) {
+            sum += c.getPopulation();
+        }
+        for (Country c: args[1]) {
+            sume += c.getPopulation();
+        }
+        for (Country c: args[2]) {
+            sumc += c.getPopulation();
+        }
+        for (Country c: args[3]) {
+            suma += c.getPopulation();
+        }
+        for (Country c: args[4]) {
+            sumh += c.getPopulation();
+        }
+        for (Country c: args[5]) {
+            sums += c.getPopulation();
+        }
+//        t.addCell(String.valueOf(), numberStyle);
+        double c = ((double) sume/sum)*100;
+        System.out.println(c);
         System.out.println(t.render());
     }
 
@@ -1587,6 +1622,8 @@ public class App
 
         ArrayList<Country> popw = a.getPopsW();
         a.displayPopW(popw);
+        ArrayList<Country>[] pope = a.getLanguagePops();
+        a.displayPopE(pope);
         // Disconnect from database
         a.disconnect();
     }
