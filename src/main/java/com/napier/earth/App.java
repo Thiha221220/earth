@@ -8,6 +8,8 @@ package com.napier.earth;
 
 import java.sql.*;
 import java.util.ArrayList;
+
+
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.ShownBorders;
@@ -597,6 +599,7 @@ public class App
         }
         return capital_cities;
     }
+
     /**
      *  The top N populated capital cities in the region where N is provided by the user.
      * @return capital_cities
@@ -616,6 +619,23 @@ public class App
         return capital_cities;
     }
 
+    /**
+     *  The top N populated capital cities in the region where N is provided by the user.
+     * @return capital_cities
+     */
+
+    public ArrayList<Long> getPopsW() throws SQLException {
+        //  sql query based on issue
+        String sql = "select city.Population, country.Population from country,city";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<Long> capital_cities = new ArrayList<>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            capital_cities.add(rset.getInt(1), (long) rset.getInt(2));
+        }
+        return capital_cities;
+    }
 
     /**
      *  Display function of all the cities in the world organised by largest population to smallest
@@ -1379,9 +1399,30 @@ public class App
 
         System.out.println(t.render());
     }
+    /**
+     *  Display function of the population of the world should be accessible to the organisation.
+     * @param CCCNum Capital city population in a continent list
+     */
 
-
-
+    public void displayPopW(ArrayList<Long> CCCNum)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        //  add table header
+        t.addCell("The population of the world should be accessible to the organisation.");
+        // loop cell and columns with fetch data
+        long sum = 0;
+//
+        for (Long c: CCCNum){
+            sum += c;
+        }
+        t.addCell(String.valueOf(sum), numberStyle);
+        System.out.println(t.render());
+    }
 
     /**
      * Our application entry point.
@@ -1455,6 +1496,9 @@ public class App
         a.displayCapCitCon(capital_cities_Continent);
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
         a.dispalyCapCitRegLs(capital_cities_Region);
+
+        ArrayList<Long> popw = a.getPopsW();
+        a.displayPopW(popw);
         // Disconnect from database
         a.disconnect();
     }
