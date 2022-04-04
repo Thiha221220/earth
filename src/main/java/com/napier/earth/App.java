@@ -642,7 +642,7 @@ public class App
      * @return capital_cities
      */
 
-    public ArrayList<Country> getLanguagePops() throws SQLException {
+    public Object[] getLanguagePops() throws SQLException {
         //  sql query based on issue
         String sql = "select population from country";
         String sqlE = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'English'";
@@ -654,11 +654,51 @@ public class App
         // create array to store capital_cities
         ArrayList<Country> popw = new ArrayList<Country>();
         ResultSet rset = pstmt.executeQuery();
+        PreparedStatement pstmt1 = con.prepareStatement(sqlE);
+        // create array to store capital_cities
+        ArrayList<Country> pope = new ArrayList<Country>();
+        ResultSet rset1 = pstmt.executeQuery();
+        PreparedStatement pstmt2 = con.prepareStatement(sqlC);
+        // create array to store capital_cities
+        ArrayList<Country> popc = new ArrayList<Country>();
+        ResultSet rset2 = pstmt.executeQuery();
+        PreparedStatement pstmt3 = con.prepareStatement(sqlA);
+        // create array to store capital_cities
+        ArrayList<Country> popa = new ArrayList<Country>();
+        ResultSet rset3 = pstmt.executeQuery();
+        PreparedStatement pstmt4 = con.prepareStatement(sqlH);
+        // create array to store capital_cities
+        ArrayList<Country> poph = new ArrayList<Country>();
+        ResultSet rset4 = pstmt.executeQuery();
+        PreparedStatement pstmt5 = con.prepareStatement(sqlS);
+        // create array to store capital_cities
+        ArrayList<Country> pops = new ArrayList<Country>();
+        ResultSet rset5 = pstmt.executeQuery();
         while (rset.next()) {
             Country countryW = new Country(rset.getInt(1));
             popw.add(countryW);
         }
-        return popw;
+        while (rset1.next()) {
+            Country countryE = new Country(rset1.getInt(1));
+            pope.add(countryE);
+        }
+        while (rset2.next()) {
+            Country countryC = new Country(rset2.getInt(1));
+            popc.add(countryC);
+        }
+        while (rset3.next()) {
+            Country countryA = new Country(rset3.getInt(1));
+            popa.add(countryA);
+        }
+        while (rset4.next()) {
+            Country countryH = new Country(rset4.getInt(1));
+            poph.add(countryH);
+        }
+        while (rset5.next()) {
+            Country countryS = new Country(rset5.getInt(1));
+            pops.add(countryS);
+        }
+        return new Object[]{popw, pope,popc,popa,poph,pops};
     }
     /**
      *  Display function of all the cities in the world organised by largest population to smallest
@@ -1424,7 +1464,7 @@ public class App
     }
     /**
      *  Display function of the population of the world should be accessible to the organisation.
-     * @param CCCNum Capital city population in a continent list
+     * @param CCCNum the population of the world in a continent list
      */
 
     public void displayPopW(ArrayList<Country> CCCNum)
@@ -1443,6 +1483,31 @@ public class App
         for (Country c: CCCNum){
             sum += c.getPopulation();
         }
+        t.addCell(String.valueOf(sum), numberStyle);
+        System.out.println(t.render());
+    }
+
+    /**
+     *  Display function of the population of the world should be accessible to the organisation.
+     * param CCCNum Capital city population in a continent list
+     */
+
+    public void displayPopE()
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        //  add table header
+        t.addCell("The number of people who speak Chinese, English, Hindi, Spanish and Arabic from greatest number to smallest, including the percentage of the world population.");
+        // loop cell and columns with fetch data
+        long sum = 0;
+//
+//        for (Country c: CCCNum){
+//            sum += c.getPopulation();
+//        }
         t.addCell(String.valueOf(sum), numberStyle);
         System.out.println(t.render());
     }
