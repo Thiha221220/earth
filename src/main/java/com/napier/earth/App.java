@@ -624,19 +624,42 @@ public class App
      * @return capital_cities
      */
 
-    public ArrayList<Long> getPopsW() throws SQLException {
+    public ArrayList<Country> getPopsW() throws SQLException {
         //  sql query based on issue
-        String sql = "select city.Population, country.Population from country,city";
+        String sql = "select population from country";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<Long> capital_cities = new ArrayList<>();
+        ArrayList<Country> popw = new ArrayList<Country>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            capital_cities.add(rset.getInt(1), (long) rset.getInt(2));
+            Country countryW = new Country(rset.getInt(1));
+            popw.add(countryW);
         }
-        return capital_cities;
+        return popw;
     }
+    /**
+     *  The top N populated capital cities in the region where N is provided by the user.
+     * @return capital_cities
+     */
 
+    public ArrayList<Country> getLanguagePops() throws SQLException {
+        //  sql query based on issue
+        String sql = "select population from country";
+        String sqlE = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'English'";
+        String sqlC = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Chinese'";
+        String sqlA = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Arabic'";
+        String sqlH = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Hindi'";
+        String sqlS = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Spanish'";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<Country> popw = new ArrayList<Country>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            Country countryW = new Country(rset.getInt(1));
+            popw.add(countryW);
+        }
+        return popw;
+    }
     /**
      *  Display function of all the cities in the world organised by largest population to smallest
      * @param cityNum city population in the world list
@@ -1404,7 +1427,7 @@ public class App
      * @param CCCNum Capital city population in a continent list
      */
 
-    public void displayPopW(ArrayList<Long> CCCNum)
+    public void displayPopW(ArrayList<Country> CCCNum)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1413,12 +1436,12 @@ public class App
         t.setColumnWidth(0, 8, 50);
         t.setColumnWidth(1, 7, 40);
         //  add table header
-        t.addCell("The population of the world should be accessible to the organisation.");
+        t.addCell("The population of the world");
         // loop cell and columns with fetch data
         long sum = 0;
 //
-        for (Long c: CCCNum){
-            sum += c;
+        for (Country c: CCCNum){
+            sum += c.getPopulation();
         }
         t.addCell(String.valueOf(sum), numberStyle);
         System.out.println(t.render());
@@ -1497,7 +1520,7 @@ public class App
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
         a.dispalyCapCitRegLs(capital_cities_Region);
 
-        ArrayList<Long> popw = a.getPopsW();
+        ArrayList<Country> popw = a.getPopsW();
         a.displayPopW(popw);
         // Disconnect from database
         a.disconnect();
