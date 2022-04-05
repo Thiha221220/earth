@@ -1457,11 +1457,9 @@ public class App
             ArrayList<Population> pplcnc = new ArrayList<Population>();
             // create array to store country
             ResultSet rset = pstmt.executeQuery();
-            Long cty = Long.valueOf(0);
-            Long ncty = Long.valueOf(0);
             while (rset.next())
             {
-                Population cntc = new Population(rset.getString(1),rset.getLong(2), rset.getInt(3), rset.getInt(4));
+                Population cntc = new Population(rset.getString(1),rset.getLong(2), rset.getLong(3), rset.getLong(4));
                 pplcnc.add(cntc);
             }
             return pplcnc;

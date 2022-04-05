@@ -3,8 +3,8 @@ package com.napier.earth;
 public class Population {
     private String Name;
     private Long Total;
-    private Integer Living;
-    private Integer Notliving;
+    private Long Living;
+    private Long Notliving;
 
     public String getName() {
         return Name;
@@ -14,14 +14,14 @@ public class Population {
         return Total;
     }
 
-    public Integer getLiving() {
+    public Long getLiving() {
         return Living;
     }
 
-    public Integer getNotliving() {
+    public Long getNotliving() {
         return Notliving;
     }
-    public Population(String name, Long total, Integer living, Integer notliving) {
+    public Population(String name, Long total, Long living, Long notliving) {
         Name = name;
         Total = total;
         Living = living;
