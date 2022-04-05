@@ -1443,6 +1443,40 @@ public class App
     }
 
     /**
+     *  The population of people, people living in cities, and people not living in cities in each country
+     * @return pplpop
+     */
+
+    public ArrayList<Population> getCntCitynotCity()
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "Select country.Name, country.Population, SUM(city.Population), country.Population-SUM(city.population) from country, city where country.Code = city.CountryCode GROUP BY city.CountryCode";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<Population> pplcnc = new ArrayList<Population>();
+            // create array to store country
+            ResultSet rset = pstmt.executeQuery();
+            Long cty = Long.valueOf(0);
+            Long ncty = Long.valueOf(0);
+            while (rset.next())
+            {
+                Population cntc = new Population(rset.getString(1),rset.getLong(2), rset.getInt(3), rset.getInt(4));
+                pplcnc.add(cntc);
+            }
+            return pplcnc;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of people living in cities and not living in cities");
+            return null;
+        }
+    }
+
+
+    /**
      * Display function of population report of a city
      * @param ctypop population of a country
      */
@@ -1489,6 +1523,40 @@ public class App
             cnp = c.getPopulation();
         }
         t.addCell(String.valueOf(cnp), numberStyle);
+        System.out.println(t.render());
+    }
+
+    /**
+     *  Display function of The population of people, people living in cities, and people not living in cities in each country
+     * @param pplcnc
+     */
+
+    public void displayCntCitynotCity(ArrayList<Population> pplcnc)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 40);
+        t.setColumnWidth(3, 7, 30);
+        //  add table header
+        t.addCell("Country Name", numberStyle);
+        t.addCell("Total Population", numberStyle);
+        t.addCell("People in Cities", numberStyle);
+        t.addCell("People not in Cities", numberStyle);
+
+        System.out.println("The population of people, people living in cities, and people not living in cities in each country");
+        // loop cell and columns with fetch data
+        for (Population p: pplcnc)
+        {
+            t.addCell(p.getName(), numberStyle);
+            t.addCell(String.valueOf(p.getTotal()), numberStyle);
+            t.addCell(String.valueOf(p.getLiving()), numberStyle);
+            t.addCell(String.valueOf(p.getNotliving()), numberStyle);
+        }
+
         System.out.println(t.render());
     }
 
@@ -1552,6 +1620,9 @@ public class App
 
         ArrayList<Country> coupop = a.getCountryPopulation();
         a.displayCountryPopulation(coupop);
+
+        ArrayList<Population> ctyntcty = a.getCntCitynotCity();
+        a.displayCntCitynotCity(ctyntcty);
 
 
         // capital city
