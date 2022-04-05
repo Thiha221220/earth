@@ -1,15 +1,15 @@
 package com.napier.earth;
-public class country
+
+import java.net.Inet4Address;
+
+public class Country
 {
     private String Code;
     private String Name;
     private String Continent;
     private String Region;
-    private Float Population;
+    private Integer Population;
     private String Capital;
-
-
-
 
     public String getCode() {
         return Code;
@@ -27,7 +27,7 @@ public class country
         return Region;
     }
 
-    public Float getPopulation() {
+    public Integer getPopulation() {
         return Population;
     }
 
@@ -35,13 +35,16 @@ public class country
         return Capital;
     }
 
-    public country(String code, String name, String continent, String region, Float population, String capital) {
+    public Country(String code, String name, String continent, String region, Integer population, String capital) {
 
         Code = code;
         Name = name;
         Continent = continent;
         Region = region;
         Capital = capital;
+        Population = population;
+    }
+    public Country(Integer population){
         Population = population;
     }
 }

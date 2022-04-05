@@ -1,11 +1,11 @@
 package com.napier.earth;
 
-public class capitalCity {
+public class CapitalCity {
     private String Name;
 
     private String Country;
 
-    private Float Population;
+    private Integer Population;
 
     public String getName() {
         return Name;
@@ -15,11 +15,11 @@ public class capitalCity {
         return Country;
     }
 
-    public Float getPopulation() {
+    public Integer getPopulation() {
         return Population;
     }
 
-    public capitalCity(String name, String country, Float population) {
+    public CapitalCity(String name, String country, Integer population) {
         Name = name;
         Country = country;
         Population = population;
