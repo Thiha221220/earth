@@ -653,6 +653,24 @@ public class App
     }
 
     /**
+     *  The population of people, people living in cities, and people not living in cities in each continent.
+     * @return pop_cities
+     */
+    public ArrayList<Population> getPopcon() throws SQLException {
+        //  sql query based on issue
+        String sql = "Select country.Continent, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city GROUP BY Continent";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<Population> pop_con = new ArrayList<Population>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            Population pop= new Population (rset.getString(1), rset.getLong(2), rset.getLong(3), rset.getLong(4));
+            pop_con.add (pop);
+        }
+        return pop_con;
+    }
+
+    /**
      *  Display function of all the cities in the world organised by largest population to smallest
      * @param cityNum city population in the world list
      */
@@ -1441,8 +1459,8 @@ public class App
     }
 
     /**
-     *  Display function of populated people in a continent
-     * @param ccNum the population in a continent list
+     *  Display function of populated people in a district
+     * @param ccNum the population in a district list
      */
     public void displayPopdist(ArrayList<City> ccNum)
     {
@@ -1465,6 +1483,49 @@ public class App
         System.out.println(t.render());
     }
 
+    /**
+     *  Display function of populated people living in cities, and people not living in cities in each continent.
+     * @param popNum the population people living in cities, and people not living in cities in each continent list
+     */
+
+    public static void displayPopcon(ArrayList<Population> popNum)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // create table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 8, 50);
+        t.setColumnWidth(2, 8, 50);
+        t.setColumnWidth(3, 8, 50);
+        // add header
+        t.addCell("Name", numberStyle);
+        t.addCell("Total Population", numberStyle);
+        t.addCell("People living in cities", numberStyle);
+        t.addCell("People not living in cities", numberStyle);
+
+        System.out.println( "Population of people living in cities, and people not living in cities in each continent.");
+        // loop cell and columns with fetch data
+        for (int i = 0; i<popNum.size(); i++)
+        {
+
+            if (i == 6){
+                t.addCell("Antarctica", numberStyle);
+                t.addCell("0", numberStyle);
+                t.addCell("0", numberStyle);
+                t.addCell("0", numberStyle);
+
+            }
+            else{
+                t.addCell(popNum.get(i).getName(), numberStyle);
+                t.addCell(String.valueOf(popNum.get(i).getTotal()), numberStyle);
+                t.addCell(String.valueOf(popNum.get(i).getLiving()), numberStyle);
+                t.addCell(String.valueOf(popNum.get(i).getNotliving()), numberStyle);
+            }
+        }
+
+        System.out.println(t.render());
+    }
 
     /**
      * Our application entry point.
@@ -1526,14 +1587,12 @@ public class App
 
         ArrayList<CapitalCity> capital_cities = a.getCapitalPopls();
         a.displayCapital(capital_cities);
-
         ArrayList<CapitalCity> tCAW = a.getTCAWPopls(times);
         a.displayTCAW(tCAW,times);
         ArrayList<CapitalCity> tCAC = a.getTCACPopls(times);
         a.displayTCAC(tCAC,times);
         ArrayList<CapitalCity> tCAR = a.getTCARPopls(times);
         a.displayTCAR(tCAR,times);
-
         ArrayList<CapitalCity> capital_cities_Continent = a.getCapCityConLToS();
         a.displayCapCitCon(capital_cities_Continent);
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
@@ -1544,6 +1603,8 @@ public class App
         a.displayPopcont(popcont);
         ArrayList<City> popdist = a.getPopdist();
         a.displayPopdist(popdist);
+        ArrayList<Population> pop_con = a.getPopcon();
+        a.displayPopcon(pop_con);
         // Disconnect from database
         a.disconnect();
     }

@@ -9,8 +9,6 @@ public class Country
     private String Capital;
 
 
-
-
     public String getCode() {
         return Code;
     }
