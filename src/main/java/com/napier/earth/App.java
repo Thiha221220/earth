@@ -616,59 +616,6 @@ public class App
         return capital_cities;
     }
 
-    /**
-     *  The population of a continent should be accessible to the organization.
-     * @return popcont
-     */
-    public ArrayList<Country> getPopcont( ) throws SQLException {
-        //  sql query based on issue
-        String sql = "select country.Continent, country.Population from country where country.Continent = 'Asia' ";
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        // create array to store capital_cities
-        ArrayList<Country> popcont = new ArrayList<Country>();
-        ResultSet rset = pstmt.executeQuery();
-        while (rset.next()) {
-            Country cou = new Country(rset.getString(1), rset.getInt(2));
-            popcont.add(cou);
-        }
-        return popcont;
-    }
-
-    /**
-     *  The population of a district should be accessible to the organization.
-     * @return popdis
-     */
-    public ArrayList<City> getPopdist( ) throws SQLException {
-        //  sql query based on issue
-        String sql = "select District, Population from city where District = 'California' ";
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        // create array to store capital_cities
-        ArrayList<City> popdist = new ArrayList<City>();
-        ResultSet rset = pstmt.executeQuery();
-        while (rset.next()) {
-            City cc = new City(rset.getString(1), rset.getInt(2));
-            popdist.add(cc);
-        }
-        return popdist;
-    }
-
-    /**
-     *  The population of people, people living in cities, and people not living in cities in each continent.
-     * @return pop_cities
-     */
-    public ArrayList<Population> getPopcon() throws SQLException {
-        //  sql query based on issue
-        String sql = "Select country.Continent, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city GROUP BY Continent";
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        // create array to store capital_cities
-        ArrayList<Population> pop_con = new ArrayList<Population>();
-        ResultSet rset = pstmt.executeQuery();
-        while (rset.next()) {
-            Population pop= new Population (rset.getString(1), rset.getLong(2), rset.getLong(3), rset.getLong(4));
-            pop_con.add (pop);
-        }
-        return pop_con;
-    }
 
     /**
      *  Display function of all the cities in the world organised by largest population to smallest
@@ -1100,6 +1047,7 @@ public class App
 
         System.out.println(t.render());
     }
+
     /**
      *  Display function of all the countries in the world organised by largest population to smallest
      * @param couNum countries population in the world list
@@ -1434,98 +1382,182 @@ public class App
     }
 
     /**
-     *  Display function of populated people in a continent
-     * @param couNum the population in a continent list
+     *  The population of the city
+     * @return ctypop
      */
-    public void displayPopcont(ArrayList<Country> couNum)
+
+    public ArrayList<City> getCityPopulation()
     {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select Population from city where Name='London'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<City> ctypop = new ArrayList<City>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                City cty = new City(rset.getInt(1));
+                ctypop.add(cty);
+            }
+            System.out.println(ctypop);
+            return ctypop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of a city");
+            return null;
+        }
+    }
+
+    /**
+     *  The population of the country
+     * @return coupop
+     */
+
+    public ArrayList<Country> getCountryPopulation()
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select Population from country where Name='Myanmar'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<Country> coupop = new ArrayList<Country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                Country cnt = new Country(rset.getInt(1));
+                coupop.add(cnt);
+            }
+            return coupop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of a country");
+            return null;
+        }
+    }
+
+    /**
+     *  The population of people, people living in cities, and people not living in cities in each country
+     * @return pplpop
+     */
+
+    public ArrayList<Population> getCntCitynotCity()
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "Select country.Name, country.Population, SUM(city.Population), country.Population-SUM(city.population) from country, city where country.Code = city.CountryCode GROUP BY city.CountryCode";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<Population> pplcnc = new ArrayList<Population>();
+            // create array to store country
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                Population cntc = new Population(rset.getString(1),rset.getLong(2), rset.getLong(3), rset.getLong(4));
+                pplcnc.add(cntc);
+            }
+            return pplcnc;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of people living in cities and not living in cities");
+            return null;
+        }
+    }
+
+
+    /**
+     * Display function of population report of a city
+     * @param ctypop population of a country
+     */
+    public static void displayCityPopulation(ArrayList<City> ctypop){
+        System.out.println("Population Report of a City");
+
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
         //  defined column with widths
         t.setColumnWidth(0, 8, 50);
-        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(1, 7, 20);
         //  add table header
-        t.addCell("Populated People in Asia" );
+        t.addCell("Population of London", numberStyle);
+        long cp = 0;
         // loop cell and columns with fetch data
-        System.out.println("Population Report of Asia ");
-        long sum = 0;
-//
-        for (Country c: couNum){
-            sum += c.getPopulation();
+        for (City c: ctypop)
+        {
+            cp = c.getPopulation();
         }
-        t.addCell(String.valueOf(sum), numberStyle);
+        t.addCell(String.valueOf(cp), numberStyle);
         System.out.println(t.render());
     }
 
     /**
-     *  Display function of populated people in a district
-     * @param ccNum the population in a district list
+     * Display function of population report of a country
+     * @param coupop population of a country
      */
-    public void displayPopdist(ArrayList<City> ccNum)
-    {
+    public static void displayCountryPopulation(ArrayList<Country> coupop){
+        System.out.println("Population Report of a Country");
+
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
         //  defined column with widths
         t.setColumnWidth(0, 8, 50);
-        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(1, 7, 20);
         //  add table header
-        t.addCell("Populated people in California" );
+        t.addCell("Population of Myanmar", numberStyle);
+        long cnp = 0;
         // loop cell and columns with fetch data
-        System.out.println("Population Report of California ");
-        long sum = 0;
-//
-        for (City c: ccNum){
-            sum += c.getPopulation();
+        for (Country c: coupop)
+        {
+            cnp = c.getPopulation();
         }
-        t.addCell(String.valueOf(sum), numberStyle);
+        t.addCell(String.valueOf(cnp), numberStyle);
         System.out.println(t.render());
     }
 
     /**
-     *  Display function of populated people living in cities, and people not living in cities in each continent.
-     * @param popNum the population people living in cities, and people not living in cities in each continent list
+     *  Display function of The population of people, people living in cities, and people not living in cities in each country
+     * @param pplcnc
      */
 
-    public static void displayPopcon(ArrayList<Population> popNum)
+    public void displayCntCitynotCity(ArrayList<Population> pplcnc)
     {
-        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
-        // create table
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
         //  defined column with widths
         t.setColumnWidth(0, 8, 50);
-        t.setColumnWidth(1, 8, 50);
-        t.setColumnWidth(2, 8, 50);
-        t.setColumnWidth(3, 8, 50);
-        // add header
-        t.addCell("Name", numberStyle);
+        t.setColumnWidth(1, 7, 40);
+        t.setColumnWidth(2, 7, 40);
+        t.setColumnWidth(3, 7, 30);
+        //  add table header
+        t.addCell("Country Name", numberStyle);
         t.addCell("Total Population", numberStyle);
-        t.addCell("People living in cities", numberStyle);
-        t.addCell("People not living in cities", numberStyle);
+        t.addCell("People in Cities", numberStyle);
+        t.addCell("People not in Cities", numberStyle);
 
-        System.out.println( "Population of people living in cities, and people not living in cities in each continent.");
+        System.out.println("The population of people, people living in cities, and people not living in cities in each country");
         // loop cell and columns with fetch data
-        for (int i = 0; i<popNum.size(); i++)
+        for (Population p: pplcnc)
         {
-
-            if (i == 6){
-                t.addCell("Antarctica", numberStyle);
-                t.addCell("0", numberStyle);
-                t.addCell("0", numberStyle);
-                t.addCell("0", numberStyle);
-
-            }
-            else{
-                t.addCell(popNum.get(i).getName(), numberStyle);
-                t.addCell(String.valueOf(popNum.get(i).getTotal()), numberStyle);
-                t.addCell(String.valueOf(popNum.get(i).getLiving()), numberStyle);
-                t.addCell(String.valueOf(popNum.get(i).getNotliving()), numberStyle);
-            }
+            t.addCell(p.getName(), numberStyle);
+            t.addCell(String.valueOf(p.getTotal()), numberStyle);
+            t.addCell(String.valueOf(p.getLiving()), numberStyle);
+            t.addCell(String.valueOf(p.getNotliving()), numberStyle);
         }
 
         System.out.println(t.render());
     }
+
 
     /**
      * Our application entry point.
@@ -1544,7 +1576,7 @@ public class App
             a.connect(args[0], Integer.parseInt(args[1]));
         }
 
-        // city
+//        // city
         ArrayList<City> cities = a.getCityPopLs();
         a.displayCity(cities);
         ArrayList<City> coucities = a.getCityCountryPopLs();
@@ -1566,6 +1598,8 @@ public class App
         a.displayTopCityRegion(topcityrgn,tpcity);
         ArrayList<City> topcitydst = a.getTopCityDistrict(tpcity);
         a.displayTopCityDistrict(topcitydst,tpcity);
+        ArrayList<City> ctypop = a.getCityPopulation();
+        a.displayCityPopulation(ctypop);
 
         // country
         ArrayList<Country> countries = a.getCountryPopLs();
@@ -1582,34 +1616,32 @@ public class App
         ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
         a.displayTopCouRegPop(top_con_reg,topcou);
 
+        ArrayList<Country> coupop = a.getCountryPopulation();
+        a.displayCountryPopulation(coupop);
+
+        ArrayList<Population> ctyntcty = a.getCntCitynotCity();
+        a.displayCntCitynotCity(ctyntcty);
+
+
         // capital city
         int times = 10;
 
         ArrayList<CapitalCity> capital_cities = a.getCapitalPopls();
         a.displayCapital(capital_cities);
+
         ArrayList<CapitalCity> tCAW = a.getTCAWPopls(times);
         a.displayTCAW(tCAW,times);
         ArrayList<CapitalCity> tCAC = a.getTCACPopls(times);
         a.displayTCAC(tCAC,times);
         ArrayList<CapitalCity> tCAR = a.getTCARPopls(times);
         a.displayTCAR(tCAR,times);
+
         ArrayList<CapitalCity> capital_cities_Continent = a.getCapCityConLToS();
         a.displayCapCitCon(capital_cities_Continent);
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
         a.dispalyCapCitRegLs(capital_cities_Region);
-
-        //Population
-        ArrayList<Country> popcont = a.getPopcont();
-        a.displayPopcont(popcont);
-        ArrayList<City> popdist = a.getPopdist();
-        a.displayPopdist(popdist);
-        ArrayList<Population> pop_con = a.getPopcon();
-        a.displayPopcon(pop_con);
-        // Disconnect from database
+//         Disconnect from database
         a.disconnect();
     }
 
 }
-
-
-

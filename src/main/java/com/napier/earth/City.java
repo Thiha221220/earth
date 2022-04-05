@@ -32,5 +32,9 @@ public class City {
         Population = population;
     }
 
+    public City(Integer population) {
+        Population = population;
+    }
+
 }
 
