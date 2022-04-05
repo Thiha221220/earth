@@ -1413,6 +1413,36 @@ public class App
     }
 
     /**
+     *  The population of the country
+     * @return coupop
+     */
+
+    public ArrayList<Country> getCountryPopulation()
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select Population from country where Name='Myanmar'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<Country> coupop = new ArrayList<Country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                Country cnt = new Country(rset.getInt(1));
+                coupop.add(cnt);
+            }
+            return coupop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of a country");
+            return null;
+        }
+    }
+
+    /**
      * Display function of population report of a city
      * @param ctypop population of a country
      */
@@ -1436,6 +1466,32 @@ public class App
         t.addCell(String.valueOf(cp), numberStyle);
         System.out.println(t.render());
     }
+
+    /**
+     * Display function of population report of a country
+     * @param coupop population of a country
+     */
+    public static void displayCountryPopulation(ArrayList<Country> coupop){
+        System.out.println("Population Report of a Country");
+
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 20);
+        //  add table header
+        t.addCell("Population of Myanmar", numberStyle);
+        long cnp = 0;
+        // loop cell and columns with fetch data
+        for (Country c: coupop)
+        {
+            cnp = c.getPopulation();
+        }
+        t.addCell(String.valueOf(cnp), numberStyle);
+        System.out.println(t.render());
+    }
+
 
     /**
      * Our application entry point.
@@ -1494,6 +1550,8 @@ public class App
         ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
         a.displayTopCouRegPop(top_con_reg,topcou);
 
+        ArrayList<Country> coupop = a.getCountryPopulation();
+        a.displayCountryPopulation(coupop);
 
 
         // capital city

@@ -44,4 +44,8 @@ public class Country
         Capital = capital;
         Population = population;
     }
+
+    public Country(Integer population) {
+        Population = population;
+    }
 }
