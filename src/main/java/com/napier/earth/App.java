@@ -616,6 +616,41 @@ public class App
         return capital_cities;
     }
 
+    /**
+     *  The population of a continent should be accessible to the organization.
+     * @return popcont
+     */
+    public ArrayList<Country> getPopcont( ) throws SQLException {
+        //  sql query based on issue
+        String sql = "select country.Continent, country.Population from country where country.Continent = 'Asia' ";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<Country> popcont = new ArrayList<Country>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            Country cou = new Country(rset.getString(1), rset.getInt(2));
+            popcont.add(cou);
+        }
+        return popcont;
+    }
+
+    /**
+     *  The population of a district should be accessible to the organization.
+     * @return popdis
+     */
+    public ArrayList<City> getPopdist( ) throws SQLException {
+        //  sql query based on issue
+        String sql = "select District, Population from city where District = 'California' ";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<City> popdist = new ArrayList<City>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            City cc = new City(rset.getString(1), rset.getInt(2));
+            popdist.add(cc);
+        }
+        return popdist;
+    }
 
     /**
      *  Display function of all the cities in the world organised by largest population to smallest
@@ -1380,7 +1415,55 @@ public class App
         System.out.println(t.render());
     }
 
+    /**
+     *  Display function of populated people in a continent
+     * @param couNum the population in a continent list
+     */
+    public void displayPopcont(ArrayList<Country> couNum)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        //  add table header
+        t.addCell("Populated People in Asia" );
+        // loop cell and columns with fetch data
+        System.out.println("Population Report of Asia ");
+        long sum = 0;
+//
+        for (Country c: couNum){
+            sum += c.getPopulation();
+        }
+        t.addCell(String.valueOf(sum), numberStyle);
+        System.out.println(t.render());
+    }
 
+    /**
+     *  Display function of populated people in a continent
+     * @param ccNum the population in a continent list
+     */
+    public void displayPopdist(ArrayList<City> ccNum)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        //  add table header
+        t.addCell("Populated people in California" );
+        // loop cell and columns with fetch data
+        System.out.println("Population Report of California ");
+        long sum = 0;
+//
+        for (City c: ccNum){
+            sum += c.getPopulation();
+        }
+        t.addCell(String.valueOf(sum), numberStyle);
+        System.out.println(t.render());
+    }
 
 
     /**
@@ -1455,6 +1538,12 @@ public class App
         a.displayCapCitCon(capital_cities_Continent);
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
         a.dispalyCapCitRegLs(capital_cities_Region);
+
+        //Population
+        ArrayList<Country> popcont = a.getPopcont();
+        a.displayPopcont(popcont);
+        ArrayList<City> popdist = a.getPopdist();
+        a.displayPopdist(popdist);
         // Disconnect from database
         a.disconnect();
     }

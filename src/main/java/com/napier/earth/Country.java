@@ -27,6 +27,11 @@ public class Country
         return Region;
     }
 
+    public Country(String continent, Integer population) {
+        Continent = continent;
+        Population = population;
+    }
+
     public Integer getPopulation() {
         return Population;
     }

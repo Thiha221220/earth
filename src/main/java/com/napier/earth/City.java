@@ -2,10 +2,7 @@ package com.napier.earth;
 
 public class City {
     private String Name;
-
-
     private String Country;
-
     private String District;
     private Integer Population;
 
@@ -13,11 +10,7 @@ public class City {
         return Name;
     }
 
-    public String getCountry() {
-
-        return Country;
-
-    }
+    public String getCountry() { return Country; }
 
     public String getDistrict() {
         return District;
@@ -27,6 +20,10 @@ public class City {
         return Population;
     }
 
+    public City(String district, Integer population) {
+        District = district;
+        Population = population;
+    }
 
     public City(String name, String country, String district, Integer population) {
         Name = name;
