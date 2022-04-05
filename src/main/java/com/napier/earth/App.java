@@ -1047,6 +1047,7 @@ public class App
 
         System.out.println(t.render());
     }
+
     /**
      *  Display function of all the countries in the world organised by largest population to smallest
      * @param couNum countries population in the world list
@@ -1380,8 +1381,61 @@ public class App
         System.out.println(t.render());
     }
 
+    /**
+     *  The population of the city
+     * @return ctypop
+     */
 
+    public ArrayList<City> getCityPopulation()
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select Population from city where Name='London'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<City> ctypop = new ArrayList<City>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                City cty = new City(rset.getInt(1));
+                ctypop.add(cty);
+            }
+            System.out.println(ctypop);
+            return ctypop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of a city");
+            return null;
+        }
+    }
 
+    /**
+     * Display function of population report of a city
+     * @param ctypop population of a country
+     */
+    public static void displayCityPopulation(ArrayList<City> ctypop){
+        System.out.println("Population Report of a City");
+
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 20);
+        //  add table header
+        t.addCell("Population of London", numberStyle);
+        long cp = 0;
+        // loop cell and columns with fetch data
+        for (City c: ctypop)
+        {
+            cp = c.getPopulation();
+        }
+        t.addCell(String.valueOf(cp), numberStyle);
+        System.out.println(t.render());
+    }
 
     /**
      * Our application entry point.
@@ -1400,7 +1454,7 @@ public class App
             a.connect(args[0], Integer.parseInt(args[1]));
         }
 
-        // city
+//        // city
         ArrayList<City> cities = a.getCityPopLs();
         a.displayCity(cities);
         ArrayList<City> coucities = a.getCityCountryPopLs();
@@ -1422,6 +1476,8 @@ public class App
         a.displayTopCityRegion(topcityrgn,tpcity);
         ArrayList<City> topcitydst = a.getTopCityDistrict(tpcity);
         a.displayTopCityDistrict(topcitydst,tpcity);
+        ArrayList<City> ctypop = a.getCityPopulation();
+        a.displayCityPopulation(ctypop);
 
         // country
         ArrayList<Country> countries = a.getCountryPopLs();
@@ -1437,6 +1493,8 @@ public class App
         a.displayTopCouContPop(top_con_cou,topcou);
         ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
         a.displayTopCouRegPop(top_con_reg,topcou);
+
+
 
         // capital city
         int times = 10;
@@ -1455,11 +1513,8 @@ public class App
         a.displayCapCitCon(capital_cities_Continent);
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
         a.dispalyCapCitRegLs(capital_cities_Region);
-        // Disconnect from database
+//         Disconnect from database
         a.disconnect();
     }
 
 }
-
-
-
