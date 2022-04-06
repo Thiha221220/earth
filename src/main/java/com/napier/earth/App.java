@@ -1678,7 +1678,7 @@ public class App
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                Population cntc = new Population(rset.getString(1),rset.getLong(2), rset.getLong(3), rset.getLong(4));
+                Population cntc = new Population(rset.getString(1),rset.getInt(2), rset.getInt(3), rset.getLong(4));
                 pplcnc.add(cntc);
             }
             return pplcnc;
