@@ -617,8 +617,8 @@ public class App
     }
 
     /**
-     *  The population of the region
-     * @return PopReg
+     *  The population of a region should be accessible to the organisation.
+     * @return PopReg the population of the region.
      */
 
     public ArrayList<Country> getPopReg() throws SQLException {
@@ -1397,6 +1397,31 @@ public class App
 
         System.out.println(t.render());
     }
+    /**
+     *  Display function of the population of a region should be accessible to the organisation.
+     * @param PPRs the population of the region list
+     */
+
+    public void displayPopReg(ArrayList<Country> PPRs)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        //  add table header
+        System.out.println("The Population of the Caribbean");
+        t.addCell("The population of the a Region Caribbean");
+        // loop cell and columns with fetch data
+        long sum = 0;
+        // total population
+        for (Country c: PPRs){
+            sum += c.getPopulation();
+        }
+        t.addCell(String.valueOf(sum), numberStyle);
+        System.out.println(t.render());
+    }
 
 
 
@@ -1474,7 +1499,8 @@ public class App
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
         a.dispalyCapCitRegLs(capital_cities_Region);
 
-
+        ArrayList<Country> PPRs = a.getPopReg();
+        a.displayPopReg(PPRs);
         // Disconnect from database
         a.disconnect();
     }
