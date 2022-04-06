@@ -789,6 +789,41 @@ public class App
 
     }
     /**
+     *  The population of people, people living in cities, and people not living in cities in each region.
+     * @return PepPopReg the population of people in each region
+     */
+    public ArrayList<Population> getPepPogReg() throws SQLException {
+        //  sql query based on issue
+        String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<Population> PepPopReg = new ArrayList<Population>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            Population PepPop= new Population (rset.getString(1), rset.getLong(2), rset.getLong(3), rset.getLong(4));
+            PepPopReg.add (PepPop);
+        }
+        return PepPopReg;
+    }
+    /**
+     *  The population of a region should be accessible to the organisation.
+     * @return PopReg the population of the region.
+     */
+
+    public ArrayList<Country> getPopReg() throws SQLException {
+        //  sql query based on issue
+        String sql = "select Population from country where country.Region ='Caribbean'";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<Country> PopRegs = new ArrayList<Country>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            Country PopReg = new Country(rset.getInt(1));
+            PopRegs.add(PopReg);
+        }
+        return PopRegs;
+    }
+    /**
      *  Display function of Top N populated Cities in a country.
      * @param Tnp_C population in the world list
      */
@@ -1897,6 +1932,74 @@ public class App
         System.out.println(t.render());
     }
     /**
+     *  Display function of the population of a region should be accessible to the organisation.
+     * @param PPRs the population of the region list
+     */
+
+    public void displayPopReg(ArrayList<Country> PPRs)
+    {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
+        //  Create Table
+        Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 7, 40);
+        //  add table header
+        System.out.println("The Population of the Caribbean");
+        t.addCell("The population of the a Region Caribbean");
+        // loop cell and columns with fetch data
+        long sum = 0;
+        // total population
+        for (Country c: PPRs){
+            sum += c.getPopulation();
+        }
+        t.addCell(String.valueOf(sum), numberStyle);
+        System.out.println(t.render());
+    }
+    public void displayPepPopReg(ArrayList<Population> PPR) {
+        CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
+        // create table
+        Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
+        //  defined column with widths
+        t.setColumnWidth(0, 8, 50);
+        t.setColumnWidth(1, 8, 50);
+        t.setColumnWidth(2, 8, 50);
+        t.setColumnWidth(3, 8, 50);
+        // add header
+        t.addCell("Region Name", numberStyle);
+        t.addCell("Total Population", numberStyle);
+        t.addCell("People living in cities", numberStyle);
+        t.addCell("People not living in cities", numberStyle);
+
+        System.out.println( "Population of people living in cities, and people not living in cities in each Region.");
+        // loop cell and columns with fetch data
+        // 2 decimal value
+        DecimalFormat df = new DecimalFormat("####0.00");
+        for (int i = 0; i<PPR.size(); i++)
+        {
+
+            if (i == 6){
+                t.addCell("Antarctica", numberStyle);
+                t.addCell("0(0%)", numberStyle);
+                t.addCell("0(0%)", numberStyle);
+                t.addCell("0(0%)", numberStyle);
+
+            }
+
+            else{
+                double LivingPercent = ((double)PPR.get(i).getLiving()/PPR.get(i).getTotal())*100;
+                double NotLivingPercent = ((double)PPR.get(i).getNotliving()/PPR.get(i).getTotal())*100;
+                t.addCell(PPR.get(i).getName(), numberStyle);
+                t.addCell(String.valueOf(PPR.get(i).getTotal()), numberStyle);
+                t.addCell(String.valueOf(PPR.get(i).getLiving())+"("+String.valueOf(df.format(LivingPercent))+"%)", numberStyle);
+                t.addCell(String.valueOf(PPR.get(i).getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
+            }
+        }
+
+        System.out.println(t.render());
+    }
+
+    /**
      * Our application entry point.
      * @param args The command line arguments.
      * @throws SQLException when we can't access to database or something like that.
@@ -1983,12 +2086,16 @@ public class App
         a.displayCntCitynotCity(ctyntcty);
         ArrayList<Population> pop_con = a.getPopcon();
         a.displayPopcon(pop_con);
+        ArrayList<Population> PPR = a.getPepPogReg();
+        a.displayPepPopReg(PPR);
 
         //Population of the world and language
         ArrayList<Country> popw = a.getPopsW();
         a.displayPopW(popw);
         ArrayList<Country>[] pope = a.getLanguagePops();
         a.displayPopE(pope);
+        ArrayList<Country> PPRs = a.getPopReg();
+        a.displayPopReg(PPRs);
 //         Disconnect from database
         a.disconnect();
     }
