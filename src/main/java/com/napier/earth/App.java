@@ -6,6 +6,10 @@ package com.napier.earth;
  * @since 1.0
  */
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -759,7 +763,7 @@ public class App
      * @param cityNum city population in the world list
      */
 
-    public static void displayCity(ArrayList<City> cityNum)
+    public static void displayCity(ArrayList<City> cityNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -784,9 +788,15 @@ public class App
             t.addCell(c.getDistrict(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
-
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  The population of people, people living in cities, and people not living in cities in each region.
@@ -828,7 +838,7 @@ public class App
      * @param Tnp_C population in the world list
      */
 
-    public static void displayTopNPopCity(ArrayList<City> Tnp_C)
+    public static void displayTopNPopCity(ArrayList<City> Tnp_C, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -853,16 +863,22 @@ public class App
             t.addCell(c.getDistrict(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
-
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  Display function of Top N populated Cities in the world.
      * @param TnpC_W population in the world list
      */
 
-    public static void displayTopNPopCityWorld(ArrayList<City> TnpC_W)
+    public static void displayTopNPopCityWorld(ArrayList<City> TnpC_W, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -889,14 +905,21 @@ public class App
         }
 
         System.out.println(t.render());
-
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  Display function of all the cities in the country organised by largest population to smallest
      * @param ccnt city population in the country list
      */
 
-    public static void displayCityCountry(ArrayList<City> ccnt)
+    public static void displayCityCountry(ArrayList<City> ccnt, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
@@ -921,8 +944,15 @@ public class App
             t.addCell(c.getDistrict(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -930,7 +960,7 @@ public class App
      * @param dcNum city population in a district list
      */
 
-    public static void displayCityDistrict(ArrayList<City> dcNum)
+    public static void displayCityDistrict(ArrayList<City> dcNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -955,8 +985,15 @@ public class App
             t.addCell(c.getDistrict(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -964,7 +1001,7 @@ public class App
      * @param ccnt city population in a continent list
      */
 
-    public static void displayCityContinent(ArrayList<City> ccnt)
+    public static void displayCityContinent(ArrayList<City> ccnt, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -988,9 +1025,15 @@ public class App
             t.addCell(c.getDistrict(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
-
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -998,7 +1041,7 @@ public class App
      * @param rcNum city population in a region list
      */
 
-    public static void displayRegion(ArrayList<City> rcNum)
+    public static void displayRegion(ArrayList<City> rcNum, String filename)
     {
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
@@ -1024,8 +1067,15 @@ public class App
             t.addCell(rci.getDistrict(), numberStyle);
             t.addCell(String.valueOf(rci.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1034,7 +1084,7 @@ public class App
      * @param topccon
      */
 
-    public static void displayTopCityContinent(ArrayList<City> tccnt, int topccon)
+    public static void displayTopCityContinent(ArrayList<City> tccnt, int topccon, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1058,8 +1108,15 @@ public class App
             t.addCell(c.getDistrict(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1067,7 +1124,7 @@ public class App
      * @param tcrgn the top N population of country in the world list
      * @param topcrgn
      */
-    public static void displayTopCityRegion(ArrayList<City> tcrgn, int topcrgn)
+    public static void displayTopCityRegion(ArrayList<City> tcrgn, int topcrgn, String filename)
     {
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
@@ -1093,8 +1150,15 @@ public class App
             t.addCell(rci.getDistrict(), numberStyle);
             t.addCell(String.valueOf(rci.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1103,7 +1167,7 @@ public class App
      * @param topcdst
      */
 
-    public static void displayTopCityDistrict(ArrayList<City> tcdst, int topcdst)
+    public static void displayTopCityDistrict(ArrayList<City> tcdst, int topcdst, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -1128,15 +1192,22 @@ public class App
             t.addCell(c.getDistrict(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      *  Display function of populated people in a district
      * @param ccNum the population in a district list
      */
-    public void displayPopdist(ArrayList<City> ccNum)
+    public void displayPopdist(ArrayList<City> ccNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1155,6 +1226,14 @@ public class App
         }
         t.addCell(String.valueOf(sum), numberStyle);
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1162,7 +1241,7 @@ public class App
      * @param capcNum capital city population in the world list
      */
 
-    public static void displayTCAW(ArrayList<CapitalCity> capcNum, int times)
+    public static void displayTCAW(ArrayList<CapitalCity> capcNum, int times, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1184,15 +1263,22 @@ public class App
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  Display function of the top N populated capital cities in the continent where N is provided by the user.
      * @param capconNum capital city population in the continent list
      */
 
-    public void displayTCAC(ArrayList<CapitalCity> capconNum, int times)
+    public void displayTCAC(ArrayList<CapitalCity> capconNum, int times, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1214,15 +1300,22 @@ public class App
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  Display function of the top N populated capital cities in the region where N is provided by the user.
      * @param caprNum capital city population in the region list
      */
 
-    public static void displayTCAR(ArrayList<CapitalCity> caprNum, int times) {
+    public static void displayTCAR(ArrayList<CapitalCity> caprNum, int times, String filename) {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1241,8 +1334,15 @@ public class App
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1250,7 +1350,7 @@ public class App
      * @param couNum countries population in the world list
      */
 
-    public static void displayCountry(ArrayList<Country> couNum)
+    public static void displayCountry(ArrayList<Country> couNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
@@ -1281,9 +1381,15 @@ public class App
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
             t.addCell(c.getCapital(), numberStyle);
         }
-
         System.out.println(t.render());
-
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1291,7 +1397,7 @@ public class App
      * @param couNum country population in a region list
      */
 
-    public static void displayCountryPopLSRegion(ArrayList<Country> couNum)
+    public static void displayCountryPopLSRegion(ArrayList<Country> couNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1322,15 +1428,22 @@ public class App
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
             t.addCell(c.getCapital(), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  Display function of all the countries in a Continent organized by largest population to smallest
      * @param couConNum country population in a continent list
      */
 
-    public static void displayCouCon(ArrayList<Country> couConNum)
+    public static void displayCouCon(ArrayList<Country> couConNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1361,8 +1474,15 @@ public class App
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
             t.addCell(c.getCapital(), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  Display function of top N populated countries in the world where N is provided by the user.
@@ -1370,7 +1490,7 @@ public class App
      * @param topcou
      */
 
-    public static void displayTopCountryPop(ArrayList<Country> couNum, int topcou)
+    public static void displayTopCountryPop(ArrayList<Country> couNum, int topcou, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1401,8 +1521,15 @@ public class App
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
             t.addCell(c.getCapital(), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1411,7 +1538,7 @@ public class App
      * @param topcou
      */
 
-    public static void displayTopCouContPop(ArrayList<Country> couNum, int topcou)
+    public static void displayTopCouContPop(ArrayList<Country> couNum, int topcou, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1442,8 +1569,15 @@ public class App
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
             t.addCell(c.getCapital(), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1452,7 +1586,7 @@ public class App
      * @param topcou
      */
 
-    public static void displayTopCouRegPop(ArrayList<Country> couNum, int topcou)
+    public static void displayTopCouRegPop(ArrayList<Country> couNum, int topcou, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1483,11 +1617,18 @@ public class App
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
             t.addCell(c.getCapital(), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void displayPopcont(ArrayList<Country> couNum)
+    public void displayPopcont(ArrayList<Country> couNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1506,6 +1647,14 @@ public class App
         }
         t.addCell(String.valueOf(sum), numberStyle);
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -1514,7 +1663,7 @@ public class App
      * @param capcNum capital city population in the world list
      */
 
-    public static void displayCapital(ArrayList<CapitalCity> capcNum)
+    public static void displayCapital(ArrayList<CapitalCity> capcNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1536,15 +1685,22 @@ public class App
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  Display function of all the capital cities in the region organized by largest population to smallest
      * @param capCRNum capital city population in the world list
      */
 
-    public static void dispalyCapCitRegLs(ArrayList<CapitalCity> capCRNum)
+    public static void dispalyCapCitRegLs(ArrayList<CapitalCity> capCRNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1566,15 +1722,22 @@ public class App
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *  Display function of all the capital cities in a continent organised by largest population to smallest
      * @param CCCNum Capital city population in a continent list
      */
 
-    public void displayCapCitCon(ArrayList<CapitalCity> CCCNum)
+    public void displayCapCitCon(ArrayList<CapitalCity> CCCNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1596,8 +1759,15 @@ public class App
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1697,7 +1867,7 @@ public class App
      * Display function of population report of a city
      * @param ctypop population of a country
      */
-    public static void displayCityPopulation(ArrayList<City> ctypop){
+    public static void displayCityPopulation(ArrayList<City> ctypop, String filename){
         System.out.println("Population Report of a City");
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
@@ -1716,13 +1886,21 @@ public class App
         }
         t.addCell(String.valueOf(cp), numberStyle);
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Display function of population report of a country
      * @param coupop population of a country
      */
-    public static void displayCountryPopulation(ArrayList<Country> coupop){
+    public static void displayCountryPopulation(ArrayList<Country> coupop, String filename){
         System.out.println("Population Report of a Country");
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
@@ -1741,6 +1919,14 @@ public class App
         }
         t.addCell(String.valueOf(cnp), numberStyle);
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1748,7 +1934,7 @@ public class App
      * @param pplcnc
      */
 
-    public void displayCntCitynotCity(ArrayList<Population> pplcnc)
+    public void displayCntCitynotCity(ArrayList<Population> pplcnc, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1777,8 +1963,15 @@ public class App
             t.addCell(String.valueOf(p.getLiving())+"("+String.valueOf(df.format(LivingPercent))+"%)", numberStyle);
             t.addCell(String.valueOf(p.getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1786,7 +1979,7 @@ public class App
      * @param popNum the population people living in cities, and people not living in cities in each continent list
      */
 
-    public static void displayPopcon(ArrayList<Population> popNum)
+    public static void displayPopcon(ArrayList<Population> popNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
@@ -1826,8 +2019,15 @@ public class App
                 t.addCell(String.valueOf(popNum.get(i).getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
             }
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1835,7 +2035,7 @@ public class App
      * @param CCCNum the population of the world list
      */
 
-    public void displayPopW(ArrayList<Country> CCCNum)
+    public void displayPopW(ArrayList<Country> CCCNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1854,6 +2054,14 @@ public class App
         }
         t.addCell(String.valueOf(sum), numberStyle);
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1861,7 +2069,7 @@ public class App
      * @param args The number of people who speak Chinese, English, Hindi, Spanish and Arabic from the greatest number to the smallest list
      */
 
-    public void displayPopE(ArrayList<Country>[] args) throws SQLException {
+    public void displayPopE(ArrayList<Country>[] args, String filename) throws SQLException {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1930,13 +2138,21 @@ public class App
         t.addCell(String.valueOf(df.format(a)+"%"), numberStyle);
 
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException j) {
+            j.printStackTrace();
+        }
     }
     /**
      *  Display function of the population of a region should be accessible to the organisation.
      * @param PPRs the population of the region list
      */
 
-    public void displayPopReg(ArrayList<Country> PPRs)
+    public void displayPopReg(ArrayList<Country> PPRs, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1955,8 +2171,22 @@ public class App
         }
         t.addCell(String.valueOf(sum), numberStyle);
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    public void displayPepPopReg(ArrayList<Population> PPR) {
+
+    /**
+     * display function of all people living in cities and not living in cities in each region
+     * @param PPR
+     */
+
+    public void displayPepPopReg(ArrayList<Population> PPR, String filename) {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1995,8 +2225,15 @@ public class App
                 t.addCell(String.valueOf(PPR.get(i).getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
             }
         }
-
         System.out.println(t.render());
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(t.render().toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -2018,84 +2255,84 @@ public class App
 
 //        // city
         ArrayList<City> cities = a.getCityPopLs();
-        a.displayCity(cities);
+        a.displayCity(cities,"cities.md");
         ArrayList<City> coucities = a.getCityCountryPopLs();
-        a.displayCityCountry(coucities);
+        a.displayCityCountry(coucities,"cityincountry.md");
         ArrayList<City> cityconti = a.getCityContinentPopLs();
-        a.displayCityContinent(cityconti);
+        a.displayCityContinent(cityconti,"cityincontinent.md");
         ArrayList<City> d_cities = a.getDistrictPopls();
-        a.displayCityDistrict(d_cities);
+        a.displayCityDistrict(d_cities,"cityindistrict.md");
         ArrayList<City> r_cities = a.getRegionPopls();
-        a.displayRegion(r_cities);
+        a.displayRegion(r_cities,"cityinregion.md");
         ArrayList<City> Tnp_C = a.getTopNPopCit();
-        a.displayTopNPopCity(Tnp_C);
+        a.displayTopNPopCity(Tnp_C,"topcity.md");
         ArrayList<City> TnpC_W = a.getTopNPopCitWorld();
-        a.displayTopNPopCityWorld(TnpC_W);
+        a.displayTopNPopCityWorld(TnpC_W,"topcityworld.md");
         int tpcity = 10;
         ArrayList<City> topcityconti = a.getTopCityContinent(tpcity);
-        a.displayTopCityContinent(topcityconti,tpcity);
+        a.displayTopCityContinent(topcityconti,tpcity,"topcityincontinent.md");
         ArrayList<City> topcityrgn = a.getTopCityRegion(tpcity);
-        a.displayTopCityRegion(topcityrgn,tpcity);
+        a.displayTopCityRegion(topcityrgn,tpcity,"topcityinregion.md");
         ArrayList<City> topcitydst = a.getTopCityDistrict(tpcity);
-        a.displayTopCityDistrict(topcitydst,tpcity);
+        a.displayTopCityDistrict(topcitydst,tpcity,"topcityindistrict.md");
         ArrayList<City> ctypop = a.getCityPopulation();
-        a.displayCityPopulation(ctypop);
+        a.displayCityPopulation(ctypop,"citypopls.md");
         ArrayList<City> popdist = a.getPopdist();
-        a.displayPopdist(popdist);
+        a.displayPopdist(popdist,"districtpopls.md");
 
         // country
         ArrayList<Country> countries = a.getCountryPopLs();
-        a.displayCountry(countries);
+        a.displayCountry(countries,"countriesinworld.md");
         ArrayList<Country> countriesRegionLS = a.getCountryPopLsRegion();
-        a.displayCountryPopLSRegion(countriesRegionLS);
+        a.displayCountryPopLSRegion(countriesRegionLS,"countryinregion.md");
         ArrayList<Country> CouCon = a.getCouCon();
-        a.displayCouCon(CouCon);
+        a.displayCouCon(CouCon,"countryincontinent.md");
         int topcou = 10;
         ArrayList<Country> t_countries = a.getCountryTopPop(topcou);
-        a.displayTopCountryPop(t_countries,topcou);
+        a.displayTopCountryPop(t_countries,topcou,"topcouinworld.md");
         ArrayList<Country> top_con_cou = a.getTopCouContinent(topcou);
-        a.displayTopCouContPop(top_con_cou,topcou);
+        a.displayTopCouContPop(top_con_cou,topcou,"topcouincontinent.md");
         ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
-        a.displayTopCouRegPop(top_con_reg,topcou);
+        a.displayTopCouRegPop(top_con_reg,topcou,"topcouinregion.md");
 
         ArrayList<Country> coupop = a.getCountryPopulation();
-        a.displayCountryPopulation(coupop);
+        a.displayCountryPopulation(coupop,"countrypopls.md");
         ArrayList<Country> popcont = a.getPopcont();
-        a.displayPopcont(popcont);
+        a.displayPopcont(popcont,"continentpopls.md");
 
         // capital city
         int times = 10;
 
         ArrayList<CapitalCity> capital_cities = a.getCapitalPopls();
-        a.displayCapital(capital_cities);
+        a.displayCapital(capital_cities,"capcityinworld.md");
 
         ArrayList<CapitalCity> tCAW = a.getTCAWPopls(times);
-        a.displayTCAW(tCAW,times);
+        a.displayTCAW(tCAW,times,"topcapcityinworld.md");
         ArrayList<CapitalCity> tCAC = a.getTCACPopls(times);
-        a.displayTCAC(tCAC,times);
+        a.displayTCAC(tCAC,times,"topcapcityincontinent.md");
         ArrayList<CapitalCity> tCAR = a.getTCARPopls(times);
-        a.displayTCAR(tCAR,times);
+        a.displayTCAR(tCAR,times,"topcapcityinregion.md");
 
         ArrayList<CapitalCity> capital_cities_Continent = a.getCapCityConLToS();
-        a.displayCapCitCon(capital_cities_Continent);
+        a.displayCapCitCon(capital_cities_Continent,"capcityincontinent.md");
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
-        a.dispalyCapCitRegLs(capital_cities_Region);
+        a.dispalyCapCitRegLs(capital_cities_Region,"capcityinregion.md");
 
         //Population
         ArrayList<Population> ctyntcty = a.getCntCitynotCity();
-        a.displayCntCitynotCity(ctyntcty);
+        a.displayCntCitynotCity(ctyntcty,"pplincountry.md");
         ArrayList<Population> pop_con = a.getPopcon();
-        a.displayPopcon(pop_con);
+        a.displayPopcon(pop_con,"pplincontinent.md");
         ArrayList<Population> PPR = a.getPepPogReg();
-        a.displayPepPopReg(PPR);
+        a.displayPepPopReg(PPR,"pplinregion.md");
 
         //Population of the world and language
         ArrayList<Country> popw = a.getPopsW();
-        a.displayPopW(popw);
+        a.displayPopW(popw,"worldpopls.md");
         ArrayList<Country>[] pope = a.getLanguagePops();
-        a.displayPopE(pope);
+        a.displayPopE(pope,"languagepopls.md");
         ArrayList<Country> PPRs = a.getPopReg();
-        a.displayPopReg(PPRs);
+        a.displayPopReg(PPRs,"regionpopls.md");
 //         Disconnect from database
         a.disconnect();
     }
