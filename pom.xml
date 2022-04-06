@@ -40,13 +40,11 @@
 
     </dependencies>
 
-
-
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version></version>
+                <version>3.2.2</version>
                 <executions>
                     <execution>
                         <id>default-jar</id>
