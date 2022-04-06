@@ -1731,12 +1731,16 @@ public class App
 
         System.out.println("The population of people, people living in cities, and people not living in cities in each country");
         // loop cell and columns with fetch data
+        // 2 decimal value
+        DecimalFormat df = new DecimalFormat("####0.00");
         for (Population p: pplcnc)
         {
+            double LivingPercent = ((double)p.getLiving()/p.getTotal())*100;
+            double NotLivingPercent = ((double)p.getNotliving()/p.getTotal())*100;
             t.addCell(p.getName(), numberStyle);
             t.addCell(String.valueOf(p.getTotal()), numberStyle);
-            t.addCell(String.valueOf(p.getLiving()), numberStyle);
-            t.addCell(String.valueOf(p.getNotliving()), numberStyle);
+            t.addCell(String.valueOf(p.getLiving())+"("+String.valueOf(df.format(LivingPercent))+"%)", numberStyle);
+            t.addCell(String.valueOf(p.getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
         }
 
         System.out.println(t.render());
@@ -1765,21 +1769,26 @@ public class App
 
         System.out.println( "Population of people living in cities, and people not living in cities in each continent.");
         // loop cell and columns with fetch data
+        // 2 decimal value
+        DecimalFormat df = new DecimalFormat("####0.00");
         for (int i = 0; i<popNum.size(); i++)
         {
 
             if (i == 6){
                 t.addCell("Antarctica", numberStyle);
-                t.addCell("0", numberStyle);
-                t.addCell("0", numberStyle);
-                t.addCell("0", numberStyle);
+                t.addCell("0(0%)", numberStyle);
+                t.addCell("0(0%)", numberStyle);
+                t.addCell("0(0%)", numberStyle);
 
             }
+
             else{
+                double LivingPercent = ((double)popNum.get(i).getLiving()/popNum.get(i).getTotal())*100;
+                double NotLivingPercent = ((double)popNum.get(i).getNotliving()/popNum.get(i).getTotal())*100;
                 t.addCell(popNum.get(i).getName(), numberStyle);
                 t.addCell(String.valueOf(popNum.get(i).getTotal()), numberStyle);
-                t.addCell(String.valueOf(popNum.get(i).getLiving()), numberStyle);
-                t.addCell(String.valueOf(popNum.get(i).getNotliving()), numberStyle);
+                t.addCell(String.valueOf(popNum.get(i).getLiving())+"("+String.valueOf(df.format(LivingPercent))+"%)", numberStyle);
+                t.addCell(String.valueOf(popNum.get(i).getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
             }
         }
 
