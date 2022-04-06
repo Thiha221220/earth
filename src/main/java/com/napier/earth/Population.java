@@ -1,27 +1,51 @@
 package com.napier.earth;
-
+/**
+ * @author Yoon Shwe Lwin
+ * @version 4.0
+ * @since 1.0
+ */
 public class Population {
     private String Name;
-    private Long Total;
-    private Long Living;
-    private Long Notliving;
+    private long Total;
+    private long Living;
+    private long Notliving;
 
+    /**
+     * get Continent/Region/Country Name
+     * @return  Name
+     */
     public String getName() {
         return Name;
     }
 
-    public Long getTotal() {
+    /**
+     * get Total Population
+     * @return Total
+     */
+    public long getTotal() {
         return Total;
     }
 
-    public Long getLiving() {
+    /**
+     * get Populated people living in cities
+     * @return living
+     */
+    public long getLiving() {
         return Living;
     }
 
-    public Long getNotliving() {
+    /**
+     * get Populated people not living in cities
+     * @return Notliving;
+     */
+    public long getNotliving() {
         return Notliving;
     }
-    public Population(String name, Long total, Long living, Long notliving) {
+
+    /**
+     *  Population Constructor
+     */
+    public Population(String name, long total, long living, long notliving) {
         Name = name;
         Total = total;
         Living = living;
