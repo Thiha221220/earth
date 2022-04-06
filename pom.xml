@@ -26,11 +26,11 @@
             <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.maven.plugins</groupId>-->
-<!--            <artifactId>maven-jar-plugin</artifactId>-->
-<!--            <version>3.2.2</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.2</version>
+        </dependency>
 
         <dependency>
             <groupId>org.nocrala.tools.texttablefmt</groupId>
@@ -44,17 +44,17 @@
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <version></version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>default-jar</id>-->
-<!--                        &lt;!&ndash; skip building the default-jar&ndash;&gt;-->
-<!--                        <phase>none</phase>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version></version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <!-- skip building the default-jar-->
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>

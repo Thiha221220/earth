@@ -659,7 +659,7 @@ public class App
      */
     public ArrayList<Population> getPopcon() throws SQLException {
         //  sql query based on issue
-        String sql = "Select country.Continent, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city GROUP BY Continent";
+        String sql = "Select country.Continent, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city GROUP BY Continent ORDER BY Continent ASC";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
         ArrayList<Population> pop_con = new ArrayList<Population>();
@@ -794,7 +794,7 @@ public class App
      */
     public ArrayList<Population> getPepPogReg() throws SQLException {
         //  sql query based on issue
-        String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region";
+        String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region ORDER BY Region ASC";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
         ArrayList<Population> PepPopReg = new ArrayList<Population>();
@@ -1671,7 +1671,7 @@ public class App
         try
         {
             //  sql query based on issue
-            String sql = "Select country.Name, country.Population, SUM(city.Population), country.Population-SUM(city.population) from country, city where country.Code = city.CountryCode GROUP BY city.CountryCode";
+            String sql = "Select country.Name, country.Population, SUM(city.Population), country.Population-SUM(city.population) from country, city where country.Code = city.CountryCode GROUP BY city.CountryCode ORDER BY country.Name ASC";
             PreparedStatement pstmt = con.prepareStatement(sql);
             ArrayList<Population> pplcnc = new ArrayList<Population>();
             // create array to store country
