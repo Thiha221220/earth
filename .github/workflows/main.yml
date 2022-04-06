@@ -90,7 +90,7 @@ jobs:
       - name: Copy Output
         run: docker container cp earth_app-1:./tmp/reports ./
       - name: Deploy
-        uses: Thiha221220/earth/github-deploy-action@v4.2.5
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: reports # The branch the action should deploy to.
           folder: reports # The folder we are copying
