@@ -19,6 +19,8 @@ import org.nocrala.tools.texttablefmt.ShownBorders;
 import org.nocrala.tools.texttablefmt.Table;
 import org.nocrala.tools.texttablefmt.CellStyle.HorizontalAlign;
 
+
+
 public class App
 {
 
@@ -26,7 +28,7 @@ public class App
     /**
      * sql connect function with world database
      */
-    public void connect(String location, int delay)
+    public static void connect(String location, int delay)
     {
         try
         {
@@ -67,7 +69,7 @@ public class App
      * sql disconnect function
      */
 
-    public void disconnect()
+    public static void disconnect()
     {
         if (con != null) {
             try {
@@ -246,6 +248,7 @@ public class App
      * top N populated cities in a continent where N is provided by the user
      * @return topcityconti
      */
+
     public ArrayList<City> getTopCityContinent(int topccon) throws SQLException {
         try
         {
@@ -328,6 +331,7 @@ public class App
      *  The population of a district should be accessible to the organization.
      * @return popdis
      */
+
     public ArrayList<City> getPopdist( ) throws SQLException {
         //  sql query based on issue
         String sql = "select District, Population from city where District = 'California' ";
@@ -533,6 +537,7 @@ public class App
      *  The population of a continent should be accessible to the organization.
      * @return popcont
      */
+
     public ArrayList<Country> getPopcont( ) throws SQLException {
         //  sql query based on issue
         String sql = "select country.Continent, country.Population from country where country.Continent = 'Asia' ";
@@ -661,6 +666,7 @@ public class App
      *  The population of people, people living in cities, and people not living in cities in each continent.
      * @return pop_cities
      */
+
     public ArrayList<Population> getPopcon() throws SQLException {
         //  sql query based on issue
         String sql = "Select country.Continent, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city GROUP BY Continent ORDER BY Continent ASC";
@@ -759,6 +765,43 @@ public class App
     }
 
     /**
+     *  The population of people, people living in cities, and people not living in cities in each region.
+     * @return PepPopReg the population of people in each region
+     */
+
+    public ArrayList<Population> getPepPogReg() throws SQLException {
+        //  sql query based on issue
+        String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region ORDER BY Region ASC";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<Population> PepPopReg = new ArrayList<Population>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            Population PepPop= new Population (rset.getString(1), rset.getLong(2), rset.getLong(3), rset.getLong(4));
+            PepPopReg.add (PepPop);
+        }
+        return PepPopReg;
+    }
+    /**
+     *  The population of a region should be accessible to the organisation.
+     * @return PopReg the population of the region.
+     */
+
+    public ArrayList<Country> getPopReg() throws SQLException {
+        //  sql query based on issue
+        String sql = "select Population from country where country.Region ='Caribbean'";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        // create array to store capital_cities
+        ArrayList<Country> PopRegs = new ArrayList<Country>();
+        ResultSet rset = pstmt.executeQuery();
+        while (rset.next()) {
+            Country PopReg = new Country(rset.getInt(1));
+            PopRegs.add(PopReg);
+        }
+        return PopRegs;
+    }
+
+    /**
      *  Display function of all the cities in the world organised by largest population to smallest
      * @param cityNum city population in the world list
      */
@@ -798,41 +841,7 @@ public class App
             e.printStackTrace();
         }
     }
-    /**
-     *  The population of people, people living in cities, and people not living in cities in each region.
-     * @return PepPopReg the population of people in each region
-     */
-    public ArrayList<Population> getPepPogReg() throws SQLException {
-        //  sql query based on issue
-        String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region ORDER BY Region ASC";
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        // create array to store capital_cities
-        ArrayList<Population> PepPopReg = new ArrayList<Population>();
-        ResultSet rset = pstmt.executeQuery();
-        while (rset.next()) {
-            Population PepPop= new Population (rset.getString(1), rset.getLong(2), rset.getLong(3), rset.getLong(4));
-            PepPopReg.add (PepPop);
-        }
-        return PepPopReg;
-    }
-    /**
-     *  The population of a region should be accessible to the organisation.
-     * @return PopReg the population of the region.
-     */
 
-    public ArrayList<Country> getPopReg() throws SQLException {
-        //  sql query based on issue
-        String sql = "select Population from country where country.Region ='Caribbean'";
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        // create array to store capital_cities
-        ArrayList<Country> PopRegs = new ArrayList<Country>();
-        ResultSet rset = pstmt.executeQuery();
-        while (rset.next()) {
-            Country PopReg = new Country(rset.getInt(1));
-            PopRegs.add(PopReg);
-        }
-        return PopRegs;
-    }
     /**
      *  Display function of Top N populated Cities in a country.
      * @param Tnp_C population in the world list
@@ -2244,7 +2253,7 @@ public class App
 
     public static void main(String[] args) throws SQLException {
         // Create new Application
-        App a = new App();
+         App a = new App();
 
         // Connect to database
         if(args.length < 1){
@@ -2253,7 +2262,7 @@ public class App
             a.connect(args[0], Integer.parseInt(args[1]));
         }
 
-//        // city
+        // city
         ArrayList<City> cities = a.getCityPopLs();
         a.displayCity(cities,"cities.md");
         ArrayList<City> coucities = a.getCityCountryPopLs();
