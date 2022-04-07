@@ -18,15 +18,9 @@ import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.ShownBorders;
 import org.nocrala.tools.texttablefmt.Table;
 import org.nocrala.tools.texttablefmt.CellStyle.HorizontalAlign;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication
-@RestController
+
+
 public class App
 {
 
@@ -92,7 +86,6 @@ public class App
      * @return cities
      */
 
-    @RequestMapping("citypop")
     public static ArrayList<City> getCityPopLs() {
         try {
             //  sql query based on issue
@@ -117,7 +110,7 @@ public class App
      *  all the cities in the country organized by largest population to smallest
      * @return coucity
      */
-    @RequestMapping("ccpop")
+
     public ArrayList<City> getCityCountryPopLs() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city,country where city.CountryCode='KOR' and city.CountryCode = country.Code order by city.Population desc";
@@ -137,7 +130,7 @@ public class App
      *  all the cities in the continent organized by largest population to smallest
      * @return cityconti
      */
-    @RequestMapping("cconpop")
+
     public ArrayList<City> getCityContinentPopLs() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Europe' order by city.Population desc ";
@@ -155,7 +148,7 @@ public class App
      *  all the cities in the district organized by largest population to smallest
      * @return d_cities
      */
-    @RequestMapping("distpop")
+
     public ArrayList<City> getDistrictPopls()
     {
         try
@@ -185,7 +178,7 @@ public class App
      *  all the cities in a region organized by largest population to smallest
      * @return r_cities
      */
-    @RequestMapping("regpop")
+
     public ArrayList<City> getRegionPopls() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc";
@@ -208,7 +201,7 @@ public class App
      *  The top N populated cities in a country where N is provided by the user.
      * @return TNPop_cities
      */
-    @RequestMapping("topcit")
+
     public ArrayList<City> getTopNPopCit() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Name = 'Myanmar' order by city.Population desc LIMIT 10";
@@ -231,7 +224,7 @@ public class App
      *  The top N populated cities in the world where N is provided by the user.
      * @return TNPopCit_World
      */
-    @RequestMapping("topcw")
+
     public ArrayList<City> getTopNPopCitWorld() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code order by city.Population desc LIMIT 10";
@@ -255,7 +248,7 @@ public class App
      * top N populated cities in a continent where N is provided by the user
      * @return topcityconti
      */
-    @RequestMapping("topcc")
+
     public ArrayList<City> getTopCityContinent(int topccon) throws SQLException {
         try
         {
@@ -284,7 +277,7 @@ public class App
      *  top N populated cities in a region where N is provided by the user
      * @return cityrgn
      */
-    @RequestMapping("topcr")
+
     public ArrayList<City> getTopCityRegion(int topcrgn) throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc limit "+topcrgn;
@@ -308,7 +301,7 @@ public class App
      *  top N populated cities in a district where N is provided by the user
      *      * @return topcitydis
      */
-    @RequestMapping("topcd")
+
     public ArrayList<City> getTopCityDistrict(int topcdst) throws SQLException
     {
         try
@@ -338,7 +331,7 @@ public class App
      *  The population of a district should be accessible to the organization.
      * @return popdis
      */
-    @RequestMapping("dispop")
+
     public ArrayList<City> getPopdist( ) throws SQLException {
         //  sql query based on issue
         String sql = "select District, Population from city where District = 'California' ";
@@ -357,7 +350,7 @@ public class App
      *  all the country in a region organized by largest population to smallest
      * @return countries1
      */
-    @RequestMapping("coupopr")
+
     public ArrayList<Country> getCountryPopLsRegion()
     {
         try
@@ -388,7 +381,7 @@ public class App
      *  all the countries in a Continent organized by largest population to smallest
      * @return couCon
      */
-    @RequestMapping("coucon")
+
     public ArrayList<Country> getCouCon()
     {
         try
@@ -420,7 +413,7 @@ public class App
      *  all the countries in the world organized by largest population to smallest
      * @return countries
      */
-    @RequestMapping("coupop")
+
     public ArrayList<Country> getCountryPopLs()
     {
         try
@@ -451,7 +444,7 @@ public class App
      *  top The top N populated countries in the world where N is provided by the user.
      * @return t_countries
      */
-    @RequestMapping("coutp")
+
     public ArrayList<Country> getCountryTopPop(int topcou )
     {
         try
@@ -482,7 +475,7 @@ public class App
      *  top N populated countries in a continent where N is provided by the user
      * @return top_cou_con
      */
-    @RequestMapping("topcoco")
+
     public ArrayList<Country> getTopCouContinent(int topcou)
     {
         try
@@ -513,7 +506,7 @@ public class App
      *  top N populated countries in a region where N is provided by the user
      * @return top_cou_reg
      */
-    @RequestMapping("topcor")
+
     public ArrayList<Country> getTopCouRegion(int topcou)
     {
         try
@@ -544,7 +537,7 @@ public class App
      *  The population of a continent should be accessible to the organization.
      * @return popcont
      */
-    @RequestMapping("popco")
+
     public ArrayList<Country> getPopcont( ) throws SQLException {
         //  sql query based on issue
         String sql = "select country.Continent, country.Population from country where country.Continent = 'Asia' ";
@@ -563,7 +556,7 @@ public class App
      *  all the capital cities in the world organized by largest population to smallest
      * @return capital_cities
      */
-    @RequestMapping("cappop")
+
     public ArrayList<CapitalCity> getCapitalPopls() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID order by city.Population desc";
@@ -581,7 +574,7 @@ public class App
      *  all the capital cities in a continent organized by largest population to smallest
      * @return capCityCon
      */
-    @RequestMapping("capccon")
+
     public ArrayList<CapitalCity> getCapCityConLToS() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from city, country where city.CountryCode = country.Code and country.Continent='North America' order by city.Population desc ";
@@ -599,7 +592,7 @@ public class App
      *  all the capital cities in a region organized by largest population to smallest
      * @return capCitReg
      */
-    @RequestMapping("capcre")
+
     public ArrayList<CapitalCity> getCapCitRegLS() throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from city, country where city.CountryCode = country.Code and country.Region='Caribbean' order by city.Population desc ";
@@ -618,8 +611,8 @@ public class App
      *  The top N populated capital cities in the world where N is provided by the user.
      * @return capital_cities
      */
-    @RequestMapping("tcaw")
-    public ArrayList<CapitalCity> getTCAWPopls(@RequestParam (value="times") int times) throws SQLException {
+
+    public ArrayList<CapitalCity> getTCAWPopls(int times) throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -636,8 +629,8 @@ public class App
      *  The top N populated capital cities in the continent where N is provided by the user.
      * @return capital_cities
      */
-    @RequestMapping("tcac")
-    public ArrayList<CapitalCity> getTCACPopls(@RequestParam (value="times") int times) throws SQLException {
+
+    public ArrayList<CapitalCity> getTCACPopls(int times) throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.continent = 'Oceania' order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -654,8 +647,8 @@ public class App
      *  The top N populated capital cities in the region where N is provided by the user.
      * @return capital_cities
      */
-    @RequestMapping("tcar")
-    public ArrayList<CapitalCity> getTCARPopls(@RequestParam (value="times") int times) throws SQLException {
+
+    public ArrayList<CapitalCity> getTCARPopls(int times) throws SQLException {
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.Region = 'Middle East' order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -673,7 +666,7 @@ public class App
      *  The population of people, people living in cities, and people not living in cities in each continent.
      * @return pop_cities
      */
-    @RequestMapping("popcon")
+
     public ArrayList<Population> getPopcon() throws SQLException {
         //  sql query based on issue
         String sql = "Select country.Continent, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city GROUP BY Continent ORDER BY Continent ASC";
@@ -692,7 +685,7 @@ public class App
      *  The population of the world
      * @return popw
      */
-    @RequestMapping("popsw")
+
     public ArrayList<Country> getPopsW() throws SQLException {
         //  sql query based on issue
         String sql = "select Population from country";
@@ -710,7 +703,7 @@ public class App
      *  The number of people who speak Chinese, English, Hindi, Spanish and Arabic from the greatest number to the smallest list
      * @return ints
      */
-    @RequestMapping("lanpop")
+
     public ArrayList<Country>[] getLanguagePops() throws SQLException {
         //  sql query based on issue
         String sql = "select population from country";
@@ -775,7 +768,7 @@ public class App
      *  The population of people, people living in cities, and people not living in cities in each region.
      * @return PepPopReg the population of people in each region
      */
-    @RequestMapping("ppreg")
+
     public ArrayList<Population> getPepPogReg() throws SQLException {
         //  sql query based on issue
         String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region ORDER BY Region ASC";
@@ -793,7 +786,7 @@ public class App
      *  The population of a region should be accessible to the organisation.
      * @return PopReg the population of the region.
      */
-    @RequestMapping("ppre")
+
     public ArrayList<Country> getPopReg() throws SQLException {
         //  sql query based on issue
         String sql = "select Population from country where country.Region ='Caribbean'";
@@ -2260,97 +2253,97 @@ public class App
 
     public static void main(String[] args) throws SQLException {
         // Create new Application
-        // App a = new App();
+         App a = new App();
 
         // Connect to database
         if(args.length < 1){
-            connect("localhost:33060", 0);
+            a.connect("localhost:33060", 0);
         }else{
-            connect(args[0], Integer.parseInt(args[1]));
+            a.connect(args[0], Integer.parseInt(args[1]));
         }
-        SpringApplication.run(App.class, args);
-//        // city
-//        ArrayList<City> cities = a.getCityPopLs();
-//        a.displayCity(cities,"cities.md");
-//        ArrayList<City> coucities = a.getCityCountryPopLs();
-//        a.displayCityCountry(coucities,"cityincountry.md");
-//        ArrayList<City> cityconti = a.getCityContinentPopLs();
-//        a.displayCityContinent(cityconti,"cityincontinent.md");
-//        ArrayList<City> d_cities = a.getDistrictPopls();
-//        a.displayCityDistrict(d_cities,"cityindistrict.md");
-//        ArrayList<City> r_cities = a.getRegionPopls();
-//        a.displayRegion(r_cities,"cityinregion.md");
-//        ArrayList<City> Tnp_C = a.getTopNPopCit();
-//        a.displayTopNPopCity(Tnp_C,"topcity.md");
-//        ArrayList<City> TnpC_W = a.getTopNPopCitWorld();
-//        a.displayTopNPopCityWorld(TnpC_W,"topcityworld.md");
-//        int tpcity = 10;
-//        ArrayList<City> topcityconti = a.getTopCityContinent(tpcity);
-//        a.displayTopCityContinent(topcityconti,tpcity,"topcityincontinent.md");
-//        ArrayList<City> topcityrgn = a.getTopCityRegion(tpcity);
-//        a.displayTopCityRegion(topcityrgn,tpcity,"topcityinregion.md");
-//        ArrayList<City> topcitydst = a.getTopCityDistrict(tpcity);
-//        a.displayTopCityDistrict(topcitydst,tpcity,"topcityindistrict.md");
-//        ArrayList<City> ctypop = a.getCityPopulation();
-//        a.displayCityPopulation(ctypop,"citypopls.md");
-//        ArrayList<City> popdist = a.getPopdist();
-//        a.displayPopdist(popdist,"districtpopls.md");
-//
-//        // country
-//        ArrayList<Country> countries = a.getCountryPopLs();
-//        a.displayCountry(countries,"countriesinworld.md");
-//        ArrayList<Country> countriesRegionLS = a.getCountryPopLsRegion();
-//        a.displayCountryPopLSRegion(countriesRegionLS,"countryinregion.md");
-//        ArrayList<Country> CouCon = a.getCouCon();
-//        a.displayCouCon(CouCon,"countryincontinent.md");
-//        int topcou = 10;
-//        ArrayList<Country> t_countries = a.getCountryTopPop(topcou);
-//        a.displayTopCountryPop(t_countries,topcou,"topcouinworld.md");
-//        ArrayList<Country> top_con_cou = a.getTopCouContinent(topcou);
-//        a.displayTopCouContPop(top_con_cou,topcou,"topcouincontinent.md");
-//        ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
-//        a.displayTopCouRegPop(top_con_reg,topcou,"topcouinregion.md");
-//
-//        ArrayList<Country> coupop = a.getCountryPopulation();
-//        a.displayCountryPopulation(coupop,"countrypopls.md");
-//        ArrayList<Country> popcont = a.getPopcont();
-//        a.displayPopcont(popcont,"continentpopls.md");
-//
-//        // capital city
-//        int times = 10;
-//
-//        ArrayList<CapitalCity> capital_cities = a.getCapitalPopls();
-//        a.displayCapital(capital_cities,"capcityinworld.md");
-//
-//        ArrayList<CapitalCity> tCAW = a.getTCAWPopls(times);
-//        a.displayTCAW(tCAW,times,"topcapcityinworld.md");
-//        ArrayList<CapitalCity> tCAC = a.getTCACPopls(times);
-//        a.displayTCAC(tCAC,times,"topcapcityincontinent.md");
-//        ArrayList<CapitalCity> tCAR = a.getTCARPopls(times);
-//        a.displayTCAR(tCAR,times,"topcapcityinregion.md");
-//
-//        ArrayList<CapitalCity> capital_cities_Continent = a.getCapCityConLToS();
-//        a.displayCapCitCon(capital_cities_Continent,"capcityincontinent.md");
-//        ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
-//        a.dispalyCapCitRegLs(capital_cities_Region,"capcityinregion.md");
-//
-//        //Population
-//        ArrayList<Population> ctyntcty = a.getCntCitynotCity();
-//        a.displayCntCitynotCity(ctyntcty,"pplincountry.md");
-//        ArrayList<Population> pop_con = a.getPopcon();
-//        a.displayPopcon(pop_con,"pplincontinent.md");
-//        ArrayList<Population> PPR = a.getPepPogReg();
-//        a.displayPepPopReg(PPR,"pplinregion.md");
-//
-//        //Population of the world and language
-//        ArrayList<Country> popw = a.getPopsW();
-//        a.displayPopW(popw,"worldpopls.md");
-//        ArrayList<Country>[] pope = a.getLanguagePops();
-//        a.displayPopE(pope,"languagepopls.md");
-//        ArrayList<Country> PPRs = a.getPopReg();
-//        a.displayPopReg(PPRs,"regionpopls.md");
+
+        // city
+        ArrayList<City> cities = a.getCityPopLs();
+        a.displayCity(cities,"cities.md");
+        ArrayList<City> coucities = a.getCityCountryPopLs();
+        a.displayCityCountry(coucities,"cityincountry.md");
+        ArrayList<City> cityconti = a.getCityContinentPopLs();
+        a.displayCityContinent(cityconti,"cityincontinent.md");
+        ArrayList<City> d_cities = a.getDistrictPopls();
+        a.displayCityDistrict(d_cities,"cityindistrict.md");
+        ArrayList<City> r_cities = a.getRegionPopls();
+        a.displayRegion(r_cities,"cityinregion.md");
+        ArrayList<City> Tnp_C = a.getTopNPopCit();
+        a.displayTopNPopCity(Tnp_C,"topcity.md");
+        ArrayList<City> TnpC_W = a.getTopNPopCitWorld();
+        a.displayTopNPopCityWorld(TnpC_W,"topcityworld.md");
+        int tpcity = 10;
+        ArrayList<City> topcityconti = a.getTopCityContinent(tpcity);
+        a.displayTopCityContinent(topcityconti,tpcity,"topcityincontinent.md");
+        ArrayList<City> topcityrgn = a.getTopCityRegion(tpcity);
+        a.displayTopCityRegion(topcityrgn,tpcity,"topcityinregion.md");
+        ArrayList<City> topcitydst = a.getTopCityDistrict(tpcity);
+        a.displayTopCityDistrict(topcitydst,tpcity,"topcityindistrict.md");
+        ArrayList<City> ctypop = a.getCityPopulation();
+        a.displayCityPopulation(ctypop,"citypopls.md");
+        ArrayList<City> popdist = a.getPopdist();
+        a.displayPopdist(popdist,"districtpopls.md");
+
+        // country
+        ArrayList<Country> countries = a.getCountryPopLs();
+        a.displayCountry(countries,"countriesinworld.md");
+        ArrayList<Country> countriesRegionLS = a.getCountryPopLsRegion();
+        a.displayCountryPopLSRegion(countriesRegionLS,"countryinregion.md");
+        ArrayList<Country> CouCon = a.getCouCon();
+        a.displayCouCon(CouCon,"countryincontinent.md");
+        int topcou = 10;
+        ArrayList<Country> t_countries = a.getCountryTopPop(topcou);
+        a.displayTopCountryPop(t_countries,topcou,"topcouinworld.md");
+        ArrayList<Country> top_con_cou = a.getTopCouContinent(topcou);
+        a.displayTopCouContPop(top_con_cou,topcou,"topcouincontinent.md");
+        ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
+        a.displayTopCouRegPop(top_con_reg,topcou,"topcouinregion.md");
+
+        ArrayList<Country> coupop = a.getCountryPopulation();
+        a.displayCountryPopulation(coupop,"countrypopls.md");
+        ArrayList<Country> popcont = a.getPopcont();
+        a.displayPopcont(popcont,"continentpopls.md");
+
+        // capital city
+        int times = 10;
+
+        ArrayList<CapitalCity> capital_cities = a.getCapitalPopls();
+        a.displayCapital(capital_cities,"capcityinworld.md");
+
+        ArrayList<CapitalCity> tCAW = a.getTCAWPopls(times);
+        a.displayTCAW(tCAW,times,"topcapcityinworld.md");
+        ArrayList<CapitalCity> tCAC = a.getTCACPopls(times);
+        a.displayTCAC(tCAC,times,"topcapcityincontinent.md");
+        ArrayList<CapitalCity> tCAR = a.getTCARPopls(times);
+        a.displayTCAR(tCAR,times,"topcapcityinregion.md");
+
+        ArrayList<CapitalCity> capital_cities_Continent = a.getCapCityConLToS();
+        a.displayCapCitCon(capital_cities_Continent,"capcityincontinent.md");
+        ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
+        a.dispalyCapCitRegLs(capital_cities_Region,"capcityinregion.md");
+
+        //Population
+        ArrayList<Population> ctyntcty = a.getCntCitynotCity();
+        a.displayCntCitynotCity(ctyntcty,"pplincountry.md");
+        ArrayList<Population> pop_con = a.getPopcon();
+        a.displayPopcon(pop_con,"pplincontinent.md");
+        ArrayList<Population> PPR = a.getPepPogReg();
+        a.displayPepPopReg(PPR,"pplinregion.md");
+
+        //Population of the world and language
+        ArrayList<Country> popw = a.getPopsW();
+        a.displayPopW(popw,"worldpopls.md");
+        ArrayList<Country>[] pope = a.getLanguagePops();
+        a.displayPopE(pope,"languagepopls.md");
+        ArrayList<Country> PPRs = a.getPopReg();
+        a.displayPopReg(PPRs,"regionpopls.md");
 //         Disconnect from database
-//        a.disconnect();
+        a.disconnect();
     }
 
 }
