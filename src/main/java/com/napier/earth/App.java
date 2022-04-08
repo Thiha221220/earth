@@ -1216,7 +1216,7 @@ public class App
      *  Display function of populated people in a district
      * @param ccNum the population in a district list
      */
-    public void displayPopdist(ArrayList<City> ccNum, String filename)
+    public static void displayPopdist(ArrayList<City> ccNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -2044,7 +2044,7 @@ public class App
      * @param CCCNum the population of the world list
      */
 
-    public void displayPopW(ArrayList<Country> CCCNum, String filename)
+    public static void displayPopW(ArrayList<Country> CCCNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -2078,7 +2078,7 @@ public class App
      * @param args The number of people who speak Chinese, English, Hindi, Spanish and Arabic from the greatest number to the smallest list
      */
 
-    public void displayPopE(ArrayList<Country>[] args, String filename) throws SQLException {
+    public static void displayPopE(ArrayList<Country>[] args, String filename) throws SQLException {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -2161,7 +2161,7 @@ public class App
      * @param PPRs the population of the region list
      */
 
-    public void displayPopReg(ArrayList<Country> PPRs, String filename)
+    public static void displayPopReg(ArrayList<Country> PPRs, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table

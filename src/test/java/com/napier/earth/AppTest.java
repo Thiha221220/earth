@@ -3,6 +3,7 @@
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.BeforeAll;
 //
+//import java.sql.SQLException;
 //import java.util.ArrayList;
 //
 //
@@ -20,7 +21,7 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("Seoul", "South Korea","Seoul", 9981619);
 //        cities.add(cit);
-//        App.displayCity(cities);
+//        App.displayCity(cities,"cities.md");
 //    }
 //
 //    @Test
@@ -28,14 +29,14 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("Rangoon (Yangon)", "Myanmar","Rangoon [Yangon]", 3361700);
 //        cities.add(cit);
-//        App.displayTopNPopCity(cities);
+//        App.displayTopNPopCity(cities,"topcity.md");
 //    }
 //    @Test
 //    void displayTopNPopCityWorld() {
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("New York", "United","New York", 8008278);
 //        cities.add(cit);
-//        App.displayTopNPopCityWorld(cities);
+//        App.displayTopNPopCityWorld(cities,"topcityworld.md");
 //    }
 //
 //    @Test
@@ -43,7 +44,7 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("New York", "United","New York", 8008278);
 //        cities.add(cit);
-//        App.displayCityCountry(cities);
+//        App.displayCityCountry(cities,"cityincountry.md");
 //    }
 //
 //    @Test
@@ -51,7 +52,7 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("London", "United Kingdom","England", 7285000);
 //        cities.add(cit);
-//        App.displayCityDistrict(cities);
+//        App.displayCityDistrict(cities,"cityindistrict.md");
 //    }
 //
 //    @Test
@@ -59,7 +60,7 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("Roma", "Italy","Latium", 2643581);
 //        cities.add(cit);
-//        App.displayCityContinent(cities);
+//        App.displayCityContinent(cities,"cityincontinent.md");
 //    }
 //
 //    @Test
@@ -67,7 +68,7 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("Bangkok", "Thailand","Bangkok", 6320174);
 //        cities.add(cit);
-//        App.displayRegion(cities);
+//        App.displayRegion(cities,"cityinregion.md");
 //    }
 //
 //    @Test
@@ -75,7 +76,7 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("Shanghai", "China","Shanghai", 96963000);
 //        cities.add(cit);
-//        App.displayTopCityContinent(cities, 10);
+//        App.displayTopCityContinent(cities, 10,"topcityincontinent.md");
 //    }
 //
 //    @Test
@@ -83,7 +84,7 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("Jakarta", "Indonesia","Jakarta Raya", 9604900);
 //        cities.add(cit);
-//        App.displayTopCityRegion(cities, 10);
+//        App.displayTopCityRegion(cities, 10,"topcityinregion.md");
 //    }
 //
 //    @Test
@@ -91,7 +92,23 @@
 //        ArrayList<City> cities =  new ArrayList<City>();
 //        City cit = new City("Leeds", "United Kingdom","England", 424194);
 //        cities.add(cit);
-//        App.displayTopCityDistrict(cities, 10);
+//        App.displayTopCityDistrict(cities, 10,"topcityindistrict.md");
+//    }
+//
+//    @Test
+//    void displayCityPopulation() {
+//        ArrayList<City> cities =  new ArrayList<City>();
+//        City cit = new City(339917);
+//        cities.add(cit);
+//        App.displayCityPopulation(cities,"citypopls.md");
+//    }
+//
+//    @Test
+//    void displayPopdist() {
+//        ArrayList<City> cities =  new ArrayList<City>();
+//        City cit = new City(16716706);
+//        cities.add(cit);
+//        App.displayPopdist(cities,"districtpopls.md");
 //    }
 //
 //    @Test
@@ -99,7 +116,7 @@
 //        ArrayList<CapitalCity> cities =  new ArrayList<CapitalCity>();
 //        CapitalCity cit = new CapitalCity("Leeds", "United Kingdom", 424194);
 //        cities.add(cit);
-//        App.displayTCAW(cities, 10);
+//        App.displayTCAW(cities, 10,"topcapcityinworld.md");
 //    }
 //
 //    @Test
@@ -107,7 +124,7 @@
 //        ArrayList<CapitalCity> cities =  new ArrayList<CapitalCity>();
 //        CapitalCity cit = new CapitalCity("Canberra", "Australia", 322723);
 //        cities.add(cit);
-//        App.displayTCAW(cities, 10);
+//        App.displayTCAW(cities, 10,"topcapcityincontinent.md");
 //    }
 //
 //    @Test
@@ -115,7 +132,7 @@
 //        ArrayList<CapitalCity> cities =  new ArrayList<CapitalCity>();
 //        CapitalCity cit = new CapitalCity("Baghdad", "Iraq", 4336000);
 //        cities.add(cit);
-//        App.displayTCAR(cities, 10);
+//        App.displayTCAR(cities, 10,"topcapcityinregion.md");
 //    }
 //
 //    @Test
@@ -123,7 +140,7 @@
 //        ArrayList<Country> coucons =  new ArrayList<Country>();
 //        Country cit = new Country("CHN","China", "Asia", "Eastern Asia", (int) Math.round(1.27755802E9), "Peking");
 //        coucons.add(cit);
-//        App.displayCountry(coucons);
+//        App.displayCountry(coucons,"countriesinworld.md");
 //    }
 //
 //    @Test
@@ -131,7 +148,7 @@
 //        ArrayList<Country> coucons =  new ArrayList<Country>();
 //        Country cit = new Country("MMR","Myanmar", "Asia", "Southeast Asia", (int) Math.round(4.5611E7), "Rangoon (Yangon");
 //        coucons.add(cit);
-//        App.displayCountryPopLSRegion(coucons);
+//        App.displayCountryPopLSRegion(coucons,"countryinregion.md");
 //    }
 //
 //    @Test
@@ -139,7 +156,7 @@
 //        ArrayList<Country> coucons =  new ArrayList<Country>();
 //        Country cit = new Country("ITA","Italy", "Europe", "Southern Europe", (int) Math.round(5.768E7), "Roma");
 //        coucons.add(cit);
-//        App.displayCouCon(coucons);
+//        App.displayCouCon(coucons,"countryincontinent.md");
 //    }
 //
 //    @Test
@@ -147,7 +164,7 @@
 //        ArrayList<Country> coucons =  new ArrayList<Country>();
 //        Country cit = new Country("JPN","Japan", "Eastern Asia", "Asia", (int) Math.round(1.26714E8), "Tokyo");
 //        coucons.add(cit);
-//        App.displayTopCountryPop(coucons, 10);
+//        App.displayTopCountryPop(coucons, 10,"topcouinworld.md");
 //    }
 //
 //    @Test
@@ -155,7 +172,7 @@
 //        ArrayList<Country> coucons =  new ArrayList<Country>();
 //        Country cit = new Country("CAN","Canada", "North America", "North America", (int) Math.round(3.1147E7), "Ottawa");
 //        coucons.add(cit);
-//        App.displayTopCouContPop(coucons, 10);
+//        App.displayTopCouContPop(coucons, 10,"topcouincontinent.md");
 //    }
 //
 //    @Test
@@ -163,7 +180,85 @@
 //        ArrayList<Country> coucons =  new ArrayList<Country>();
 //        Country cit = new Country("BRB","Barbadoas", "North America", "Caribbean", 270000, "Bridgetown");
 //        coucons.add(cit);
-//        App.displayTopCouRegPop(coucons, 10);
+//        App.displayTopCouRegPop(coucons, 10,"topcouinregion.md");
+//    }
+//
+//    @Test
+//    void displayPopW() {
+//        ArrayList<Country> coucons =  new ArrayList<Country>();
+//        Country cit = new Country(6078749450);
+//        coucons.add(cit);
+//        App.displayPopW(coucons, "worldpopls.md");
+//    }
+//
+//    @Test
+//    void displayPopE() throws SQLException {
+//        ArrayList<Country> popw = new ArrayList<Country>();
+//        ArrayList<Country> pope = new ArrayList<Country>();
+//        ArrayList<Country> popc = new ArrayList<Country>();
+//        ArrayList<Country> popa = new ArrayList<Country>();
+//        ArrayList<Country> poph = new ArrayList<Country>();
+//        ArrayList<Country> pops = new ArrayList<Country>();
+//        Country cit = new Country(6078749450);
+//        popw.add(cit);
+//        Country cit1 = new Country(459158800);
+//        pope.add(cit1);
+//        Country cit2 = new Country(1281125000);
+//        popc.add(cit2);
+//        Country cit3 = new Country(293364000);
+//        poph.add(cit3);
+//        Country cit4 = new Country(1013662000);
+//        popa.add(cit4);
+//        Country cit5 = new Country(372190700);
+//        pops.add(cit5);
+//        ArrayList<Country>[] coucons = new ArrayList[]{popw, pope, popc, popa, poph, pops};
+//        App.displayPopE(coucons, "languagepopls.md");
+//    }
+//
+//    @Test
+//    void displayPopReg() {
+//        ArrayList<Country> coucons =  new ArrayList<Country>();
+//        Country cit = new Country(38140000);
+//        coucons.add(cit);
+//        App.displayPopReg(coucons, "regionpopls.md");
+//    }
+//
+//    @Test
+//    void displayCntCitynotCity() {
+//        ArrayList<Country> coucons =  new ArrayList<Country>();
+//        Country cit = new Country("BRB","Barbadoas", "North America", "Caribbean", 270000, "Bridgetown");
+//        coucons.add(cit);
+//        App.displayCntCitynotCity(coucons, 10,"topcouinregion.md");
+//    }
+//    @Test
+//    void displayPopcon() {
+//        ArrayList<Population> coucons =  new ArrayList<Country>();
+//        Country cit = new Country("BRB","Barbadoas", "North America", "Caribbean", 270000, "Bridgetown");
+//        coucons.add(cit);
+//        App.displayPopcon(coucons, 10,"topcouinregion.md");
+//    }
+//    @Test
+//    void displayPepPopReg() {
+//        ArrayList<Population> coucons =  new ArrayList<Country>();
+//        Country cit = new Country("BRB","Barbadoas", "North America", "Caribbean", 270000, "Bridgetown");
+//        coucons.add(cit);
+//        App.displayPepPopReg(coucons, 10,"topcouinregion.md");
+//    }
+//
+//    @Test
+//    void displayCountryPopulation() {
+//        ArrayList<Population> coucons =  new ArrayList<Country>();
+//        Country cit = new Country("BRB","Barbadoas", "North America", "Caribbean", 270000, "Bridgetown");
+//        coucons.add(cit);
+//        App.displayCountryPopulation(coucons, 10,"topcouinregion.md");
+//    }
+//
+//    @Test
+//    void displayPopcont() {
+//        ArrayList<Country> coucons =  new ArrayList<Country>();
+//        Country cit = new Country("BRB","Barbadoas", "North America", "Caribbean", 270000, "Bridgetown");
+//        coucons.add(cit);
+//        App.displayPopcont(coucons, 10,"topcouinregion.md");
 //    }
 //
 //    @Test
@@ -171,7 +266,7 @@
 //        ArrayList<CapitalCity> cities =  new ArrayList<CapitalCity>();
 //        CapitalCity cit = new CapitalCity("Lina", "Peru", 6464693);
 //        cities.add(cit);
-//        App.displayCapital(cities);
+//        App.displayCapital(cities,"capcityinworld.md");
 //
 //    }
 //
@@ -180,7 +275,7 @@
 //        ArrayList<CapitalCity> cities =  new ArrayList<CapitalCity>();
 //        CapitalCity cit = new CapitalCity("La Habana", "Cuba", 2256000);
 //        cities.add(cit);
-//        App.dispalyCapCitRegLs(cities);
+//        App.dispalyCapCitRegLs(cities,"capcityinregion.md");
 //    }
 //
 //    @Test
@@ -188,7 +283,7 @@
 //        ArrayList<CapitalCity> cities =  new ArrayList<CapitalCity>();
 //        CapitalCity cit = new CapitalCity("New York", "United States", 8008278);
 //        cities.add(cit);
-//        App.dispalyCapCitRegLs(cities);
+//        App.dispalyCapCitRegLs(cities,"capcityincontinent.md");
 //    }
 //
 //}
