@@ -1,6 +1,5 @@
 package com.napier.earth;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -25,23 +24,6 @@ class AppIntegrationTest {
         assertNotNull(cities);
         assertEquals(cities.size() > 0, true);
         app.displayCity(cities,"cities.md");
-        City cp = null;
-
-//        assertNotNull(cities);
-//        assertEquals(cities.size() > 0, true);
-//        app.displayCity(cities,"cities.md");
-
-        for (City c: cities) {
-            if (c.getName().equals("Mumbai (Bombay)")) {
-                cp = c;
-                break;
-            }
-        }
-//        Assertions.assertEquals("Mumbai (Bombay)",cp.getName());
-//        Assertions.assertEquals("India",cp.getCountry());
-//        Assertions.assertEquals("Maharashtra",cp.getDistrict());
-        Assertions.assertEquals(105000000,cp.getPopulation(),"Value are not equal");
-        System.out.println("The info is correct");
     }
     @Test
     void getCityCountryPopLs() throws SQLException {
