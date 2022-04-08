@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class AppTest {
     static App app;
@@ -25,18 +27,79 @@ public class AppTest {
     }
 
     @Test
+    void displayCityContainsNull() {
+        App.displayCity(null,"cities.md");
+    }
+
+    @Test
+    void displayCitySize() {
+        ArrayList<City> cities =  new ArrayList<City>();
+        City cit = new City("Seoul", "South Korea","Seoul", 9981619);
+        cities.add(cit);
+        assertEquals(1,cities.size());
+    }
+
+    @Test
+    void displayCityObjectNull() {
+        ArrayList<City> cities =  new ArrayList<City>();
+        cities.add(null);
+        App.displayCity(cities,"cities.md");
+    }
+
+    @Test
     void displayTopNPopCity() {
         ArrayList<City> cities =  new ArrayList<City>();
         City cit = new City("Rangoon (Yangon)", "Myanmar","Rangoon [Yangon]", 3361700);
         cities.add(cit);
         App.displayTopNPopCity(cities,"topcity.md");
     }
+
+    @Test
+    void displayTopNPopCityContainsNull() {
+        App.displayCity(null,"topcity.md");
+    }
+
+    @Test
+    void displayTopNPopCitySize() {
+        ArrayList<City> cities =  new ArrayList<City>();
+        City cit = new City("Rangoon (Yangon)", "Myanmar","Rangoon [Yangon]", 3361700);
+        cities.add(cit);
+        assertEquals(1,cities.size());
+    }
+
+    @Test
+    void displayTopNPopCityObjectNull() {
+        ArrayList<City> cities =  new ArrayList<City>();
+        cities.add(null);
+        App.displayCity(cities,"topcity.md");
+    }
+
     @Test
     void displayTopNPopCityWorld() {
         ArrayList<City> cities =  new ArrayList<City>();
         City cit = new City("New York", "United","New York", 8008278);
         cities.add(cit);
         App.displayTopNPopCityWorld(cities,"topcityworld.md");
+    }
+
+    @Test
+    void displayTopNPopCityWorldContainNull() {
+        App.displayCity(null,"topcityworld.md");
+    }
+
+    @Test
+    void displayTopNPopCityWorldSize() {
+        ArrayList<City> cities =  new ArrayList<City>();
+        City cit = new City("New York", "United","New York", 8008278);
+        cities.add(cit);
+        assertEquals(1,cities.size());
+    }
+
+    @Test
+    void displayTopNPopCityWorldObjectNull() {
+        ArrayList<City> cities =  new ArrayList<City>();
+        cities.add(null);
+        App.displayCity(cities,"topcityworld.md");
     }
 
     @Test

@@ -808,6 +808,11 @@ public class App
 
     public static void displayCity(ArrayList<City> cityNum, String filename)
     {
+        if (cityNum == null)
+        {
+            System.out.println("No cityNum");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -826,6 +831,8 @@ public class App
         // loop cell and columns with fetch data
         for (City c: cityNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(c.getDistrict(), numberStyle);
