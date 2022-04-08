@@ -332,7 +332,7 @@ public class App
      * @return popdis
      */
 
-    public ArrayList<City> getPopdist( ) throws SQLException {
+    public static ArrayList<City> getPopdist() throws SQLException {
         //  sql query based on issue
         String sql = "select District, Population from city where District = 'California' ";
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -538,7 +538,7 @@ public class App
      * @return popcont
      */
 
-    public ArrayList<Country> getPopcont( ) throws SQLException {
+    public static ArrayList<Country> getPopcont() throws SQLException {
         //  sql query based on issue
         String sql = "select country.Continent, country.Population from country where country.Continent = 'Asia' ";
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -667,7 +667,7 @@ public class App
      * @return pop_cities
      */
 
-    public ArrayList<Population> getPopcon() throws SQLException {
+    public static ArrayList<Population> getPopcon() throws SQLException {
         //  sql query based on issue
         String sql = "Select country.Continent, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city GROUP BY Continent ORDER BY Continent ASC";
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -686,7 +686,7 @@ public class App
      * @return popw
      */
 
-    public ArrayList<Country> getPopsW() throws SQLException {
+    public static ArrayList<Country> getPopsW() throws SQLException {
         //  sql query based on issue
         String sql = "select Population from country";
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -704,7 +704,7 @@ public class App
      * @return ints
      */
 
-    public ArrayList<Country>[] getLanguagePops() throws SQLException {
+    public static ArrayList<Country>[] getLanguagePops() throws SQLException {
         //  sql query based on issue
         String sql = "select population from country";
         String sqlE = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'English' and countrylanguage.IsOfficial = 'T'";
@@ -773,7 +773,7 @@ public class App
      * @return coupop
      */
 
-    public ArrayList<Country> getCountryPopulation()
+    public static ArrayList<Country> getCountryPopulation()
     {
         try
         {
@@ -803,7 +803,7 @@ public class App
      * @return ctypop
      */
 
-    public ArrayList<City> getCityPopulation()
+    public static ArrayList<City> getCityPopulation()
     {
         try
         {
@@ -833,7 +833,7 @@ public class App
      * @return pplpop
      */
 
-    public ArrayList<Population> getCntCitynotCity()
+    public static ArrayList<Population> getCntCitynotCity()
     {
         try
         {
@@ -858,7 +858,11 @@ public class App
             return null;
         }
     }
-    public ArrayList<Population> getPepPogReg() throws SQLException {
+    /**
+     *  The population of people, people living in cities, and people not living in cities in each region
+     * @return PepPopReg
+     */
+    public static ArrayList<Population> getPepPogReg() throws SQLException {
         //  sql query based on issue
         String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region ORDER BY Region ASC";
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -876,7 +880,7 @@ public class App
      * @return PopReg the population of the region.
      */
 
-    public ArrayList<Country> getPopReg() throws SQLException {
+    public static ArrayList<Country> getPopReg() throws SQLException {
         //  sql query based on issue
         String sql = "select Population from country where country.Region ='Caribbean'";
         PreparedStatement pstmt = con.prepareStatement(sql);
