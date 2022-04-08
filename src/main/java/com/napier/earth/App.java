@@ -363,7 +363,7 @@ public class App
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getLong(5), rset.getString(6));
                 countries1.add(cou);
             }
             return countries1;
@@ -394,7 +394,7 @@ public class App
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                Country couCons = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
+                Country couCons = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getLong(5), rset.getString(6));
                 couCon.add(couCons);
             }
             return couCon;
@@ -426,7 +426,7 @@ public class App
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getLong(5), rset.getString(6));
                 countries.add(cou);
             }
             return countries;
@@ -457,7 +457,7 @@ public class App
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getLong(5), rset.getString(6));
                 t_countries.add(cou);
             }
             return t_countries;
@@ -488,7 +488,7 @@ public class App
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getLong(5), rset.getString(6));
                 top_cou_con.add(cou);
             }
             return top_cou_con;
@@ -519,7 +519,7 @@ public class App
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getInt(5), rset.getString(6));
+                Country cou = new Country(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getLong(5), rset.getString(6));
                 top_cou_reg.add(cou);
             }
             return top_cou_reg;
@@ -546,7 +546,7 @@ public class App
         ArrayList<Country> popcont = new ArrayList<Country>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            Country cou = new Country(rset.getString(1), rset.getInt(2));
+            Country cou = new Country(rset.getString(1), rset.getLong(2));
             popcont.add(cou);
         }
         return popcont;
@@ -694,7 +694,7 @@ public class App
         ArrayList<Country> popw = new ArrayList<Country>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            Country countryW = new Country(rset.getInt(1));
+            Country countryW = new Country(rset.getLong(1));
             popw.add(countryW);
         }
         return popw;
@@ -737,27 +737,27 @@ public class App
         ArrayList<Country> pops = new ArrayList<Country>();
         ResultSet rset5 = pstmt5.executeQuery();
         while (rset.next()) {
-            Country countryW = new Country(rset.getInt(1));
+            Country countryW = new Country(rset.getLong(1));
             popw.add(countryW);
         }
         while (rset1.next()) {
-            Country countryE = new Country(rset1.getInt(1));
+            Country countryE = new Country(rset1.getLong(1));
             pope.add(countryE);
         }
         while (rset2.next()) {
-            Country countryC = new Country(rset2.getInt(1));
+            Country countryC = new Country(rset2.getLong(1));
             popc.add(countryC);
         }
         while (rset3.next()) {
-            Country countryA = new Country(rset3.getInt(1));
+            Country countryA = new Country(rset3.getLong(1));
             popa.add(countryA);
         }
         while (rset4.next()) {
-            Country countryH = new Country(rset4.getInt(1));
+            Country countryH = new Country(rset4.getLong(1));
             poph.add(countryH);
         }
         while (rset5.next()) {
-            Country countryS = new Country(rset5.getInt(1));
+            Country countryS = new Country(rset5.getLong(1));
             pops.add(countryS);
         }
         ArrayList<Country>[] ints = new ArrayList[]{popw, pope, popc, popa, poph, pops};
@@ -795,7 +795,7 @@ public class App
         ArrayList<Country> PopRegs = new ArrayList<Country>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
-            Country PopReg = new Country(rset.getInt(1));
+            Country PopReg = new Country(rset.getLong(1));
             PopRegs.add(PopReg);
         }
         return PopRegs;
@@ -1637,7 +1637,7 @@ public class App
         }
     }
 
-    public void displayPopcont(ArrayList<Country> couNum, String filename)
+    public static void displayPopcont(ArrayList<Country> couNum, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1827,7 +1827,7 @@ public class App
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
-                Country cnt = new Country(rset.getInt(1));
+                Country cnt = new Country(rset.getLong(1));
                 coupop.add(cnt);
             }
             return coupop;
@@ -1943,7 +1943,7 @@ public class App
      * @param pplcnc
      */
 
-    public void displayCntCitynotCity(ArrayList<Population> pplcnc, String filename)
+    public static void displayCntCitynotCity(ArrayList<Population> pplcnc, String filename)
     {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -2195,7 +2195,7 @@ public class App
      * @param PPR
      */
 
-    public void displayPepPopReg(ArrayList<Population> PPR, String filename) {
+    public static void displayPepPopReg(ArrayList<Population> PPR, String filename) {
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);

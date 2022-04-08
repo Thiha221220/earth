@@ -10,7 +10,7 @@ public class Country
     private String Name;
     private String Continent;
     private String Region;
-    private Integer Population;
+    private Long Population;
     private String Capital;
 
     /**
@@ -45,7 +45,7 @@ public class Country
      *  get population
      * @return Population
      */
-    public Integer getPopulation() {
+    public Long getPopulation() {
         return Population;
     }
     /**
@@ -59,7 +59,7 @@ public class Country
     /**
      *  Country Constructor
      */
-    public Country(String code, String name, String continent, String region, Integer population, String capital) {
+    public Country(String code, String name, String continent, String region, Long population, String capital) {
 
         Code = code;
         Name = name;
@@ -73,7 +73,7 @@ public class Country
      *  World Population Constructor
      */
 
-    public Country(Integer population) {
+    public Country(Long population) {
         Population = population;
     }
 
@@ -81,7 +81,7 @@ public class Country
      *  Continent Constructor
      */
 
-    public Country(String continent, Integer population) {
+    public Country(String continent, Long population) {
         Continent = continent;
         Population = population;
     }
