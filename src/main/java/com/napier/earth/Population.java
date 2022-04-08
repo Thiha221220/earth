@@ -14,9 +14,7 @@ public class Population {
      * get Continent/Region/Country Name
      * @return  Name
      */
-    public String getName() {
-        return Name;
-    }
+    public String getName() { return Name; }
 
     /**
      * get Total Population

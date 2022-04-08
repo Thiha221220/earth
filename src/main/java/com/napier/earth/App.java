@@ -863,7 +863,7 @@ public class App
         t.addCell("District", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("This is top 10 populated cities in Myanmar country");
+        System.out.println("Top 10 Populated cities in Myanmar where 10 is provided by the user");
         // loop cell and columns with fetch data
         for (City c: Tnp_C)
         {
@@ -903,7 +903,7 @@ public class App
         t.addCell("District", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("This is top 10 populated cities in the world");
+        System.out.println("Top 10 Populated cities in the world where 10 is provided by the user");
         // loop cell and columns with fetch data
         for (City c: TnpC_W)
         {
@@ -1227,7 +1227,7 @@ public class App
         //  add table header
         t.addCell("Populated people in California" );
         // loop cell and columns with fetch data
-        System.out.println("Population Report of California ");
+        System.out.println("Population of a District ");
         long sum = 0;
 //
         for (City c: ccNum){
@@ -1264,7 +1264,7 @@ public class App
         t.addCell("Country", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("The top "+times+" populated capital cities in the world where "+times+" is provided by the user.");
+        System.out.println("Top "+times+" populated capital cities in the world where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
         for (CapitalCity c: capcNum)
         {
@@ -1301,7 +1301,7 @@ public class App
         t.addCell("Country", numberStyle);
         t.addCell("Population", numberStyle);
 
-        System.out.println("The top "+times+" populated capital cities in Oceania where "+times+" is provided by the user.");
+        System.out.println("Top "+times+" populated capital cities in Oceania where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
         for (CapitalCity c: capconNum)
         {
@@ -1335,7 +1335,7 @@ public class App
         //  add table header
         t.addCell("City Name", numberStyle);
         t.addCell("Country", numberStyle);
-        t.addCell("Population", numberStyle);System.out.println("The top "+times+" populated capital cities in the Middle East where "+times+" is provided by the user.");
+        t.addCell("Population", numberStyle);System.out.println("Top "+times+" populated capital cities in the Middle East where "+times+" is provided by the user.");
         // loop cell and columns with fetch data
         for (CapitalCity c: caprNum)
         {
@@ -1519,7 +1519,7 @@ public class App
         t.addCell("Population", numberStyle);
         t.addCell("Capital Ciy", numberStyle);
 
-        System.out.println( "The top "+ topcou + " populated countries in the world where " + topcou + " is provided by the user");
+        System.out.println( "Top "+ topcou + " populated countries in the world where " + topcou + " is provided by the user");
         // loop cell and columns with fetch data
         for (Country c: couNum)
         {
@@ -1567,7 +1567,7 @@ public class App
         t.addCell("Population", numberStyle);
         t.addCell("Capital Ciy", numberStyle);
 
-        System.out.println( "The top "+ topcou + " populated countries in North America where " + topcou + " is provided by the user");
+        System.out.println( "Top "+ topcou + " populated countries in North America where " + topcou + " is provided by the user");
         // loop cell and columns with fetch data
         for (Country c: couNum)
         {
@@ -1615,7 +1615,7 @@ public class App
         t.addCell("Population", numberStyle);
         t.addCell("Capital Ciy", numberStyle);
 
-        System.out.println( "The top "+ topcou + " populated countries in Caribbean where " + topcou + " is provided by the user");
+        System.out.println( "Top "+ topcou + " populated countries in Caribbean where " + topcou + " is provided by the user");
         // loop cell and columns with fetch data
         for (Country c: couNum)
         {
@@ -1648,7 +1648,7 @@ public class App
         //  add table header
         t.addCell("Populated People in Asia" );
         // loop cell and columns with fetch data
-        System.out.println("Population Report of Asia ");
+        System.out.println("Population of a Continent ");
         long sum = 0;
 //
         for (Country c: couNum){
@@ -1877,7 +1877,7 @@ public class App
      * @param ctypop population of a country
      */
     public static void displayCityPopulation(ArrayList<City> ctypop, String filename){
-        System.out.println("Population Report of a City");
+        System.out.println("Population of a City");
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1886,7 +1886,7 @@ public class App
         t.setColumnWidth(0, 8, 50);
         t.setColumnWidth(1, 7, 20);
         //  add table header
-        t.addCell("Population of London", numberStyle);
+        t.addCell("Populated people in London", numberStyle);
         long cp = 0;
         // loop cell and columns with fetch data
         for (City c: ctypop)
@@ -1910,7 +1910,7 @@ public class App
      * @param coupop population of a country
      */
     public static void displayCountryPopulation(ArrayList<Country> coupop, String filename){
-        System.out.println("Population Report of a Country");
+        System.out.println("Population of a Country");
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
@@ -1919,7 +1919,7 @@ public class App
         t.setColumnWidth(0, 8, 50);
         t.setColumnWidth(1, 7, 20);
         //  add table header
-        t.addCell("Population of Myanmar", numberStyle);
+        t.addCell("Population People in Myanmar", numberStyle);
         long cnp = 0;
         // loop cell and columns with fetch data
         for (Country c: coupop)
@@ -2053,8 +2053,8 @@ public class App
         t.setColumnWidth(0, 8, 50);
         t.setColumnWidth(1, 7, 40);
         //  add table header
-        System.out.println("The Population of the world");
-        t.addCell("The population of the world");
+        System.out.println("Population of the world");
+        t.addCell("Populated people in the world");
         // loop cell and columns with fetch data
         long sum = 0;
         // total population
@@ -2170,8 +2170,8 @@ public class App
         t.setColumnWidth(0, 8, 50);
         t.setColumnWidth(1, 7, 40);
         //  add table header
-        System.out.println("The Population of the Caribbean");
-        t.addCell("The population of the a Region Caribbean");
+        System.out.println("Population of a Region");
+        t.addCell("Populated people in the Caribbean");
         // loop cell and columns with fetch data
         long sum = 0;
         // total population
