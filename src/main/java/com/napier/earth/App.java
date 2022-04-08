@@ -768,7 +768,96 @@ public class App
      *  The population of people, people living in cities, and people not living in cities in each region.
      * @return PepPopReg the population of people in each region
      */
+    /**
+     *  The population of the country
+     * @return coupop
+     */
 
+    public ArrayList<Country> getCountryPopulation()
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select Population from country where Name='Myanmar'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<Country> coupop = new ArrayList<Country>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                Country cnt = new Country(rset.getLong(1));
+                coupop.add(cnt);
+            }
+            return coupop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of a country");
+            return null;
+        }
+    }
+
+    /**
+     *  The population of the city
+     * @return ctypop
+     */
+
+    public ArrayList<City> getCityPopulation()
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "select Population from city where Name='London'";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            // create array to store country
+            ArrayList<City> ctypop = new ArrayList<City>();
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                City cty = new City(rset.getInt(1));
+                ctypop.add(cty);
+            }
+            System.out.println(ctypop);
+            return ctypop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of a city");
+            return null;
+        }
+    }
+    /**
+     *  The population of people, people living in cities, and people not living in cities in each country
+     * @return pplpop
+     */
+
+    public ArrayList<Population> getCntCitynotCity()
+    {
+        try
+        {
+            //  sql query based on issue
+            String sql = "Select country.Name, country.Population, SUM(city.Population), country.Population-SUM(city.population) from country, city where country.Code = city.CountryCode GROUP BY city.CountryCode ORDER BY country.Name ASC";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ArrayList<Population> pplcnc = new ArrayList<Population>();
+            // create array to store country
+            ResultSet rset = pstmt.executeQuery();
+            while (rset.next())
+            {
+                Population cntc = new Population(rset.getString(1),rset.getInt(2), rset.getInt(3), rset.getLong(4));
+                pplcnc.add(cntc);
+            }
+            return pplcnc;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population report of people living in cities and not living in cities");
+            return null;
+        }
+    }
     public ArrayList<Population> getPepPogReg() throws SQLException {
         //  sql query based on issue
         String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region ORDER BY Region ASC";
@@ -810,7 +899,7 @@ public class App
     {
         if (cityNum == null)
         {
-            System.out.println("No cityNum");
+            System.out.println("No cityNum records");
             return;
         }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
@@ -856,6 +945,11 @@ public class App
 
     public static void displayTopNPopCity(ArrayList<City> Tnp_C, String filename)
     {
+        if (Tnp_C == null)
+        {
+            System.out.println("No Top N Populated City Records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -874,6 +968,9 @@ public class App
         // loop cell and columns with fetch data
         for (City c: Tnp_C)
         {
+            if (c == null)
+                continue;
+
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(c.getDistrict(), numberStyle);
@@ -896,6 +993,11 @@ public class App
 
     public static void displayTopNPopCityWorld(ArrayList<City> TnpC_W, String filename)
     {
+        if (TnpC_W == null)
+        {
+            System.out.println("No top n populated city in the world records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -914,6 +1016,8 @@ public class App
         // loop cell and columns with fetch data
         for (City c: TnpC_W)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(c.getDistrict(), numberStyle);
@@ -937,6 +1041,11 @@ public class App
 
     public static void displayCityCountry(ArrayList<City> ccnt, String filename)
     {
+        if (ccnt == null)
+        {
+            System.out.println("No display city country records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         //  Create Table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -955,6 +1064,8 @@ public class App
         // loop cell and columns with fetch data
         for (City c: ccnt)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell("South Korea", numberStyle);
             t.addCell(c.getDistrict(), numberStyle);
@@ -978,6 +1089,11 @@ public class App
 
     public static void displayCityDistrict(ArrayList<City> dcNum, String filename)
     {
+        if (dcNum == null)
+        {
+            System.out.println("No city district records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -996,6 +1112,8 @@ public class App
         // loop cell and columns with fetch data
         for (City c: dcNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(c.getDistrict(), numberStyle);
@@ -1019,6 +1137,11 @@ public class App
 
     public static void displayCityContinent(ArrayList<City> ccnt, String filename)
     {
+        if (ccnt == null)
+        {
+            System.out.println("No city continent");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1036,6 +1159,8 @@ public class App
         // loop cell and columns with fetch data
         for (City c: ccnt)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(c.getDistrict(), numberStyle);
@@ -1059,7 +1184,11 @@ public class App
 
     public static void displayRegion(ArrayList<City> rcNum, String filename)
     {
-
+        if (rcNum == null)
+        {
+            System.out.println("No display region records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1078,6 +1207,8 @@ public class App
         // loop cell and columns with fetch data
         for (City rci: rcNum)
         {
+            if (rci == null)
+                continue;
             t.addCell(rci.getName(), numberStyle);
             t.addCell(rci.getCountry(), numberStyle);
             t.addCell(rci.getDistrict(), numberStyle);
@@ -1102,6 +1233,11 @@ public class App
 
     public static void displayTopCityContinent(ArrayList<City> tccnt, int topccon, String filename)
     {
+        if (tccnt == null)
+        {
+            System.out.println("No top city continent records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1119,6 +1255,8 @@ public class App
         // loop cell and columns with fetch data
         for (City c: tccnt)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(c.getDistrict(), numberStyle);
@@ -1142,7 +1280,11 @@ public class App
      */
     public static void displayTopCityRegion(ArrayList<City> tcrgn, int topcrgn, String filename)
     {
-
+        if (tcrgn == null)
+        {
+            System.out.println("No top city region records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1161,6 +1303,8 @@ public class App
         // loop cell and columns with fetch data
         for (City rci: tcrgn)
         {
+            if (rci == null)
+                continue;
             t.addCell(rci.getName(), numberStyle);
             t.addCell(rci.getCountry(), numberStyle);
             t.addCell(rci.getDistrict(), numberStyle);
@@ -1185,6 +1329,11 @@ public class App
 
     public static void displayTopCityDistrict(ArrayList<City> tcdst, int topcdst, String filename)
     {
+        if (tcdst == null)
+        {
+            System.out.println("No top city district records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1203,6 +1352,8 @@ public class App
         // loop cell and columns with fetch data
         for (City c: tcdst)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(c.getDistrict(), numberStyle);
@@ -1225,6 +1376,11 @@ public class App
      */
     public static void displayPopdist(ArrayList<City> ccNum, String filename)
     {
+        if (ccNum == null)
+        {
+            System.out.println("No population district records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1238,6 +1394,8 @@ public class App
         long sum = 0;
 //
         for (City c: ccNum){
+            if (c == null)
+                continue;
             sum += c.getPopulation();
         }
         t.addCell(String.valueOf(sum), numberStyle);
@@ -1259,6 +1417,11 @@ public class App
 
     public static void displayTCAW(ArrayList<CapitalCity> capcNum, int times, String filename)
     {
+        if (capcNum == null)
+        {
+            System.out.println("No top 10 populated capital cities in the world records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1275,6 +1438,8 @@ public class App
         // loop cell and columns with fetch data
         for (CapitalCity c: capcNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
@@ -1294,8 +1459,13 @@ public class App
      * @param capconNum capital city population in the continent list
      */
 
-    public void displayTCAC(ArrayList<CapitalCity> capconNum, int times, String filename)
+    public static void displayTCAC(ArrayList<CapitalCity> capconNum, int times, String filename)
     {
+        if (capconNum == null)
+        {
+            System.out.println("No top 10 populated capital cities in the continent records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1312,6 +1482,8 @@ public class App
         // loop cell and columns with fetch data
         for (CapitalCity c: capconNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
@@ -1332,6 +1504,11 @@ public class App
      */
 
     public static void displayTCAR(ArrayList<CapitalCity> caprNum, int times, String filename) {
+        if (caprNum == null)
+        {
+            System.out.println("No top 10 populated capital cities in the region records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1346,6 +1523,8 @@ public class App
         // loop cell and columns with fetch data
         for (CapitalCity c: caprNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
@@ -1368,6 +1547,11 @@ public class App
 
     public static void displayCountry(ArrayList<Country> couNum, String filename)
     {
+        if (couNum == null)
+        {
+            System.out.println("No countries in the world records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // Create Table
         Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1390,6 +1574,8 @@ public class App
         // loop cell and columns with fetch data
         for (Country c: couNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getContinent(), numberStyle);
@@ -1415,6 +1601,11 @@ public class App
 
     public static void displayCountryPopLSRegion(ArrayList<Country> couNum, String filename)
     {
+        if (couNum == null)
+        {
+            System.out.println("No countries in the South East Asia records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1437,6 +1628,8 @@ public class App
         // loop cell and columns with fetch data
         for (Country c: couNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getContinent(), numberStyle);
@@ -1461,6 +1654,11 @@ public class App
 
     public static void displayCouCon(ArrayList<Country> couConNum, String filename)
     {
+        if (couConNum == null)
+        {
+            System.out.println("No countries in a Continent records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1483,6 +1681,8 @@ public class App
         // loop cell and columns with fetch data
         for (Country c: couConNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getContinent(), numberStyle);
@@ -1508,6 +1708,11 @@ public class App
 
     public static void displayTopCountryPop(ArrayList<Country> couNum, int topcou, String filename)
     {
+        if (couNum == null)
+        {
+            System.out.println("No top 10 populated countries in the world");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1530,6 +1735,8 @@ public class App
         // loop cell and columns with fetch data
         for (Country c: couNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getContinent(), numberStyle);
@@ -1556,6 +1763,11 @@ public class App
 
     public static void displayTopCouContPop(ArrayList<Country> couNum, int topcou, String filename)
     {
+        if (couNum == null)
+        {
+            System.out.println("No top 10 populated countries in a continent records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1578,6 +1790,8 @@ public class App
         // loop cell and columns with fetch data
         for (Country c: couNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getContinent(), numberStyle);
@@ -1604,6 +1818,11 @@ public class App
 
     public static void displayTopCouRegPop(ArrayList<Country> couNum, int topcou, String filename)
     {
+        if (couNum == null)
+        {
+            System.out.println("No top 10 populated countries in a region records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(6, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1626,6 +1845,8 @@ public class App
         // loop cell and columns with fetch data
         for (Country c: couNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getCode(), numberStyle);
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getContinent(), numberStyle);
@@ -1644,8 +1865,18 @@ public class App
         }
     }
 
+    /**
+     *  Display function of populated people in Asia where N is provided by the user.
+     * @param couNum population in Asia list
+     */
+
     public static void displayPopcont(ArrayList<Country> couNum, String filename)
     {
+        if (couNum == null)
+        {
+            System.out.println("No population in Asia records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1659,6 +1890,8 @@ public class App
         long sum = 0;
 //
         for (Country c: couNum){
+            if (c == null)
+                continue;
             sum += c.getPopulation();
         }
         t.addCell(String.valueOf(sum), numberStyle);
@@ -1681,6 +1914,11 @@ public class App
 
     public static void displayCapital(ArrayList<CapitalCity> capcNum, String filename)
     {
+        if (capcNum == null)
+        {
+            System.out.println("No all the capital cities in the world records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1697,6 +1935,8 @@ public class App
         // loop cell and columns with fetch data
         for (CapitalCity c: capcNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
@@ -1718,6 +1958,11 @@ public class App
 
     public static void dispalyCapCitRegLs(ArrayList<CapitalCity> capCRNum, String filename)
     {
+        if (capCRNum == null)
+        {
+            System.out.println("No all the capital cities in the region records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1734,6 +1979,8 @@ public class App
         // loop cell and columns with fetch data
         for (CapitalCity c: capCRNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
@@ -1755,6 +2002,11 @@ public class App
 
     public void displayCapCitCon(ArrayList<CapitalCity> CCCNum, String filename)
     {
+        if (CCCNum == null)
+        {
+            System.out.println("No all the capital cities in a continent records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1771,6 +2023,8 @@ public class App
         // loop cell and columns with fetch data
         for (CapitalCity c: CCCNum)
         {
+            if (c == null)
+                continue;
             t.addCell(c.getName(), numberStyle);
             t.addCell(c.getCountry(), numberStyle);
             t.addCell(String.valueOf(c.getPopulation()), numberStyle);
@@ -1786,104 +2040,17 @@ public class App
         }
     }
 
-    /**
-     *  The population of the city
-     * @return ctypop
-     */
-
-    public ArrayList<City> getCityPopulation()
-    {
-        try
-        {
-            //  sql query based on issue
-            String sql = "select Population from city where Name='London'";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            // create array to store country
-            ArrayList<City> ctypop = new ArrayList<City>();
-            ResultSet rset = pstmt.executeQuery();
-            while (rset.next())
-            {
-                City cty = new City(rset.getInt(1));
-                ctypop.add(cty);
-            }
-            System.out.println(ctypop);
-            return ctypop;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get population report of a city");
-            return null;
-        }
-    }
-
-    /**
-     *  The population of the country
-     * @return coupop
-     */
-
-    public ArrayList<Country> getCountryPopulation()
-    {
-        try
-        {
-            //  sql query based on issue
-            String sql = "select Population from country where Name='Myanmar'";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            // create array to store country
-            ArrayList<Country> coupop = new ArrayList<Country>();
-            ResultSet rset = pstmt.executeQuery();
-            while (rset.next())
-            {
-                Country cnt = new Country(rset.getLong(1));
-                coupop.add(cnt);
-            }
-            return coupop;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get population report of a country");
-            return null;
-        }
-    }
-
-    /**
-     *  The population of people, people living in cities, and people not living in cities in each country
-     * @return pplpop
-     */
-
-    public ArrayList<Population> getCntCitynotCity()
-    {
-        try
-        {
-            //  sql query based on issue
-            String sql = "Select country.Name, country.Population, SUM(city.Population), country.Population-SUM(city.population) from country, city where country.Code = city.CountryCode GROUP BY city.CountryCode ORDER BY country.Name ASC";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            ArrayList<Population> pplcnc = new ArrayList<Population>();
-            // create array to store country
-            ResultSet rset = pstmt.executeQuery();
-            while (rset.next())
-            {
-                Population cntc = new Population(rset.getString(1),rset.getInt(2), rset.getInt(3), rset.getLong(4));
-                pplcnc.add(cntc);
-            }
-            return pplcnc;
-
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get population report of people living in cities and not living in cities");
-            return null;
-        }
-    }
-
 
     /**
      * Display function of population report of a city
      * @param ctypop population of a country
      */
     public static void displayCityPopulation(ArrayList<City> ctypop, String filename){
+        if (ctypop == null)
+        {
+            System.out.println("No population of city records found");
+            return;
+        }
         System.out.println("Population of a City");
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
@@ -1898,6 +2065,8 @@ public class App
         // loop cell and columns with fetch data
         for (City c: ctypop)
         {
+            if (c == null)
+                continue;
             cp = c.getPopulation();
         }
         t.addCell(String.valueOf(cp), numberStyle);
@@ -1917,6 +2086,11 @@ public class App
      * @param coupop population of a country
      */
     public static void displayCountryPopulation(ArrayList<Country> coupop, String filename){
+        if (coupop == null)
+        {
+            System.out.println("No population country records found");
+            return;
+        }
         System.out.println("Population of a Country");
 
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
@@ -1931,6 +2105,8 @@ public class App
         // loop cell and columns with fetch data
         for (Country c: coupop)
         {
+            if (c == null)
+                continue;
             cnp = c.getPopulation();
         }
         t.addCell(String.valueOf(cnp), numberStyle);
@@ -1952,6 +2128,11 @@ public class App
 
     public static void displayCntCitynotCity(ArrayList<Population> pplcnc, String filename)
     {
+        if (pplcnc == null)
+        {
+            System.out.println("No population of people, people living in cities, and people not living in cities in each country records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -1972,6 +2153,8 @@ public class App
         DecimalFormat df = new DecimalFormat("####0.00");
         for (Population p: pplcnc)
         {
+            if (p == null)
+                continue;
             double LivingPercent = ((double)p.getLiving()/p.getTotal())*100;
             double NotLivingPercent = ((double)p.getNotliving()/p.getTotal())*100;
             t.addCell(p.getName(), numberStyle);
@@ -1997,6 +2180,11 @@ public class App
 
     public static void displayPopcon(ArrayList<Population> popNum, String filename)
     {
+        if (popNum == null)
+        {
+            System.out.println("No populated people living in cities, and people not living in cities in each continent records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -2017,7 +2205,8 @@ public class App
         DecimalFormat df = new DecimalFormat("####0.00");
         for (int i = 0; i<popNum.size(); i++)
         {
-
+            if (popNum.get(i) == null)
+                continue;
             if (i == 6){
                 t.addCell("Antarctica", numberStyle);
                 t.addCell("0(0%)", numberStyle);
@@ -2053,6 +2242,11 @@ public class App
 
     public static void displayPopW(ArrayList<Country> CCCNum, String filename)
     {
+        if (CCCNum == null)
+        {
+            System.out.println("No population of the world records found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -2066,6 +2260,8 @@ public class App
         long sum = 0;
         // total population
         for (Country c: CCCNum){
+            if (c == null)
+                continue;
             sum += c.getPopulation();
         }
         t.addCell(String.valueOf(sum), numberStyle);
@@ -2086,6 +2282,11 @@ public class App
      */
 
     public static void displayPopE(ArrayList<Country>[] args, String filename) throws SQLException {
+        if (args == null)
+        {
+            System.out.println("No number of people based on language records not found");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(3, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -2109,21 +2310,33 @@ public class App
         int i = 0;
         // sum population
         for (Country c: args[0]) {
+            if (c == null)
+                continue;
             sum += c.getPopulation();
         }
         for (Country c: args[1]) {
+            if (c == null)
+                continue;
             sume += c.getPopulation();
         }
         for (Country c: args[2]) {
+            if (c == null)
+                continue;
             sumc += c.getPopulation();
         }
         for (Country c: args[3]) {
+            if (c == null)
+                continue;
             suma += c.getPopulation();
         }
         for (Country c: args[4]) {
+            if (c == null)
+                continue;
             sumh += c.getPopulation();
         }
         for (Country c: args[5]) {
+            if (c == null)
+                continue;
             sums += c.getPopulation();
         }
         // population percentage
@@ -2170,6 +2383,11 @@ public class App
 
     public static void displayPopReg(ArrayList<Country> PPRs, String filename)
     {
+        if (PPRs == null)
+        {
+            System.out.println("No population of region");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.LEFT);
         //  Create Table
         Table t = new Table(2, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -2183,6 +2401,8 @@ public class App
         long sum = 0;
         // total population
         for (Country c: PPRs){
+            if (c == null)
+                continue;
             sum += c.getPopulation();
         }
         t.addCell(String.valueOf(sum), numberStyle);
@@ -2203,6 +2423,11 @@ public class App
      */
 
     public static void displayPepPopReg(ArrayList<Population> PPR, String filename) {
+        if (PPR == null)
+        {
+            System.out.println("No all people living in cities and not living in cities in each region records");
+            return;
+        }
         CellStyle numberStyle = new CellStyle(HorizontalAlign.RIGHT);
         // create table
         Table t = new Table(4, BorderStyle.DESIGN_TUBES_WIDE, ShownBorders.SURROUND_HEADER_AND_COLUMNS);
@@ -2223,7 +2448,8 @@ public class App
         DecimalFormat df = new DecimalFormat("####0.00");
         for (int i = 0; i<PPR.size(); i++)
         {
-
+            if (PPR.get(i) == null)
+                continue;
             if (i == 6){
                 t.addCell("Antarctica", numberStyle);
                 t.addCell("0(0%)", numberStyle);
