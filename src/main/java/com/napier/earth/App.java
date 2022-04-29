@@ -1,7 +1,7 @@
 package com.napier.earth;
 
-/**
- * @author Hein Htet Zaw, Tsawm Nu Ra, Yoon Shwe Lwin, Thiha Htun Htun
+/*
+  @author Hein Htet Zaw, Tsawm Nu Ra, Yoon Shwe Lwin, Thiha Htun Htun
  * @version 3.0
  * @since 1.0
  */
@@ -54,7 +54,7 @@ public class App
                 // Exit for loop
                 break;
             } catch (SQLException sqle) {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(sqle.getMessage());
             } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
@@ -92,7 +92,7 @@ public class App
             String sql = "select city.Name, country.Name, city.District, city.Population from country,city where country.Code = city.CountryCode order by city.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store cities
-            ArrayList<City> cities = new ArrayList<City>();
+            ArrayList<City> cities = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next()) {
                 City ct = new City(rset.getString(1), rset.getString(2), rset.getString(3), rset.getInt(4));
@@ -116,7 +116,7 @@ public class App
         String sql = "select city.Name, country.Name, city.District, city.Population from city,country where city.CountryCode='KOR' and city.CountryCode = country.Code order by city.Population desc";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store city
-        ArrayList<City> coucity = new ArrayList<City>();
+        ArrayList<City> coucity = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
@@ -135,7 +135,7 @@ public class App
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Europe' order by city.Population desc ";
         // create array to store city
-        ArrayList<City> cityconti = new ArrayList<City>();
+        ArrayList<City> cityconti = new ArrayList<>();
         PreparedStatement pstmt = con.prepareStatement(sql);
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
@@ -157,7 +157,7 @@ public class App
             String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.district='England' and city.CountryCode = country.Code order by city.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store city
-            ArrayList<City> d_cities = new ArrayList<City>();
+            ArrayList<City> d_cities = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -184,7 +184,7 @@ public class App
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store cities
-        ArrayList<City> r_cities = new ArrayList<City>();
+        ArrayList<City> r_cities = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
@@ -207,7 +207,7 @@ public class App
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Name = 'Myanmar' order by city.Population desc LIMIT 10";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store top 10 populated cities
-        ArrayList<City> TNPop_cities = new ArrayList<City>();
+        ArrayList<City> TNPop_cities = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
@@ -230,7 +230,7 @@ public class App
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code order by city.Population desc LIMIT 10";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store top 10 populated cities
-        ArrayList<City> TNPopCit_World = new ArrayList<City>();
+        ArrayList<City> TNPopCit_World = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
@@ -249,14 +249,14 @@ public class App
      * @return topcityconti
      */
 
-    public ArrayList<City> getTopCityContinent(int topccon) throws SQLException {
+    public ArrayList<City> getTopCityContinent(int topccon) {
         try
         {
             //  sql query based on issue
             String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Continent='Asia' order by city.Population desc limit "+topccon;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<City> topcityconti = new ArrayList<City>();
+            ArrayList<City> topcityconti = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -283,7 +283,7 @@ public class App
         String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.CountryCode = country.Code and country.Region='Southeast Asia' order by city.Population desc limit "+topcrgn;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store cities
-        ArrayList<City> cityrgn = new ArrayList<City>();
+        ArrayList<City> cityrgn = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next())
         {
@@ -302,15 +302,14 @@ public class App
      *      * @return topcitydis
      */
 
-    public ArrayList<City> getTopCityDistrict(int topcdst) throws SQLException
-    {
+    public ArrayList<City> getTopCityDistrict(int topcdst) {
         try
         {
             //  sql query based on issue
             String sql = "select city.Name, country.Name, city.District, city.Population from city, country where city.district='England' and city.CountryCode = country.Code order by city.Population desc limit "+topcdst;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store city
-            ArrayList<City> topcitydis = new ArrayList<City>();
+            ArrayList<City> topcitydis = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -332,12 +331,12 @@ public class App
      * @return popdis
      */
 
-    public ArrayList<City> getPopdist( ) throws SQLException {
+    public static ArrayList<City> getPopdist() throws SQLException {
         //  sql query based on issue
         String sql = "select District, Population from city where District = 'California' ";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<City> popdist = new ArrayList<City>();
+        ArrayList<City> popdist = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             City cc = new City(rset.getString(1), rset.getInt(2));
@@ -359,7 +358,7 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where Region = 'Southeast Asia' and country.Capital = city.ID order by Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<Country> countries1 = new ArrayList<Country>();
+            ArrayList<Country> countries1 = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -390,7 +389,7 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where Continent = 'Europe' and country.Capital = city.ID order by country.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<Country> couCon = new ArrayList<Country>();
+            ArrayList<Country> couCon = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -422,7 +421,7 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID order by country.Population desc";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<Country> countries = new ArrayList<Country>();
+            ArrayList<Country> countries = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -453,7 +452,7 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID order by country.Population desc limit "+topcou;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<Country> t_countries = new ArrayList<Country>();
+            ArrayList<Country> t_countries = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -484,7 +483,7 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID and Continent='North America' order by country.Population desc limit "+topcou;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<Country> top_cou_con = new ArrayList<Country>();
+            ArrayList<Country> top_cou_con = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -515,7 +514,7 @@ public class App
             String sql = "select country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name from country,city where country.Capital = city.ID and Region='Caribbean' order by country.Population desc limit "+topcou;
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<Country> top_cou_reg = new ArrayList<Country>();
+            ArrayList<Country> top_cou_reg = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -538,12 +537,12 @@ public class App
      * @return popcont
      */
 
-    public ArrayList<Country> getPopcont( ) throws SQLException {
+    public static ArrayList<Country> getPopcont() throws SQLException {
         //  sql query based on issue
         String sql = "select country.Continent, country.Population from country where country.Continent = 'Asia' ";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<Country> popcont = new ArrayList<Country>();
+        ArrayList<Country> popcont = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             Country cou = new Country(rset.getString(1), rset.getLong(2));
@@ -562,7 +561,7 @@ public class App
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID order by city.Population desc";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<CapitalCity> capital_cities = new ArrayList<CapitalCity>();
+        ArrayList<CapitalCity> capital_cities = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             CapitalCity cap_c = new CapitalCity(rset.getString(1), rset.getString(2), rset.getInt(3));
@@ -579,7 +578,7 @@ public class App
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from city, country where city.CountryCode = country.Code and country.Continent='North America' order by city.Population desc ";
         // create array to store Capital City
-        ArrayList<CapitalCity> capCityCon = new ArrayList<CapitalCity>();
+        ArrayList<CapitalCity> capCityCon = new ArrayList<>();
         PreparedStatement psTmt = con.prepareStatement(sql);
         ResultSet reSet = psTmt.executeQuery();
         while (reSet.next()) {
@@ -597,7 +596,7 @@ public class App
         //  sql query based on issue
         String sql = "select city.Name, country.Name, city.Population from city, country where city.CountryCode = country.Code and country.Region='Caribbean' order by city.Population desc ";
         // create array to store Capital City
-        ArrayList<CapitalCity> capCitReg = new ArrayList<CapitalCity>();
+        ArrayList<CapitalCity> capCitReg = new ArrayList<>();
         PreparedStatement psTmt = con.prepareStatement(sql);
         ResultSet reSet = psTmt.executeQuery();
         while (reSet.next()) {
@@ -617,7 +616,7 @@ public class App
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<CapitalCity> capital_cities = new ArrayList<CapitalCity>();
+        ArrayList<CapitalCity> capital_cities = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             CapitalCity cap_c = new CapitalCity(rset.getString(1), rset.getString(2), rset.getInt(3));
@@ -635,7 +634,7 @@ public class App
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.continent = 'Oceania' order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<CapitalCity> capital_cities = new ArrayList<CapitalCity>();
+        ArrayList<CapitalCity> capital_cities = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             CapitalCity cap_c = new CapitalCity(rset.getString(1), rset.getString(2), rset.getInt(3));
@@ -653,7 +652,7 @@ public class App
         String sql = "select city.Name, country.Name, city.Population from country,city where country.Capital = city.ID and country.Region = 'Middle East' order by city.Population desc limit "+times;
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<CapitalCity> capital_cities = new ArrayList<CapitalCity>();
+        ArrayList<CapitalCity> capital_cities = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             CapitalCity cap_c = new CapitalCity(rset.getString(1), rset.getString(2), rset.getInt(3));
@@ -667,12 +666,12 @@ public class App
      * @return pop_cities
      */
 
-    public ArrayList<Population> getPopcon() throws SQLException {
+    public static ArrayList<Population> getPopcon() throws SQLException {
         //  sql query based on issue
         String sql = "Select country.Continent, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city GROUP BY Continent ORDER BY Continent ASC";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<Population> pop_con = new ArrayList<Population>();
+        ArrayList<Population> pop_con = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             Population pop= new Population (rset.getString(1), rset.getLong(2), rset.getLong(3), rset.getLong(4));
@@ -691,7 +690,7 @@ public class App
         String sql = "select Population from country";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<Country> popw = new ArrayList<Country>();
+        ArrayList<Country> popw = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             Country countryW = new Country(rset.getLong(1));
@@ -704,7 +703,7 @@ public class App
      * @return ints
      */
 
-    public ArrayList<Country>[] getLanguagePops() throws SQLException {
+    public ArrayList[] getLanguagePops() throws SQLException {
         //  sql query based on issue
         String sql = "select population from country";
         String sqlE = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'English' and countrylanguage.IsOfficial = 'T'";
@@ -714,27 +713,27 @@ public class App
         String sqlS = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'Spanish' and countrylanguage.IsOfficial = 'T'";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store world population
-        ArrayList<Country> popw = new ArrayList<Country>();
+        ArrayList<Country> popw = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         PreparedStatement pstmt1 = con.prepareStatement(sqlE);
         // create array to store number of people who speak English
-        ArrayList<Country> pope = new ArrayList<Country>();
+        ArrayList<Country> pope = new ArrayList<>();
         ResultSet rset1 = pstmt1.executeQuery();
         PreparedStatement pstmt2 = con.prepareStatement(sqlC);
         // create array to store number of people who speak Chinese
-        ArrayList<Country> popc = new ArrayList<Country>();
+        ArrayList<Country> popc = new ArrayList<>();
         ResultSet rset2 = pstmt2.executeQuery();
         PreparedStatement pstmt3 = con.prepareStatement(sqlA);
         // create array to store number of people who speak Arabic
-        ArrayList<Country> popa = new ArrayList<Country>();
+        ArrayList<Country> popa = new ArrayList<>();
         ResultSet rset3 = pstmt3.executeQuery();
         PreparedStatement pstmt4 = con.prepareStatement(sqlH);
         // create array to store number of people who speak Hindi
-        ArrayList<Country> poph = new ArrayList<Country>();
+        ArrayList<Country> poph = new ArrayList<>();
         ResultSet rset4 = pstmt4.executeQuery();
         PreparedStatement pstmt5 = con.prepareStatement(sqlS);
         // create array to store number of people who speak Spanish
-        ArrayList<Country> pops = new ArrayList<Country>();
+        ArrayList<Country> pops = new ArrayList<>();
         ResultSet rset5 = pstmt5.executeQuery();
         while (rset.next()) {
             Country countryW = new Country(rset.getLong(1));
@@ -760,13 +759,12 @@ public class App
             Country countryS = new Country(rset5.getLong(1));
             pops.add(countryS);
         }
-        ArrayList<Country>[] ints = new ArrayList[]{popw, pope, popc, popa, poph, pops};
-        return ints;
+        return new ArrayList[]{popw, pope, popc, popa, poph, pops};
     }
 
-    /**
-     *  The population of people, people living in cities, and people not living in cities in each region.
-     * @return PepPopReg the population of people in each region
+    /*
+       The population of people, people living in cities, and people not living in cities in each region.
+      @return PepPopReg the population of people in each region
      */
     /**
      *  The population of the country
@@ -781,7 +779,7 @@ public class App
             String sql = "select Population from country where Name='Myanmar'";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<Country> coupop = new ArrayList<Country>();
+            ArrayList<Country> coupop = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -811,7 +809,7 @@ public class App
             String sql = "select Population from city where Name='London'";
             PreparedStatement pstmt = con.prepareStatement(sql);
             // create array to store country
-            ArrayList<City> ctypop = new ArrayList<City>();
+            ArrayList<City> ctypop = new ArrayList<>();
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
             {
@@ -840,7 +838,7 @@ public class App
             //  sql query based on issue
             String sql = "Select country.Name, country.Population, SUM(city.Population), country.Population-SUM(city.population) from country, city where country.Code = city.CountryCode GROUP BY city.CountryCode ORDER BY country.Name ASC";
             PreparedStatement pstmt = con.prepareStatement(sql);
-            ArrayList<Population> pplcnc = new ArrayList<Population>();
+            ArrayList<Population> pplcnc = new ArrayList<>();
             // create array to store country
             ResultSet rset = pstmt.executeQuery();
             while (rset.next())
@@ -858,12 +856,12 @@ public class App
             return null;
         }
     }
-    public ArrayList<Population> getPepPogReg() throws SQLException {
+    public static ArrayList<Population> getPepPogReg() throws SQLException {
         //  sql query based on issue
         String sql = "Select country.Region, SUM(country.Population), SUM(city.Population), SUM(country.Population)-SUM(city.Population) from country, city where country.Code = city.CountryCode GROUP BY Region ORDER BY Region ASC";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<Population> PepPopReg = new ArrayList<Population>();
+        ArrayList<Population> PepPopReg = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             Population PepPop= new Population (rset.getString(1), rset.getLong(2), rset.getLong(3), rset.getLong(4));
@@ -876,12 +874,12 @@ public class App
      * @return PopReg the population of the region.
      */
 
-    public ArrayList<Country> getPopReg() throws SQLException {
+    public static ArrayList<Country> getPopReg() throws SQLException {
         //  sql query based on issue
         String sql = "select Population from country where country.Region ='Caribbean'";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
-        ArrayList<Country> PopRegs = new ArrayList<Country>();
+        ArrayList<Country> PopRegs = new ArrayList<>();
         ResultSet rset = pstmt.executeQuery();
         while (rset.next()) {
             Country PopReg = new Country(rset.getLong(1));
@@ -930,8 +928,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -979,8 +977,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1027,8 +1025,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1074,8 +1072,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1122,8 +1120,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1169,8 +1167,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1217,8 +1215,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1228,7 +1226,7 @@ public class App
     /**
      *  Display function of top N populated cities in a continent where N is provided by the user.
      * @param tccnt the top N population of country in the world list
-     * @param topccon
+     * @param topccon topcitycontinent
      */
 
     public static void displayTopCityContinent(ArrayList<City> tccnt, int topccon, String filename)
@@ -1265,8 +1263,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1276,7 +1274,7 @@ public class App
     /**
      *  Display function of top N populated cities in a region where N is provided by the user.
      * @param tcrgn the top N population of country in the world list
-     * @param topcrgn
+     * @param topcrgn topcityregion
      */
     public static void displayTopCityRegion(ArrayList<City> tcrgn, int topcrgn, String filename)
     {
@@ -1313,8 +1311,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1324,7 +1322,7 @@ public class App
     /**
      *  Display function of top N populated cities in a district where N is provided by the user.
      * @param tcdst the top N population of country in the world list
-     * @param topcdst
+     * @param topcdst topcitydistrict
      */
 
     public static void displayTopCityDistrict(ArrayList<City> tcdst, int topcdst, String filename)
@@ -1362,8 +1360,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1402,8 +1400,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1413,6 +1411,7 @@ public class App
     /**
      *  Display function of the top N populated capital cities in the world where N is provided by the user.
      * @param capcNum capital city population in the world list
+     * @param times topcapitalcity
      */
 
     public static void displayTCAW(ArrayList<CapitalCity> capcNum, int times, String filename)
@@ -1447,8 +1446,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1457,6 +1456,7 @@ public class App
     /**
      *  Display function of the top N populated capital cities in the continent where N is provided by the user.
      * @param capconNum capital city population in the continent list
+     * @param times topcapitalcity
      */
 
     public static void displayTCAC(ArrayList<CapitalCity> capconNum, int times, String filename)
@@ -1491,8 +1491,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1501,6 +1501,7 @@ public class App
     /**
      *  Display function of the top N populated capital cities in the region where N is provided by the user.
      * @param caprNum capital city population in the region list
+     * @param times topcapitalcity
      */
 
     public static void displayTCAR(ArrayList<CapitalCity> caprNum, int times, String filename) {
@@ -1532,8 +1533,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1586,8 +1587,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1640,8 +1641,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1693,8 +1694,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1703,7 +1704,7 @@ public class App
     /**
      *  Display function of top N populated countries in the world where N is provided by the user.
      * @param couNum the top N population of country in the world list
-     * @param topcou
+     * @param topcou top country
      */
 
     public static void displayTopCountryPop(ArrayList<Country> couNum, int topcou, String filename)
@@ -1747,8 +1748,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1758,7 +1759,7 @@ public class App
     /**
      *  Display function of top N populated countries in a continent where N is provided by the user.
      * @param couNum the top N population of country in a continent list
-     * @param topcou
+     * @param topcou top country
      */
 
     public static void displayTopCouContPop(ArrayList<Country> couNum, int topcou, String filename)
@@ -1802,8 +1803,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1813,7 +1814,7 @@ public class App
     /**
      *  Display function of top N populated countries in a region where N is provided by the user.
      * @param couNum the top N population of country in a region list
-     * @param topcou
+     * @param topcou top country
      */
 
     public static void displayTopCouRegPop(ArrayList<Country> couNum, int topcou, String filename)
@@ -1857,8 +1858,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1898,8 +1899,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1944,8 +1945,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -1988,8 +1989,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2032,8 +2033,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2073,8 +2074,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2113,8 +2114,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2123,7 +2124,7 @@ public class App
 
     /**
      *  Display function of The population of people, people living in cities, and people not living in cities in each country
-     * @param pplcnc
+     @param pplcnc displayCntCitynotcity
      */
 
     public static void displayCntCitynotCity(ArrayList<Population> pplcnc, String filename)
@@ -2159,14 +2160,14 @@ public class App
             double NotLivingPercent = ((double)p.getNotliving()/p.getTotal())*100;
             t.addCell(p.getName(), numberStyle);
             t.addCell(String.valueOf(p.getTotal()), numberStyle);
-            t.addCell(String.valueOf(p.getLiving())+"("+String.valueOf(df.format(LivingPercent))+"%)", numberStyle);
-            t.addCell(String.valueOf(p.getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
+            t.addCell(p.getLiving() +"("+ df.format(LivingPercent) +"%)", numberStyle);
+            t.addCell(p.getNotliving() +"("+ df.format(NotLivingPercent) +"%)", numberStyle);
         }
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2220,15 +2221,15 @@ public class App
                 double NotLivingPercent = ((double)popNum.get(i).getNotliving()/popNum.get(i).getTotal())*100;
                 t.addCell(popNum.get(i).getName(), numberStyle);
                 t.addCell(String.valueOf(popNum.get(i).getTotal()), numberStyle);
-                t.addCell(String.valueOf(popNum.get(i).getLiving())+"("+String.valueOf(df.format(LivingPercent))+"%)", numberStyle);
-                t.addCell(String.valueOf(popNum.get(i).getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
+                t.addCell(popNum.get(i).getLiving() +"("+ df.format(LivingPercent) +"%)", numberStyle);
+                t.addCell(popNum.get(i).getNotliving() +"("+ df.format(NotLivingPercent) +"%)", numberStyle);
             }
         }
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2268,8 +2269,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2281,7 +2282,7 @@ public class App
      * @param args The number of people who speak Chinese, English, Hindi, Spanish and Arabic from the greatest number to the smallest list
      */
 
-    public static void displayPopE(ArrayList<Country>[] args, String filename) throws SQLException {
+    public static void displayPopE(ArrayList<Country>[] args, String filename) {
         if (args == null)
         {
             System.out.println("No number of people based on language records not found");
@@ -2307,7 +2308,6 @@ public class App
         DecimalFormat df = new DecimalFormat("####0.00");
         // languages
         String[] language = {"Chinese","English","Hindi","Spanish","Arabic"};
-        int i = 0;
         // sum population
         for (Country c: args[0]) {
             if (c == null)
@@ -2350,27 +2350,27 @@ public class App
         t.addCell("Population", numberStyle);
         t.addCell("Population Percentage", numberStyle);
         // cell and columns
-        t.addCell(String.valueOf(language[0]), numberStyle);
+        t.addCell(language[0], numberStyle);
         t.addCell(String.valueOf(sumc), numberStyle);
-        t.addCell(String.valueOf(df.format(c)+"%"), numberStyle);
-        t.addCell(String.valueOf(language[1]), numberStyle);
+        t.addCell(df.format(c) + "%", numberStyle);
+        t.addCell(language[1], numberStyle);
         t.addCell(String.valueOf(sume), numberStyle);
-        t.addCell(String.valueOf(df.format(e)+"%"), numberStyle);
-        t.addCell(String.valueOf(language[2]), numberStyle);
+        t.addCell(df.format(e) + "%", numberStyle);
+        t.addCell(language[2], numberStyle);
         t.addCell(String.valueOf(sumh), numberStyle);
-        t.addCell(String.valueOf(df.format(h)+"%"), numberStyle);
-        t.addCell(String.valueOf(language[3]), numberStyle);
+        t.addCell(df.format(h) + "%", numberStyle);
+        t.addCell(language[3], numberStyle);
         t.addCell(String.valueOf(sums), numberStyle);
-        t.addCell(String.valueOf(df.format(s)+"%"), numberStyle);
-        t.addCell(String.valueOf(language[4]), numberStyle);
+        t.addCell(df.format(s) + "%", numberStyle);
+        t.addCell(language[4], numberStyle);
         t.addCell(String.valueOf(suma), numberStyle);
-        t.addCell(String.valueOf(df.format(a)+"%"), numberStyle);
+        t.addCell(df.format(a) + "%", numberStyle);
 
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException j) {
             j.printStackTrace();
@@ -2409,8 +2409,8 @@ public class App
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2419,7 +2419,6 @@ public class App
 
     /**
      * display function of all people living in cities and not living in cities in each region
-     * @param PPR
      */
 
     public static void displayPepPopReg(ArrayList<Population> PPR, String filename) {
@@ -2463,15 +2462,15 @@ public class App
                 double NotLivingPercent = ((double)PPR.get(i).getNotliving()/PPR.get(i).getTotal())*100;
                 t.addCell(PPR.get(i).getName(), numberStyle);
                 t.addCell(String.valueOf(PPR.get(i).getTotal()), numberStyle);
-                t.addCell(String.valueOf(PPR.get(i).getLiving())+"("+String.valueOf(df.format(LivingPercent))+"%)", numberStyle);
-                t.addCell(String.valueOf(PPR.get(i).getNotliving())+"("+String.valueOf(df.format(NotLivingPercent))+"%)", numberStyle);
+                t.addCell(PPR.get(i).getLiving() +"("+ df.format(LivingPercent) +"%)", numberStyle);
+                t.addCell(PPR.get(i).getNotliving() +"("+ df.format(NotLivingPercent) +"%)", numberStyle);
             }
         }
         System.out.println(t.render());
         try {
             new File("./reports/").mkdir();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
-            writer.write(t.render().toString());
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./reports/" + filename));
+            writer.write(t.render());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -2490,93 +2489,93 @@ public class App
 
         // Connect to database
         if(args.length < 1){
-            a.connect("localhost:33060", 0);
+            connect("localhost:33060", 0);
         }else{
-            a.connect(args[0], Integer.parseInt(args[1]));
+            connect(args[0], Integer.parseInt(args[1]));
         }
 
         // city
-        ArrayList<City> cities = a.getCityPopLs();
-        a.displayCity(cities,"cities.md");
+        ArrayList<City> cities = getCityPopLs();
+        displayCity(cities,"cities.md");
         ArrayList<City> coucities = a.getCityCountryPopLs();
-        a.displayCityCountry(coucities,"cityincountry.md");
+        displayCityCountry(coucities,"cityincountry.md");
         ArrayList<City> cityconti = a.getCityContinentPopLs();
-        a.displayCityContinent(cityconti,"cityincontinent.md");
+        displayCityContinent(cityconti,"cityincontinent.md");
         ArrayList<City> d_cities = a.getDistrictPopls();
-        a.displayCityDistrict(d_cities,"cityindistrict.md");
+        displayCityDistrict(d_cities,"cityindistrict.md");
         ArrayList<City> r_cities = a.getRegionPopls();
-        a.displayRegion(r_cities,"cityinregion.md");
+        displayRegion(r_cities,"cityinregion.md");
         ArrayList<City> Tnp_C = a.getTopNPopCit();
-        a.displayTopNPopCity(Tnp_C,"topcity.md");
+        displayTopNPopCity(Tnp_C,"topcity.md");
         ArrayList<City> TnpC_W = a.getTopNPopCitWorld();
-        a.displayTopNPopCityWorld(TnpC_W,"topcityworld.md");
+        displayTopNPopCityWorld(TnpC_W,"topcityworld.md");
         int tpcity = 10;
         ArrayList<City> topcityconti = a.getTopCityContinent(tpcity);
-        a.displayTopCityContinent(topcityconti,tpcity,"topcityincontinent.md");
+        displayTopCityContinent(topcityconti,tpcity,"topcityincontinent.md");
         ArrayList<City> topcityrgn = a.getTopCityRegion(tpcity);
-        a.displayTopCityRegion(topcityrgn,tpcity,"topcityinregion.md");
+        displayTopCityRegion(topcityrgn,tpcity,"topcityinregion.md");
         ArrayList<City> topcitydst = a.getTopCityDistrict(tpcity);
-        a.displayTopCityDistrict(topcitydst,tpcity,"topcityindistrict.md");
+        displayTopCityDistrict(topcitydst,tpcity,"topcityindistrict.md");
         ArrayList<City> ctypop = a.getCityPopulation();
-        a.displayCityPopulation(ctypop,"citypopls.md");
-        ArrayList<City> popdist = a.getPopdist();
-        a.displayPopdist(popdist,"districtpopls.md");
+        displayCityPopulation(ctypop,"citypopls.md");
+        ArrayList<City> popdist = getPopdist();
+        displayPopdist(popdist,"districtpopls.md");
 
         // country
         ArrayList<Country> countries = a.getCountryPopLs();
-        a.displayCountry(countries,"countriesinworld.md");
+        displayCountry(countries,"countriesinworld.md");
         ArrayList<Country> countriesRegionLS = a.getCountryPopLsRegion();
-        a.displayCountryPopLSRegion(countriesRegionLS,"countryinregion.md");
+        displayCountryPopLSRegion(countriesRegionLS,"countryinregion.md");
         ArrayList<Country> CouCon = a.getCouCon();
-        a.displayCouCon(CouCon,"countryincontinent.md");
+        displayCouCon(CouCon,"countryincontinent.md");
         int topcou = 10;
         ArrayList<Country> t_countries = a.getCountryTopPop(topcou);
-        a.displayTopCountryPop(t_countries,topcou,"topcouinworld.md");
+        displayTopCountryPop(t_countries,topcou,"topcouinworld.md");
         ArrayList<Country> top_con_cou = a.getTopCouContinent(topcou);
-        a.displayTopCouContPop(top_con_cou,topcou,"topcouincontinent.md");
+        displayTopCouContPop(top_con_cou,topcou,"topcouincontinent.md");
         ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
-        a.displayTopCouRegPop(top_con_reg,topcou,"topcouinregion.md");
+        displayTopCouRegPop(top_con_reg,topcou,"topcouinregion.md");
 
         ArrayList<Country> coupop = a.getCountryPopulation();
-        a.displayCountryPopulation(coupop,"countrypopls.md");
-        ArrayList<Country> popcont = a.getPopcont();
-        a.displayPopcont(popcont,"continentpopls.md");
+        displayCountryPopulation(coupop,"countrypopls.md");
+        ArrayList<Country> popcont = getPopcont();
+        displayPopcont(popcont,"continentpopls.md");
 
         // capital city
         int times = 10;
 
         ArrayList<CapitalCity> capital_cities = a.getCapitalPopls();
-        a.displayCapital(capital_cities,"capcityinworld.md");
+        displayCapital(capital_cities,"capcityinworld.md");
 
         ArrayList<CapitalCity> tCAW = a.getTCAWPopls(times);
-        a.displayTCAW(tCAW,times,"topcapcityinworld.md");
+        displayTCAW(tCAW,times,"topcapcityinworld.md");
         ArrayList<CapitalCity> tCAC = a.getTCACPopls(times);
-        a.displayTCAC(tCAC,times,"topcapcityincontinent.md");
+        displayTCAC(tCAC,times,"topcapcityincontinent.md");
         ArrayList<CapitalCity> tCAR = a.getTCARPopls(times);
-        a.displayTCAR(tCAR,times,"topcapcityinregion.md");
+        displayTCAR(tCAR,times,"topcapcityinregion.md");
 
         ArrayList<CapitalCity> capital_cities_Continent = a.getCapCityConLToS();
         a.displayCapCitCon(capital_cities_Continent,"capcityincontinent.md");
         ArrayList<CapitalCity> capital_cities_Region = a.getCapCitRegLS();
-        a.dispalyCapCitRegLs(capital_cities_Region,"capcityinregion.md");
+        dispalyCapCitRegLs(capital_cities_Region,"capcityinregion.md");
 
         //Population
         ArrayList<Population> ctyntcty = a.getCntCitynotCity();
-        a.displayCntCitynotCity(ctyntcty,"pplincountry.md");
-        ArrayList<Population> pop_con = a.getPopcon();
-        a.displayPopcon(pop_con,"pplincontinent.md");
-        ArrayList<Population> PPR = a.getPepPogReg();
-        a.displayPepPopReg(PPR,"pplinregion.md");
+        displayCntCitynotCity(ctyntcty,"pplincountry.md");
+        ArrayList<Population> pop_con = getPopcon();
+        displayPopcon(pop_con,"pplincontinent.md");
+        ArrayList<Population> PPR = getPepPogReg();
+        displayPepPopReg(PPR,"pplinregion.md");
 
         //Population of the world and language
         ArrayList<Country> popw = a.getPopsW();
-        a.displayPopW(popw,"worldpopls.md");
-        ArrayList<Country>[] pope = a.getLanguagePops();
-        a.displayPopE(pope,"languagepopls.md");
-        ArrayList<Country> PPRs = a.getPopReg();
-        a.displayPopReg(PPRs,"regionpopls.md");
+        displayPopW(popw,"worldpopls.md");
+        ArrayList[] pope = a.getLanguagePops();
+        displayPopE(pope,"languagepopls.md");
+        ArrayList<Country> PPRs = getPopReg();
+        displayPopReg(PPRs,"regionpopls.md");
 //         Disconnect from database
-        a.disconnect();
+        disconnect();
     }
 
 }
