@@ -502,4 +502,55 @@ class AppIntegrationTest {
         Assertions.assertEquals(Long.parseLong("3705025700"), sum, "The value are not equals!");
         System.out.println("The value are equals.");
     }
+
+    @Test
+    void getCntCitynotCity(){
+        ArrayList<Population> Cities = App.getCntCitynotCity();
+        assertNotNull(Cities);
+        assertTrue(Cities.size() > 0);
+        App.displayCntCitynotCity(Cities, "pplincountry.md");
+
+        Population cp = null;
+        for (Population c : Cities) {
+            if (c.getName().equals("Afghanistan")) {
+                cp = c;
+                break;
+            }
+        }
+        Assertions.assertEquals(22720000, Objects.requireNonNull(cp).getTotal(), "The value are not equals!");
+        System.out.println("The value are equals.");
+    }
+
+    @Test
+    void getCityPopulation() {
+        ArrayList<City> cities = App.getCityPopulation();
+        assertNotNull(cities);
+        assertTrue(cities.size() > 0);
+        App.displayPopdist(cities, "citypopls.md");
+
+        long sum = 0;
+        for (City c: cities){
+            if (c == null)
+                continue;
+            sum += c.getPopulation();
+        }
+        Assertions.assertEquals(7624917, sum, "The value are not equals!");
+        System.out.println("The value are equals.");
+    }
+    @Test
+    void getCountryPopulation(){
+        ArrayList<Country> countries = App.getCountryPopulation();
+        assertNotNull(countries);
+        assertTrue(countries.size() > 0);
+        App.displayCountryPopulation(countries, "countrypopls.md");
+
+        long sum = 0;
+        for (Country c: countries){
+            if (c == null)
+                continue;
+            sum += c.getPopulation();
+        }
+        Assertions.assertEquals(45611000, sum, "The value are not equals!");
+        System.out.println("The value are equals.");
+    }
 }
