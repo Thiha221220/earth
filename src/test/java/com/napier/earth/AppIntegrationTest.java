@@ -537,6 +537,7 @@ class AppIntegrationTest {
         Assertions.assertEquals(7624917, sum, "The value are not equals!");
         System.out.println("The value are equals.");
     }
+
     @Test
     void getCountryPopulation(){
         ArrayList<Country> countries = App.getCountryPopulation();

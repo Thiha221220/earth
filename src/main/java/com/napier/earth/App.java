@@ -771,7 +771,7 @@ public class App
      * @return coupop
      */
 
-    public ArrayList<Country> getCountryPopulation()
+    public static ArrayList<Country> getCountryPopulation()
     {
         try
         {
@@ -801,7 +801,7 @@ public class App
      * @return ctypop
      */
 
-    public ArrayList<City> getCityPopulation()
+    public static ArrayList<City> getCityPopulation()
     {
         try
         {
@@ -831,7 +831,7 @@ public class App
      * @return pplpop
      */
 
-    public ArrayList<Population> getCntCitynotCity()
+    public static ArrayList<Population> getCntCitynotCity()
     {
         try
         {
@@ -2485,7 +2485,7 @@ public class App
 
     public static void main(String[] args) throws SQLException {
         // Create new Application
-         App a = new App();
+        App a = new App();
 
         // Connect to database
         if(args.length < 1){
