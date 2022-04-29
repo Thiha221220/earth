@@ -7,13 +7,22 @@ Welcome to Our Population Report System from Group 7
 * Tsawm Nu Ra
 * Yoon Shwe lwin
 
+## Member Score 
+| Martic No | Code Review 1 | Code Review 2 | Code Review 3 | Code Review 4 | Final Deliverable |
+|-----------|---------------|---------------|---------------|---------------|-------------------|
+| 40501820  | 25            | 25            | 25            | 25            | 25                |    
+| 40501825  | 25            | 25            | 25            | 25            | 25                |    
+| 40501791  | 25            | 25            | 25            | 25            | 25                |     
+| 40501797  | 25            | 25            | 25            | 25            | 25                |     
+| Total     | 100           | 100           | 100           | 100           | 100               |    
+
 ## Workflow Action and Build Badges
 * WorkFlow Action ![workflow](https://github.com/Thiha221220/earth/actions/workflows/main.yml/badge.svg?)
 * Master Build Status ![GitHub Workflow Status (master)](https://img.shields.io/github/workflow/status/Thiha221220/earth/A%20workflow%20for%20my%20Population%20Report%20App/master?label=master%20branch%20)
 
 ## Code Coverage
 * Code Coverage [![codecov](https://codecov.io/gh/Thiha221220/earth/branch/master/graph/badge.svg?token=RR2YQS1RW9)](https://codecov.io/gh/Thiha221220/earth)
-
+* Code Coverage jacoco with link ![image](Output_Overview/jaco.JPG) - When we test with codecov the code quality was not increase. But we test with jacoco manually the code quality is already increase. It can be error from application. You can check the link index.html in jacoco folder.
 ## Release and License
 * Release [![Releases](https://img.shields.io/github/release/Thiha221220/earth/all.svg?style=flat-square)](https://github.com/Thiha221220/earth/releases)
 * License [![LICENSE](https://img.shields.io/github/license/Thiha221220/earth.svg?style=flat-square)](https://github.com/Thiha221220/earth/blob/master/LICENSE)
