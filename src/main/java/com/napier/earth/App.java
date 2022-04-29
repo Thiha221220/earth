@@ -538,7 +538,7 @@ public class App
      */
 
     public static ArrayList<Country> getPopcont() throws SQLException {
-        //  sql query based on issues
+        //  sql query based on issue
         String sql = "select country.Continent, country.Population from country where country.Continent = 'Asia' ";
         PreparedStatement pstmt = con.prepareStatement(sql);
         // create array to store capital_cities
