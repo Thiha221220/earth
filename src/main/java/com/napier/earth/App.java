@@ -685,7 +685,7 @@ public class App
      * @return popw
      */
 
-    public ArrayList<Country> getPopsW() throws SQLException {
+    public static ArrayList<Country> getPopsW() throws SQLException {
         //  sql query based on issue
         String sql = "select Population from country";
         PreparedStatement pstmt = con.prepareStatement(sql);
@@ -703,7 +703,7 @@ public class App
      * @return ints
      */
 
-    public ArrayList[] getLanguagePops() throws SQLException {
+    public static ArrayList<Country>[] getLanguagePops() throws SQLException {
         //  sql query based on issue
         String sql = "select population from country";
         String sqlE = "select country.population from countrylanguage, country where countrylanguage.CountryCode = country.Code and countrylanguage.Language = 'English' and countrylanguage.IsOfficial = 'T'";
@@ -759,7 +759,7 @@ public class App
             Country countryS = new Country(rset5.getLong(1));
             pops.add(countryS);
         }
-        return new ArrayList[]{popw, pope, popc, popa, poph, pops};
+        return (ArrayList<Country>[]) new ArrayList[]{popw, pope, popc, popa, poph, pops};
     }
 
     /*
@@ -2282,7 +2282,7 @@ public class App
      * @param args The number of people who speak Chinese, English, Hindi, Spanish and Arabic from the greatest number to the smallest list
      */
 
-    public static void displayPopE(ArrayList<Country>[] args, String filename) {
+    public static void displayPopE(ArrayList<Country>[] args, String filename){
         if (args == null)
         {
             System.out.println("No number of people based on language records not found");
@@ -2350,21 +2350,21 @@ public class App
         t.addCell("Population", numberStyle);
         t.addCell("Population Percentage", numberStyle);
         // cell and columns
-        t.addCell(language[0], numberStyle);
+        t.addCell((language[0]), numberStyle);
         t.addCell(String.valueOf(sumc), numberStyle);
-        t.addCell(df.format(c) + "%", numberStyle);
-        t.addCell(language[1], numberStyle);
+        t.addCell((df.format(c)+"%"), numberStyle);
+        t.addCell((language[1]), numberStyle);
         t.addCell(String.valueOf(sume), numberStyle);
-        t.addCell(df.format(e) + "%", numberStyle);
-        t.addCell(language[2], numberStyle);
+        t.addCell((df.format(e)+"%"), numberStyle);
+        t.addCell((language[2]), numberStyle);
         t.addCell(String.valueOf(sumh), numberStyle);
-        t.addCell(df.format(h) + "%", numberStyle);
-        t.addCell(language[3], numberStyle);
+        t.addCell((df.format(h)+"%"), numberStyle);
+        t.addCell((language[3]), numberStyle);
         t.addCell(String.valueOf(sums), numberStyle);
-        t.addCell(df.format(s) + "%", numberStyle);
-        t.addCell(language[4], numberStyle);
+        t.addCell((df.format(s)+"%"), numberStyle);
+        t.addCell((language[4]), numberStyle);
         t.addCell(String.valueOf(suma), numberStyle);
-        t.addCell(df.format(a) + "%", numberStyle);
+        t.addCell((df.format(a)+"%"), numberStyle);
 
         System.out.println(t.render());
         try {
@@ -2517,7 +2517,7 @@ public class App
         displayTopCityRegion(topcityrgn,tpcity,"topcityinregion.md");
         ArrayList<City> topcitydst = a.getTopCityDistrict(tpcity);
         displayTopCityDistrict(topcitydst,tpcity,"topcityindistrict.md");
-        ArrayList<City> ctypop = a.getCityPopulation();
+        ArrayList<City> ctypop = getCityPopulation();
         displayCityPopulation(ctypop,"citypopls.md");
         ArrayList<City> popdist = getPopdist();
         displayPopdist(popdist,"districtpopls.md");
@@ -2537,7 +2537,7 @@ public class App
         ArrayList<Country> top_con_reg = a.getTopCouRegion(topcou);
         displayTopCouRegPop(top_con_reg,topcou,"topcouinregion.md");
 
-        ArrayList<Country> coupop = a.getCountryPopulation();
+        ArrayList<Country> coupop = getCountryPopulation();
         displayCountryPopulation(coupop,"countrypopls.md");
         ArrayList<Country> popcont = getPopcont();
         displayPopcont(popcont,"continentpopls.md");
@@ -2561,7 +2561,7 @@ public class App
         dispalyCapCitRegLs(capital_cities_Region,"capcityinregion.md");
 
         //Population
-        ArrayList<Population> ctyntcty = a.getCntCitynotCity();
+        ArrayList<Population> ctyntcty = getCntCitynotCity();
         displayCntCitynotCity(ctyntcty,"pplincountry.md");
         ArrayList<Population> pop_con = getPopcon();
         displayPopcon(pop_con,"pplincontinent.md");
@@ -2569,9 +2569,9 @@ public class App
         displayPepPopReg(PPR,"pplinregion.md");
 
         //Population of the world and language
-        ArrayList<Country> popw = a.getPopsW();
+        ArrayList<Country> popw = getPopsW();
         displayPopW(popw,"worldpopls.md");
-        ArrayList[] pope = a.getLanguagePops();
+        ArrayList<Country>[] pope = getLanguagePops();
         displayPopE(pope,"languagepopls.md");
         ArrayList<Country> PPRs = getPopReg();
         displayPopReg(PPRs,"regionpopls.md");

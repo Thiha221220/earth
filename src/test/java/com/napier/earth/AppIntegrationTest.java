@@ -554,4 +554,29 @@ class AppIntegrationTest {
         Assertions.assertEquals(45611000, sum, "The value are not equals!");
         System.out.println("The value are equals.");
     }
+
+    @Test
+    void getPopsW() throws SQLException {
+        ArrayList<Country> countries = App.getPopsW();
+        assertNotNull(countries);
+        assertTrue(countries.size() > 0);
+        App.displayPopW(countries, "worldpopls.md");
+        long sum = 0;
+        for (Country c : countries) {
+            if (c == null)
+                continue;
+            sum += c.getPopulation();
+        }
+
+        Assertions.assertEquals(Long.parseLong("6078749450"), sum, "The value are not equals!");
+        System.out.println("The value are equals.");
+    }
+
+    @Test
+    void getLanguagePops() throws SQLException {
+        ArrayList<Country>[] countries = App.getLanguagePops();
+        assertNotNull(countries);
+        assertTrue(countries.length > 0);
+        App.displayPopE(countries, "languagepopls.md");
+    }
 }
