@@ -3,7 +3,7 @@ Welcome to Our Population Report System from Group 7
 
 ## 4 Members of Group 7
 * Hein Htet Zaw
-* Thiha Tun Tun
+* Thiha Htun Htun
 * Tsawm Nu Ra
 * Yoon Shwe lwin
 
